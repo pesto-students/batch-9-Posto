@@ -1,0 +1,31 @@
+{
+	"name": "batch-9-posto",
+	"version": "1.0.0",
+	"description": "Mono-repo for Posto project",
+	"main": "index.js",
+	"scripts": {
+		"client": "npm start --prefix client",
+		"server": "npm start --prefix server",
+		"start": "concurrently \"npm run server\" \"npm run client\"",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pesto-students/batch-9-Posto.git"
+	},
+	"keywords": [
+		"posto",
+		"blogs",
+		"blogpost",
+		"posts"
+	],
+	"author": "Navneet Sahota",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/pesto-students/batch-9-Posto/issues"
+	},
+	"homepage": "https://github.com/pesto-students/batch-9-Posto#readme",
+	"devDependencies": {
+		"concurrently": "^4.1.1"
+	}
+}
