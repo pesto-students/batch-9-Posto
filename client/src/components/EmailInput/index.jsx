@@ -1,14 +1,12 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import InputField from "../../elements/InputField";
 
 const EmailInput = () => (
-	<Form.Input
-		fluid
+	<InputField
 		icon="user"
 		iconPosition="left"
 		placeholder="E-mail address"
 		type="email"
-		required
 	/>
 );
 

@@ -1,14 +1,12 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import InputField from "../../elements/InputField";
 
 const PasswordInput = () => (
-	<Form.Input
-		fluid
+	<InputField
 		icon="lock"
 		iconPosition="left"
 		placeholder="Password"
 		type="password"
-		required
 	/>
 );
 
