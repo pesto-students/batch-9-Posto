@@ -4,12 +4,16 @@
 	"description": "Server",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon index.js",
+		"start": "nodemon --exec babel-node index.js",
 		"test": "jest"
 	},
 	"author": "Navneet Sahota",
 	"license": "ISC",
 	"dependencies": {
+		"@babel/core": "^7.5.5",
+		"@babel/node": "^7.5.5",
+		"@babel/preset-env": "^7.5.5",
+		"dotenv": "^8.0.0",
 		"express": "^4.17.1",
 		"node": "^10.16.0"
 	},
