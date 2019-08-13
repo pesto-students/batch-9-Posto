@@ -4,7 +4,7 @@
 	"description": "Server",
 	"main": "app.js",
 	"scripts": {
-		"start": "nodemon ./bin/www",
+		"start": "node ./bin/www",
 		"test": "jest"
 	},
 	"author": "Navneet Sahota",
