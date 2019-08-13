@@ -1,5 +1,5 @@
 {
-	"name": "server",
+	"name": "posto-server",
 	"version": "1.0.0",
 	"description": "Server",
 	"main": "app.js",
