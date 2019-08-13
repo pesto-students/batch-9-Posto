@@ -6,19 +6,15 @@ router.get('/', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.get('/:userId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
-
 router.post('/', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.put('/:userId', (req, res) => {
+router.put('/:replyId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.delete('/:userId', (req, res) => {
+router.delete('/:replyId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
