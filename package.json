@@ -7,7 +7,20 @@
 		"client": "npm start --prefix client",
 		"server": "npm start --prefix server",
 		"start": "concurrently \"npm run server\" \"npm run client\"",
+		"pretty-all": "concurrently \"npx prettier --write client/src/**/*.js\" \"npx prettier --write server/src/**/*.js\"",
 		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"lint-staged": {
+		"*.{css,js,jsx}": [
+			"eslint --fix",
+			"npm run pretty-all",
+			"git add"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +39,16 @@
 	},
 	"homepage": "https://github.com/pesto-students/batch-9-Posto#readme",
 	"devDependencies": {
-		"concurrently": "^4.1.1"
+		"concurrently": "^4.1.1",
+		"eslint": "^6.1.0",
+		"eslint-config-airbnb": "^18.0.0",
+		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-prettier": "^3.1.0",
+		"eslint-plugin-react": "^7.14.3",
+		"eslint-plugin-react-hooks": "^1.7.0",
+		"husky": "^3.0.3",
+		"lint-staged": "^9.2.1",
+		"prettier": "^1.18.2"
 	}
 }
