@@ -4,31 +4,31 @@ jobs:
   "server":
     docker:
       - image: circleci/node:10.16.0
-    working_directory: ~/batch-9-Posto/server
+    working_directory: ~/batch-9-Posto
     steps:
       - checkout
       - restore_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn --cwd server install --frozen-lockfile
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ./.cache/yarn
+            - ./server/.cache/yarn
       - run: yarn --cwd server test
       
   "client":
     docker:
        - image: circleci/node:10.16.0
-    working_directory: ~/batch-9-Posto/client
+    working_directory: ~/batch-9-Posto
     steps:
       - checkout
       - restore_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run: yarn install --frozen-lockfile
+      - run: yarn --cwd client install --frozen-lockfile
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - ~/client/.cache/yarn
       - run: yarn --cwd client test
 
 workflows:
