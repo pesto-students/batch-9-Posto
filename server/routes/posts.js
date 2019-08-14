@@ -1,4 +1,5 @@
 import express from 'express';
+import comments from './comments';
 
 const router = express.Router();
 
@@ -6,7 +7,7 @@ router.get('/', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.get('/:userId', (req, res) => {
+router.get('/:postId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
@@ -14,12 +15,14 @@ router.post('/', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.put('/:userId', (req, res) => {
+router.put('/:postId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
 
-router.delete('/:userId', (req, res) => {
+router.delete('/:postId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
+
+router.use('/:postId/comments', comments);
 
 module.exports = router;
