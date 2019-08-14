@@ -13,7 +13,6 @@ function App() {
         <Route path="/new-post" component={Login} />
         <Route path="/edit-post" component={Login} />
         <Route path="/search" component={Login} />
-        <Route path="/search" component={Login} />
       </Switch>
     </>
   );
