@@ -1,13 +1,19 @@
 {
   "name": "batch-9-posto",
   "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "description": "Mono-repo for Posto project",
   "main": "index.js",
   "scripts": {
-    "client": "yarn --cwd client start",
-    "server": "yarn --cwd server start",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "yarn workspace client start",
+    "server": "yarn workspace server start",
+    "client:test": "yarn workspace client test",
+    "server:test": "yarn workspace server test",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "lint-staged": {
     "*.{js,jsx}": [
