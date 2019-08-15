@@ -1,12 +1,15 @@
 import React from 'react';
-import InputField from '../../elements/InputField';
+import FormInput from '../../elements/FormInput';
 
-const EmailInput = () => (
-  <InputField
+const EmailInput = (props) => (
+  <FormInput
+    id="email"
     icon="user"
-    iconPosition="left"
     placeholder="E-mail address"
     type="email"
+    label="Email"
+    required
+    {...props}
   />
 );
 
