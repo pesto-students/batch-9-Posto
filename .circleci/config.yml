@@ -16,3 +16,15 @@ jobs:
             - ./cache/yarn
       - run: yarn client:test
       - run: yarn server:test
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    requires:
+      - build
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+        only-branch: master
+      - run: git subtree push --prefix server https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
