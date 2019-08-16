@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/pesto-students/batch-9-Posto/tree/master.svg?style=svg)](https://circleci.com/gh/pesto-students/batch-9-Posto/tree/master)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f7c535b1-5d3a-44fd-b573-d900cb106bbc/deploy-status)](https://app.netlify.com/sites/posto/deploys)
-[![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)]
+![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
 ## batch-9-Posto
 	
