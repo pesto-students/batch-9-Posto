@@ -4,12 +4,13 @@ import { Grid } from 'semantic-ui-react';
 import CenterDiv from '../../components/CenterDiv';
 import LoginForm from '../../components/LoginForm';
 import Title from '../../components/Title';
+import posto from '../../assets/posto.svg';
 
 const Login = () => (
   <CenterDiv>
     <Grid.Column style={{ maxWidth: 450 }}>
-      <Title as="h1">Posto</Title>
-      <Title as="h2">Log-in</Title>
+      <img src={posto} alt="Posto Logo" style={{ paddingTop: '5vh' }} />
+      <Title as="h1">Log in</Title>
       <LoginForm />
     </Grid.Column>
   </CenterDiv>

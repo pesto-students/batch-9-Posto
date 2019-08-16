@@ -3,6 +3,8 @@
 ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
 ## batch-9-Posto
+
+<div style="text-align:center"><img src="./client/src/assets/posto.svg" alt="Posto Logo" ></div>
 	
 ### Project Specs
 - [Notion](https://www.notion.so/pesto/Batch-8-Project-Specs-33ef6ae26565459f98771b95c7f0cecd)
