@@ -3,11 +3,12 @@
 ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
 ## batch-9-Posto
-	
+
 ### Project Specs
 - [Notion](https://www.notion.so/pesto/Batch-8-Project-Specs-33ef6ae26565459f98771b95c7f0cecd)
 
 ### [Contributing Guidelines](.github/CONTRIBUTING.md)
+### [Server Docs](server/README.md)
 
 ### Instructions
 - Please create a issue first and then attach that issue to the PR, so that every one know what’s the need of the PR. Attaching issues to the PR using github keywords, will close the issues once the PR is merged. More info [here]((https://help.github.com/en/articles/closing-issues-using-keywords)).
@@ -28,5 +29,8 @@
 - Gifs/ video for frontend prs.
 - Review each other PRs.
 - don’t commit in someone else pr
-  
+<<<<<<< HEAD
 
+
+=======
+>>>>>>> feat/Add signup/login logic

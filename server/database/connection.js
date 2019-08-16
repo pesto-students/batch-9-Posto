@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import config from '../config';
 
 const uri = `mongodb+srv://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_URI}/${config.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose.Promise = global.Promise;
+mongoose.set('debug', true);
 
 const db = mongoose.connection;
 
@@ -26,6 +28,7 @@ function createConnection() {
     reconnectTries: 10,
     reconnectInterval: 1000,
     poolSize: 10,
+    keepAlive: true,
   });
 }
 

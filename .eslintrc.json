@@ -5,7 +5,9 @@
     "node": true,
     "jest": true
   },
-  "extends": ["airbnb"],
+  "extends": [
+    "airbnb"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -17,13 +19,25 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
     "react/jsx-one-expression-per-line": [
       0,
       {
         "allow": "none"
       }
-    ]
+    ],
+    "linebreak-style": [
+      0,
+      {
+        "allow": "none"
+      }
+    ],
+    "import/named": 0,
+    "func-names": 0,
+    "import/no-named-as-default": 0
   }
 }
