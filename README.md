@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/pesto-students/batch-9-Posto/tree/master.svg?style=svg)](https://circleci.com/gh/pesto-students/batch-9-Posto/tree/master)
 
 ## batch-9-Posto
 	
