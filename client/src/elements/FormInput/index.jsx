@@ -5,8 +5,8 @@ import styles from './FormInput.module.css';
 
 const FormInput = (props) => (
   <Form.Field
-    className={styles.label}
     fluid
+    className={styles.label}
     iconPosition="left"
     control={Input}
     {...props}
