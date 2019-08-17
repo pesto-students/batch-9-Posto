@@ -7,6 +7,9 @@ const envVariables = {
   DB_PASSWORD: process.env[`${environment}_DB_PASSWORD`],
   DB_URI: process.env[`${environment}_DB_URI`],
   DB_NAME: process.env[`${environment}_DB_NAME`],
+  EMAIL: process.env[`${environment}_EMAIL`],
+  EMAIL_PASSWORD: process.env[`${environment}_EMAIL_PASSWORD`],
+  ENVIRONMENT: process.env.ENVIRONMENT,
 };
 
 export default envVariables;
