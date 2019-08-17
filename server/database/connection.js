@@ -26,6 +26,8 @@ function createConnection() {
     reconnectTries: 10,
     reconnectInterval: 1000,
     poolSize: 10,
+    useFindAndModify: false,
+    useCreateIndex: true,
   });
 }
 

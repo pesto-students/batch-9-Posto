@@ -1,27 +1,20 @@
 import express from 'express';
+import posts from '../controllers/posts';
 import comments from './comments';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.get('/', posts.getPosts);
 
-router.get('/:postId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.get('/:postId', posts.getPost);
 
-router.post('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.post('/', posts.addPost);
 
-router.put('/:postId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.put('/:postId', posts.editPost);
 
-router.delete('/:postId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.patch('/:postId/:type', posts.updateUpvote);
+
+router.delete('/:postId', posts.deletePost);
 
 router.use('/:postId/comments', comments);
 
