@@ -22,7 +22,7 @@ const SignupForm = () => {
   return (
     <>
       <Form size="large" onSubmit={onSignup}>
-        <Segment stacked>
+        <Segment>
           <TextInput focus name="Name" value={name} onChange={setName} />
           <EmailInput value={email} onChange={setEmail} />
           <PasswordInput value={password} onChange={setPassword} />
