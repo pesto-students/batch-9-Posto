@@ -10,6 +10,7 @@ const envVariables = {
   EMAIL: process.env[`${environment}_EMAIL`],
   EMAIL_PASSWORD: process.env[`${environment}_EMAIL_PASSWORD`],
   ENVIRONMENT: process.env.ENVIRONMENT,
+  JWT_SECRET_KEY: process.env[`${environment}_JWT_SECRET_KEY`],
 };
 
 export default envVariables;
