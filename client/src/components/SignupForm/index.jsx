@@ -6,32 +6,42 @@ import {
 
 import EmailInput from '../EmailInput';
 import PasswordInput from '../PasswordInput';
+import TextInput from '../TextInput';
 import { useInput } from '../../hooks';
 
-const LoginForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useInput('');
+  const [name, setName] = useInput('');
   const [password, setPassword] = useInput('');
+  const [verifyPassword, setVerifyPassword] = useInput('');
 
-  const onLogin = () => {
-    console.log(email, password);
+  const onSignup = () => {
+    console.log(email, name, password);
   };
 
   return (
     <>
-      <Form size="large" onSubmit={onLogin}>
+      <Form size="large" onSubmit={onSignup}>
         <Segment stacked>
+          <TextInput name="Name" value={name} onChange={setName} />
           <EmailInput focus value={email} onChange={setEmail} />
           <PasswordInput value={password} onChange={setPassword} />
+          <PasswordInput
+            value={verifyPassword}
+            onChange={setVerifyPassword}
+            userPassword={password}
+            verify
+          />
           <Button type="submit" color="teal" fluid size="large">
-            Login
+          Sign up
           </Button>
         </Segment>
       </Form>
       <Message>
-        New to us? <Link to="/signup">Sign Up</Link>
+        Already a user? <Link to="/login">Login</Link>
       </Message>
     </>
   );
 };
 
-export default LoginForm;
+export default SignupForm;
