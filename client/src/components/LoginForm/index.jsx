@@ -19,7 +19,7 @@ const LoginForm = () => {
   return (
     <>
       <Form size="large" onSubmit={onLogin}>
-        <Segment stacked>
+        <Segment>
           <EmailInput focus value={email} onChange={setEmail} />
           <PasswordInput value={password} onChange={setPassword} />
           <Button type="submit" color="teal" fluid size="large">
