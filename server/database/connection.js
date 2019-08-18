@@ -28,6 +28,7 @@ function createConnection() {
     poolSize: 10,
     useFindAndModify: false,
     useCreateIndex: true,
+    keepAlive: 10,
   });
 }
 
