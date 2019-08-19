@@ -14,6 +14,10 @@
     "client:test": "yarn workspace client test",
     "server:test": "yarn workspace server test",
     "client:build": "yarn workspace client build",
+    "client:lint": "yarn workspace client lint",
+    "server:lint": "yarn workspace server lint",
+    "test": "concurrently \"yarn client:test\" \"yarn server:test\"",
+    "lint": "concurrently \"yarn client:lint\" \"yarn server:lint\"",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "lint-staged": {
@@ -24,7 +28,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test"
     }
   },
   "repository": {
