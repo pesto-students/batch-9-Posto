@@ -5,7 +5,8 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "babel-node ./bin/www",
-		"test": "jest"
+    "test": "jest --coverage",
+    "lint": "eslint --ext .js . --fix"
 	},
 	"author": "Navneet Sahota",
 	"license": "ISC",
