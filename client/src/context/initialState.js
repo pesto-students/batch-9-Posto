@@ -6,6 +6,8 @@ const initialState = {
   activeTab: 'write',
   categoryOptions: [],
   isPublic: true,
+  post: {},
+  comments: []
 };
 
 export default initialState;

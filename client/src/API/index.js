@@ -134,6 +134,36 @@ const fetchUserPosts = async ({
   }
 };
 
+const upvoteAPost = async (postId, userId, type) => {
+  let response;
+  try {
+    response = await axios.patch(`${axiosConfig.baseURL}/posts/${postId}/${type}`, { userId }, axiosConfig);
+  } catch (err) {
+    throw new Error(err);
+  }
+  return response;
+};
+
+const addComment = async (comment) => {
+  let response;
+  try {
+    response = await axios.post(`${axiosConfig.baseURL}/posts/${comment.post}/comments`, comment, axiosConfig);
+  } catch (err) {
+    throw new Error(err);
+  }
+  return response;
+};
+
+const addReply = async (reply, commentId, postId) => {
+  let response;
+  try {
+    response = await axios.post(`${axiosConfig.baseURL}/posts/${postId}/comments/${commentId}/replies`, reply, axiosConfig);
+  } catch (err) {
+    throw new Error(err);
+  }
+  return response;
+};
+
 export {
   fetchUserPosts,
   createPost,
@@ -144,4 +174,7 @@ export {
   getTop10Posts,
   fetchCategoryBlogs,
   fetchSearchResults,
+  upvoteAPost,
+  addComment,
+  addReply,
 };
