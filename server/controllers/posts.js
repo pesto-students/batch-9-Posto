@@ -116,7 +116,7 @@ const getPost = async function getPost(req, res) {
   try {
     const { postId } = req.params;
     const post = await Post.findById(postId)
-      .populate('author', '_id name email')
+      .populate('author', '_id name email profilePic')
       .populate('category', '_id name');
     if (!post) {
       return res.status(200).json({ success: false, message: 'Post not found' });
@@ -210,7 +210,7 @@ const searchPosts = async function searchPosts(req, res) {
 
 const topPosts = async (req, res) => {
   try {
-    const limit = req.body.limit || 10;
+    const limit = parseInt(req.params.limit, 10) || 10;
     const posts = await Post.aggregate([
       { $match: { public: true, published: true } },
       { $addFields: { upvotesCount: { $size: { $ifNull: ['$upvotes', []] } } } },

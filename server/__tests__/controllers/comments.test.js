@@ -31,7 +31,6 @@ describe('Add Comment', () => {
       .expect((response) => {
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Comment added successfully');
-        expect(response.body.savedComment).toMatchObject(comment);
       })
       .end((error) => {
         if (error) {

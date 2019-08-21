@@ -7,11 +7,12 @@ import joiOptions from '../validations/joiOptions';
 const getComments = async (req, res) => {
   try {
     const { postId } = req.params;
-    const limit = parseInt(req.query.limit, 10) || 10;
+    const limit = parseInt(req.query.limit, 10) || 0;
     const skip = parseInt(req.query.skip, 10) || 0;
     const comments = await Comment.find({ post: postId })
       .select('comment createdAt user replies.reply replies.user replies.createdAt replies._id')
       .populate('user', 'name profilePic')
+      .populate('replies.user', 'name profilePic')
       .skip(skip)
       .limit(limit)
       .lean();
@@ -30,7 +31,8 @@ const addComment = async (req, res) => {
     req.body.post = postId;
     await Joi.validate(req.body, addCommentSchema, joiOptions);
     const comment = new Comment(req.body);
-    const savedComment = await comment.save();
+    const result = await comment.save();
+    const savedComment = await result.populate('user', 'profilePic name').execPopulate();
     return res.status(201).json({ success: true, message: 'Comment added successfully', savedComment });
   } catch (error) {
     const errorResponse = { success: false, message: 'Could not add comment', isJoi: Boolean(error.isJoi) };

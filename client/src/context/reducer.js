@@ -1,5 +1,5 @@
 import {
-  LOGOUT, USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC,
+  LOGOUT, USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC, POST, COMMENTS,
 } from './constants';
 import initialState from './initialState';
 
@@ -39,6 +39,16 @@ export default function reducer(state, action) {
         isPublic: action.payload,
       };
     case LOGOUT: return initialState;
+    case POST:
+      return {
+        ...state,
+        post: action.payload,
+      };
+    case COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      };
     default:
       return state;
   }
