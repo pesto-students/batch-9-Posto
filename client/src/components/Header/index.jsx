@@ -13,7 +13,7 @@ import ImageElement from '../../elements/ImageElement';
 import posto from '../../assets/posto.svg';
 import avatar from '../../assets/avatar.png';
 
-const Header = (props) => {
+const Header = ({ history }) => {
   const dropDownOptions = [
     { key: 1, text: 'Profile', value: 1 },
     { key: 2, text: 'Add Post', value: 2 },
@@ -21,7 +21,6 @@ const Header = (props) => {
     { key: 4, text: 'Logout', value: 4 },
   ];
 
-  const { history } = props;
   return (
     <HeaderMenu>
       <CenterContainer>
