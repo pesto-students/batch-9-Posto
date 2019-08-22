@@ -7,7 +7,7 @@ const PostSchema = Joi.object().keys({
   title: Joi.string().required().label('Title'),
   author: Joi.objectId().required().label('Author'),
   content: Joi.string().required().label('Content'),
-  category: Joi.objectId().required().label('Category'),
+  category: Joi.any().when('published', { is: true, then: Joi.objectId().required() }).label('Category'),
   public: Joi.boolean().required().label('Public'),
   published: Joi.boolean().required().label('Published'),
 });
