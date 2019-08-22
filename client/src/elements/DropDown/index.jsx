@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown, Image } from 'semantic-ui-react';
 
-const DropDown = (props) => {
-  const { triggerImage, options } = props;
+const DropDown = ({ triggerImage, options }) => {
   const trigger = (
     <span>
       <Image src={triggerImage} style={{ height: '35px', width: '35px' }} />
