@@ -1,7 +1,7 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../app';
-import testDbHelper from '../testUtils/testDbHelper';
+import testDbHelper from './testUtils/testDbHelper';
 
 describe('auth middleware', () => {
   test('should give 403 if token is not sent', async (done) => {
