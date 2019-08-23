@@ -6,20 +6,20 @@ const createPost = async (body) => {
   try {
     response = await axios.post('posts', body, axiosConfig);
     if (!response.data.success) {
-      throw new Error(response.data.message);
+      alert(response.data.message);
     }
   } catch (err) {
-    console.error(err);
+    return alert(err.message);
   }
-  return response;
+  return response.data;
 };
 
 const getCategories = async () => {
-  let response;
+  let result;
   try {
-    response = await axios.get('categories', axiosConfig);
-    if (response.data.success) {
-      response = response.data.categories.map((categoryData) => (
+    const response = await axios.get('categories', axiosConfig);
+    if (response && response.data && response.data.success) {
+      result = response.data.categories.map((categoryData) => (
         {
           key: categoryData._id,
           value: categoryData._id,
@@ -27,12 +27,12 @@ const getCategories = async () => {
         }
       ));
     } else {
-      throw new Error(response.data.message);
+      return alert(response.data.message);
     }
   } catch (err) {
-    console.error(err);
+    return alert(err.message);
   }
-  return response;
+  return result;
 };
 
 export { createPost, getCategories };
