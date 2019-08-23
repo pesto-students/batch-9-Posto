@@ -3,26 +3,55 @@ import userModel from '../../models/User';
 import categoryModel from '../../models/Category';
 
 async function createPosts() {
+  await postModel.syncIndexes();
   const post1 = await postModel.create({
-    title: 'My Title',
+    title: 'How The Title is written',
     author: '5d5adea00f61796594c32dec',
-    content: "It's very easy to make some words **bold** and other words *italic* with Markdown. You can even [link to Google!](http://google.com)",
+    content: "It's very easy to make some javascript words **bold** and the other words *italic* with Markdown. You can even [link to Google!](http://google.com)",
     category: '5d5af1a31c9d4400002629d0',
     public: true,
     published: true,
   });
 
   const post2 = await postModel.create({
-    title: '10 simple Linux tips which save 50% of my time in the command line',
+    title: 'How 10 simple Linux tips which save 50% of my time in the command line',
     author: '5d5ba0b0d14453a47b1a379a',
-    content: `In this article, or tutorial, or whatever you call it, I have shared some UNIX command 
+    content: `In this article, or tutorial, or javascript whatever you call it, I have shared some UNIX command 
         practices I follow to work fast, quick, productive, or efficiently in Linux.`,
     category: '5d5ba0a64f07c85c9f0bd51e',
     public: true,
     published: true,
   });
 
-  return { post1, post2 };
+  const post3 = await postModel.create({
+    title: 'NodeJS: How To Run Scripts From The Terminal & Use Arguments in javascript',
+    author: '5d5ba0b0d14453a47b1a379a',
+    content: `args[0] is the path to the executable file,
+    args[1] is the path to the executed file,
+    args[2] is the additional commandline argument from step 2.
+    
+    So if we want to use our additional commandline argument,
+    we can use it like this in a JavaScript file`,
+    category: '5d5ba0a64f07c85c9f0bd51e',
+    public: true,
+    published: true,
+  });
+
+  const post4 = await postModel.create({
+    title: 'The 2 ways to learn how to code',
+    author: '5d5ba0b0d14453a47b1a379a',
+    content: `When I started programming two years ago, I was 13, I still wanted to code without reading documentation or without to know basics.
+    That's how I started to learn HTML and javascript, then I learned PHP, in the beginning, I learned the Copy/Paste Oriented Programming. 
+    But over time I learned a lot of things through practice. I started to stop copy paste and to test the libs I was using 
+    by testing all methods/functions/class which was in those libraries. And that's how I discovered the practical way to learn to code.`,
+    category: '5d5ba0a64f07c85c9f0bd51e',
+    public: true,
+    published: true,
+  });
+
+  return {
+    post1, post2, post3, post4,
+  };
 }
 
 async function createUsers() {

@@ -1,7 +1,9 @@
 import Joi from '@hapi/joi';
 import { ObjectId } from 'mongodb';
 import Post from '../models/Post';
-import { addPostSchema, editPostSchema, UpVoteSchema } from '../validations/posts';
+import {
+  addPostSchema, editPostSchema, UpVoteSchema, searchSchema,
+} from '../validations/posts';
 import joiOptions from '../validations/joiOptions';
 
 const addPost = async function addPost(req, res) {
@@ -119,6 +121,43 @@ const deletePost = async function deletePost(req, res) {
   }
 };
 
+const searchPosts = async function searchPosts(req, res) {
+  try {
+    await Joi.validate(req.body, searchSchema, joiOptions);
+    const {
+      term, category, skip, limit,
+    } = req.body;
+    const filter = {
+      category,
+      $text: {
+        $search: term,
+      },
+      public: true,
+      published: true,
+    };
+    if (category === 'all' || category === undefined) {
+      delete filter.category;
+    }
+    const results = await Post.find(filter, { score: { $meta: 'textScore' } })
+      .sort({ score: { $meta: 'textScore' } })
+      .skip(parseInt(skip, 10))
+      .limit(parseInt(limit, 10))
+      .populate('author', 'profilePic email name')
+      .lean();
+
+    if (Array.isArray(results) && results.length === 0) {
+      return res.status(200).json({ success: false, message: 'No results found' });
+    }
+    return res.status(200).json({ success: true, message: 'Results found', results });
+  } catch (error) {
+    const errorResponse = { success: false, message: 'Could not fetch search results', isJoi: !!error.isJoi };
+    if (error.isJoi) {
+      errorResponse.error = error.details;
+    }
+    return res.status(400).json(errorResponse);
+  }
+};
+
 const controllerMethods = {
   addPost,
   editPost,
@@ -126,6 +165,7 @@ const controllerMethods = {
   getPost,
   getPosts,
   deletePost,
+  searchPosts,
 };
 
 export default controllerMethods;

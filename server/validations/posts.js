@@ -16,8 +16,16 @@ const UpVoteSchema = Joi.object().keys({
   userId: Joi.objectId().required().label('User Id'),
 });
 
+const searchSchema = Joi.object().keys({
+  term: Joi.string().required().allow(['']).label('Term'),
+  category: Joi.objectId().required().allow(['all']).label('Category'),
+  skip: Joi.number().min(0).required().label('Skip'),
+  limit: Joi.number().min(0).required().label('Limit'),
+});
+
 export {
   PostSchema as addPostSchema,
   PostSchema as editPostSchema,
   UpVoteSchema,
+  searchSchema,
 };

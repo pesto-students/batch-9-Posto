@@ -38,6 +38,18 @@ const PostSchema = new Schema({
   },
 }, { timestamps: true });
 
+PostSchema.index({
+  title: 'text',
+  content: 'text',
+  category: 1,
+}, {
+  weights: {
+    title: 5,
+    content: 1,
+  },
+  name: 'searchIndex',
+});
+
 const Post = mongoose.model('Post', PostSchema);
 
 export default Post;

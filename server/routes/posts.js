@@ -10,6 +10,8 @@ router.get('/:postId', posts.getPost);
 
 router.post('/', posts.addPost);
 
+router.post('/search', posts.searchPosts);
+
 router.put('/:postId', posts.editPost);
 
 router.patch('/:postId/:type', posts.updateUpvote);
