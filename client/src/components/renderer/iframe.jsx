@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const iFrame = ({ data: { hProperties: { src } } }) => (
   <div>
     <iframe
-      width="420"
-      height="315"
+      width="100%"
+      height="425"
       src={src}
       frameBorder="0"
       allowFullScreen
