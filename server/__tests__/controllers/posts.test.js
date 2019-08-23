@@ -344,8 +344,8 @@ describe('Get Posts', () => {
       .expect((response) => {
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Posts fetched');
-        const post1 = JSON.parse(JSON.stringify(posts.post1));
-        expect(response.body.posts[0]).toMatchObject(post1);
+        const post3 = JSON.parse(JSON.stringify(posts.post3));
+        expect(response.body.posts[0]).toMatchObject(post3);
       })
       .end((error) => {
         if (error) {
@@ -386,10 +386,10 @@ describe('Get Posts', () => {
       .expect((response) => {
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Posts fetched');
-        const post1 = JSON.parse(JSON.stringify(posts.post1));
-        const post2 = JSON.parse(JSON.stringify(posts.post2));
-        expect(response.body.posts[0]).toMatchObject(post2);
-        expect(response.body.posts[1]).toMatchObject(post1);
+        const post4 = JSON.parse(JSON.stringify(posts.post4));
+        const post3 = JSON.parse(JSON.stringify(posts.post3));
+        expect(response.body.posts[0]).toMatchObject(post4);
+        expect(response.body.posts[1]).toMatchObject(post3);
       })
       .end((error) => {
         if (error) {
@@ -446,6 +446,134 @@ describe('Delete post', () => {
       .expect(async (response) => {
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('Invalid post id value');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+});
+
+
+describe('Search Posts', () => {
+  test('Should fetch Posts', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .post('/posts/search')
+      .set('Accept', 'application/json')
+      .send({
+        term: 'written',
+        category: 'all',
+        skip: 0,
+        limit: 10,
+      })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Results found');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should fetch Posts by category id', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .post('/posts/search')
+      .set('Accept', 'application/json')
+      .send({
+        term: 'written',
+        category: '5d5af1a31c9d4400002629d0',
+        skip: 0,
+        limit: 10,
+      })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Results found');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should fetch Posts with skip option', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .post('/posts/search')
+      .set('Accept', 'application/json')
+      .send({
+        term: 'javascript',
+        category: 'all',
+        skip: 3,
+        limit: 10,
+      })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Results found');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should fetch Posts with limit option', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .post('/posts/search')
+      .set('Accept', 'application/json')
+      .send({
+        term: 'javascript',
+        category: 'all',
+        skip: 0,
+        limit: 2,
+      })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Results found');
+        expect(response.body.results.length).toEqual(2);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should fetch Posts sorted by score', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .post('/posts/search')
+      .set('Accept', 'application/json')
+      .send({
+        term: 'javascript',
+        category: 'all',
+        skip: 0,
+        limit: 0,
+      })
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Results found');
+        const { results } = response.body;
+        const score1 = results[0].score;
+        const score2 = results[1].score;
+        expect(score1).toBeGreaterThanOrEqual(score2);
       })
       .end((error) => {
         if (error) {

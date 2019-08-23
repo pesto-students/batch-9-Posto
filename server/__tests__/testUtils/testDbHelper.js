@@ -2,7 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
 // May require additional time for downloading MongoDB binaries
-// jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 
 let mongoServer;
 const createConnection = async function createConnection() {
