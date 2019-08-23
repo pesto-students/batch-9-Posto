@@ -10,7 +10,7 @@ const Login = () => (
   <CenterDiv>
     <Grid.Column style={{ maxWidth: 450 }}>
       <img src={posto} alt="Posto Logo" style={{ paddingTop: '5vh' }} />
-      <Title as="h1">Log in</Title>
+      <Title>Log in</Title>
       <LoginForm />
     </Grid.Column>
   </CenterDiv>

@@ -5,6 +5,7 @@ import {
 
 import Login from './views/Login';
 import Signup from './views/Signup';
+import New from './views/New';
 import NoMatch from './views/NoMatch';
 import Home from './views/Home';
 
@@ -15,6 +16,7 @@ function Routes() {
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/home" component={Home} />
+      <Route path="/new" component={New} />
       <Route component={NoMatch} />
     </Switch>
   );

@@ -3,20 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
+    "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.9.0",
+    "react-markdown": "^4.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
     "react-test-renderer": "^16.9.0",
+    "remark-iframes": "^4.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3"
   },
   "scripts": {
-  "start": "react-app-rewired start",
-  "build": "react-app-rewired build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test --coverage --watchAll=false",
     "lint": "eslint --ext .jsx,.js src/ --fix"
   },

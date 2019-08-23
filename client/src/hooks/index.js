@@ -1,4 +1,4 @@
 import useInput from './useInput';
+import useBoolean from './useBoolean';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useInput };
+export { useInput, useBoolean };

@@ -9,6 +9,7 @@ describe('<PasswordInput />', () => {
     const passwordInput = shallow(<PasswordInput verify userPassword={userPassword} />);
     expect(passwordInput.props().pattern).toBe(userPassword);
   });
+
   it('pattern matches with pattern', () => {
     const passwordInput = shallow(<PasswordInput />);
     expect(passwordInput.props().pattern).toBe('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$');

@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Routes from './Routes';
 import Login from './views/Login';
 import Signup from './views/Signup';
+import New from './views/New';
 import NoMatch from './views/NoMatch';
 
 describe('<Routes />', () => {
@@ -24,6 +25,15 @@ describe('<Routes />', () => {
       </MemoryRouter>,
     );
     expect(router.find(Signup)).toHaveLength(1);
+  });
+
+  it('should render <New /> for /new route', () => {
+    const router = mount(
+      <MemoryRouter initialEntries={['/new']}>
+        <Routes />
+      </MemoryRouter>,
+    );
+    expect(router.find(New)).toHaveLength(1);
   });
 
   it('should render <NoMatch /> for undefined route', () => {
