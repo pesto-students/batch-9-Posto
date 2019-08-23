@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-autosize-textarea';
 import {
@@ -13,8 +13,11 @@ const WritePost = ({
   title, content, category, onTitleChange, onContentChange,
 }) => {
   const [isPublic, setIsPublic] = useBoolean(true);
+  const [isSaveLoading, setIsSaveLoading] = useState(false);
+  const [isPublishedLoading, setIsPublishedLoading] = useState(false);
 
   const handlePublish = async () => {
+    setIsPublishedLoading(true);
     const body = {
       author: '5d5d60a51930b06b21e65765',
       title,
@@ -24,18 +27,20 @@ const WritePost = ({
       published: true,
     };
     await createPost(body);
+    setIsPublishedLoading(false);
   };
 
   const handleSave = async () => {
+    setIsSaveLoading(true);
     const body = {
       author: '5d5d60a51930b06b21e65765',
       title,
       content,
-      category,
       public: isPublic,
       published: false,
     };
     await createPost(body);
+    setIsSaveLoading(false);
   };
 
   let saveDisabled = true;
@@ -46,6 +51,7 @@ const WritePost = ({
   if (category && title && content) {
     publishDisabled = false;
   }
+
   return (
     <>
       <TextareaAutosize
@@ -81,6 +87,7 @@ const WritePost = ({
       </div>
       <div className={styles.container}>
         <Button
+          loading={isSaveLoading}
           primary
           disabled={saveDisabled}
           className={styles.flexElement}
@@ -89,6 +96,7 @@ const WritePost = ({
           Save
         </Button>
         <Button
+          loading={isPublishedLoading}
           disabled={publishDisabled}
           className={styles.flexElement}
           positive
