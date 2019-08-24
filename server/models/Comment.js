@@ -2,6 +2,17 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
+const ReplySchema = new Schema({
+  reply: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+});
+
 const CommentSchema = new Schema({
   comment: {
     type: String,
@@ -15,16 +26,7 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  replies: [{
-    reply: {
-      type: String,
-      required: true,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  }],
+  replies: [ReplySchema],
 }, { timestamps: true });
 
 const Comment = mongoose.model('Comment', CommentSchema);
