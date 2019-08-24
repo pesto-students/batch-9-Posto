@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const ReplySchema = new Schema({
   reply: {
     type: String,
-    required: true,
+    required: [true, 'Reply message is required'],
   },
   user: {
     type: Schema.Types.ObjectId,
