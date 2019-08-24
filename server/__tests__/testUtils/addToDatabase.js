@@ -33,7 +33,7 @@ async function createPosts() {
     So if we want to use our additional commandline argument,
     we can use it like this in a JavaScript file`,
     category: '5d5ba0a64f07c85c9f0bd51e',
-    public: true,
+    public: false,
     published: true,
   });
 
@@ -46,7 +46,7 @@ async function createPosts() {
     by testing all methods/functions/class which was in those libraries. And that's how I discovered the practical way to learn to code.`,
     category: '5d5ba0a64f07c85c9f0bd51e',
     public: true,
-    published: true,
+    published: false,
   });
 
   return {
