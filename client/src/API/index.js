@@ -11,7 +11,20 @@ const createPost = async (body) => {
   } catch (err) {
     return alert(err.message);
   }
-  return response.data;
+  return response.data.post._id;
+};
+
+const updatePost = async (body, postId) => {
+  let response;
+  try {
+    response = await axios.put(`posts/${postId}`, body, axiosConfig);
+    if (!response.data.success) {
+      alert(response.data.message);
+    }
+  } catch (err) {
+    return alert(err.message);
+  }
+  return response.data.post;
 };
 
 const getCategories = async () => {
@@ -35,4 +48,4 @@ const getCategories = async () => {
   return result;
 };
 
-export { createPost, getCategories };
+export { createPost, updatePost, getCategories };

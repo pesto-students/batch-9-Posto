@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import { createPost } from '../../API';
-import Post from '../Post';
-import PostContext from '../../Context/PostContext';
+import PropTypes from 'prop-types';
 
-const WritePost = () => {
+import PostContext from '../../Context/PostContext';
+import { updatePost } from '../../API';
+import Post from '../Post';
+
+const EditPost = ({ postId }) => {
   const { state } = useContext(PostContext);
-  const [postId, setPostId] = useState('');
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
 
@@ -20,8 +20,8 @@ const WritePost = () => {
       public: state.isPublic,
       published: true,
     };
-    const id = await createPost(body);
-    setPostId(id);
+    await updatePost(body, postId);
+    setIsPublishedLoading(false);
   };
 
   const handleSave = async () => {
@@ -37,8 +37,8 @@ const WritePost = () => {
     if (!body.category) {
       delete body.category;
     }
-    const id = await createPost(body);
-    setPostId(id);
+    await updatePost(body, postId);
+    setIsSaveLoading(false);
   };
 
   let saveDisabled = true;
@@ -49,21 +49,20 @@ const WritePost = () => {
   if (state.category && state.title && state.content) {
     publishDisabled = false;
   }
-
   return (
-    postId
-      ? <Redirect to={`/edit/${postId}`} />
-      : (
-        <Post
-          handlePublish={handlePublish}
-          handleSave={handleSave}
-          saveDisabled={saveDisabled}
-          publishDisabled={publishDisabled}
-          isSaveLoading={isSaveLoading}
-          isPublishedLoading={isPublishedLoading}
-        />
-      )
+    <Post
+      handlePublish={handlePublish}
+      handleSave={handleSave}
+      saveDisabled={saveDisabled}
+      publishDisabled={publishDisabled}
+      isSaveLoading={isSaveLoading}
+      isPublishedLoading={isPublishedLoading}
+    />
   );
 };
 
-export default WritePost;
+EditPost.propTypes = {
+  postId: PropTypes.string.isRequired,
+};
+
+export default EditPost;
