@@ -8,6 +8,7 @@ import Signup from './views/Signup';
 import New from './views/New';
 import NoMatch from './views/NoMatch';
 import Home from './views/Home';
+import CategoryPage from './views/Category';
 
 function Routes() {
   return (
@@ -17,6 +18,7 @@ function Routes() {
       <Route path="/signup" component={Signup} />
       <Route path="/home" component={Home} />
       <Route path="/new" component={New} />
+      <Route path="/category/:name" component={CategoryPage} />
       <Route component={NoMatch} />
     </Switch>
   );
