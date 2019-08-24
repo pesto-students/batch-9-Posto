@@ -11,6 +11,9 @@ const envVariables = {
   EMAIL_PASSWORD: process.env[`${environment}_EMAIL_PASSWORD`],
   ENVIRONMENT: process.env.ENVIRONMENT,
   JWT_SECRET_KEY: process.env[`${environment}_JWT_SECRET_KEY`],
+  CLOUDINARY_CLOUD_NAME: process.env[`${environment}_CLOUDINARY_CLOUD_NAME`],
+  CLOUDINARY_API_KEY: process.env[`${environment}_CLOUDINARY_API_KEY`],
+  CLOUDINARY_API_SECRET: process.env[`${environment}_CLOUDINARY_API_SECRET`],
 };
 
 export default envVariables;
