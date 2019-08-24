@@ -1,21 +1,8 @@
 import express from 'express';
+import replies from '../controllers/replies';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.get('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
-
-router.post('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
-
-router.put('/:replyId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
-
-router.delete('/:replyId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.post('/', replies.addReply);
 
 module.exports = router;
