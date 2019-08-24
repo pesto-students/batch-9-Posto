@@ -11,6 +11,11 @@ const ReplySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  status: {
+    type: String,
+    required: true,
+    default: 'active',
+  },
 });
 
 const CommentSchema = new Schema({
@@ -27,6 +32,11 @@ const CommentSchema = new Schema({
     ref: 'User',
   },
   replies: [ReplySchema],
+  status: {
+    type: String,
+    required: true,
+    default: 'active',
+  },
 }, { timestamps: true });
 
 const Comment = mongoose.model('Comment', CommentSchema);
