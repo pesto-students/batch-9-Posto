@@ -1,5 +1,4 @@
 import Joi from '@hapi/joi';
-import { ObjectId } from 'mongodb';
 import User from '../models/User';
 import imageHelper from '../helpers/images';
 
@@ -9,9 +8,6 @@ import joiOptions from '../validations/joiOptions';
 async function getUser(req, res) {
   try {
     const { userId } = req.params;
-    if (!ObjectId.isValid(userId)) {
-      return res.status(400).json({ success: false, message: 'Invalid user id value' });
-    }
     const user = await User.findById(userId).select('name email profilePic gender DOB').lean();
     if (user) {
       return res.status(200).json({ success: true, message: 'User found', user });
@@ -25,9 +21,6 @@ async function getUser(req, res) {
 const updateUser = async function updateUser(req, res) {
   try {
     const { userId } = req.params;
-    if (!ObjectId.isValid(userId)) {
-      return res.status(400).json({ success: false, message: 'Invalid user id value' });
-    }
     const { body } = req;
     await Joi.validate(body, UserSchema, joiOptions);
     const updatedUser = await User.findByIdAndUpdate(userId, body, { new: true, select: 'name email profilePic gender DOB' }).lean();

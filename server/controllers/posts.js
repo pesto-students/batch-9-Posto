@@ -1,5 +1,4 @@
 import Joi from '@hapi/joi';
-import { ObjectId } from 'mongodb';
 import Post from '../models/Post';
 import {
   addPostSchema, editPostSchema, UpVoteSchema, searchSchema,
@@ -24,11 +23,8 @@ const addPost = async function addPost(req, res) {
 const editPost = async function editPost(req, res) {
   try {
     const { postId } = req.params;
-    if (!ObjectId.isValid(postId)) {
-      return res.status(400).json({ success: false, message: 'Invalid post id value' });
-    }
     await Joi.validate(req.body, editPostSchema, joiOptions);
-    const result = await Post.findByIdAndUpdate({ _id: req.params.postId }, req.body);
+    const result = await Post.findByIdAndUpdate({ _id: postId }, req.body);
     if (!result) {
       return res.status(200).json({ success: false, message: 'Post not found' });
     }
@@ -46,9 +42,6 @@ const updateUpvote = async function updateUpvote(req, res) {
   try {
     const { postId, type } = req.params;
     const { userId } = req.body;
-    if (!ObjectId.isValid(postId)) {
-      return res.status(400).json({ success: false, message: 'Invalid post id value' });
-    }
     await Joi.validate(req.body, UpVoteSchema, joiOptions);
     if (type === 'upvote') {
       await Post.findByIdAndUpdate(postId, { $addToSet: { upvotes: userId } },
@@ -70,11 +63,8 @@ const updateUpvote = async function updateUpvote(req, res) {
 };
 
 const getPost = async function getPost(req, res) {
-  const { postId } = req.params;
   try {
-    if (!ObjectId.isValid(postId)) {
-      return res.status(400).json({ success: false, message: 'Invalid post id value' });
-    }
+    const { postId } = req.params;
     const post = await Post.findById(postId);
     if (!post) {
       return res.status(200).json({ success: false, message: 'Post not found' });
@@ -111,9 +101,6 @@ const getPosts = async function getPosts(req, res) {
 const deletePost = async function deletePost(req, res) {
   try {
     const { postId } = req.params;
-    if (!ObjectId.isValid(postId)) {
-      return res.status(400).json({ success: false, message: 'Invalid post id value' });
-    }
     const post = await Post.findByIdAndDelete(postId);
     return res.status(200).json({ success: true, message: 'Post deleted', post });
   } catch (error) {

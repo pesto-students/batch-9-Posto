@@ -25,7 +25,7 @@ describe('Get a User', () => {
       .expect(400)
       .expect(async (response) => {
         expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Invalid user id value');
+        expect(response.body.message).toBe('userId should be a valid object id');
       })
       .end((error) => {
         if (error) {
@@ -132,7 +132,7 @@ describe('Update a User', () => {
       .expect(400)
       .expect((response) => {
         expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Invalid user id value');
+        expect(response.body.message).toBe('userId should be a valid object id');
       })
       .end((error) => {
         if (error) {
