@@ -7,6 +7,8 @@ router.get('/:userId', UserController.getUser);
 
 router.put('/:userId', UserController.updateUser);
 
+router.post('/profile-pic/:userId', UserController.updateProfilePic);
+
 router.delete('/:userId', (req, res) => {
   res.status(200).json({ success: true, message: '' });
 });
