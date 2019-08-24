@@ -1,5 +1,6 @@
 import request from 'supertest';
 import addToDatabase from '../testUtils/addToDatabase';
+import userModel from '../../models/User';
 import testDbHelper from '../testUtils/testDbHelper';
 import app from '../../app';
 
@@ -60,6 +61,103 @@ describe('Get a User', () => {
       .expect((response) => {
         expect(response.body.success).toBe(false);
         expect(response.body.message).toBe('User not found');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+});
+
+
+describe('Update a User', () => {
+  test('should update an existing user', async (done) => {
+    const { user1 } = await addToDatabase.createUsers();
+    const updateUserBody = {
+      gender: 'Male',
+      DOB: '2019-08-19T17:38:35.000Z',
+      email: 'sumeet@gmail.com',
+      name: 'sumeet',
+    };
+    request(app)
+      .put(`/users/${user1._id}`)
+      .send(updateUserBody)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect(async (response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('User updated successfully');
+        const user = await userModel.findById(user1._id);
+        const userObject = JSON.parse(JSON.stringify(user));
+        expect(userObject).toMatchObject(updateUserBody);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+
+  test('should throw Joi validation errors', async (done) => {
+    const { user1 } = await addToDatabase.createUsers();
+    const updateUserBody = {};
+    request(app)
+      .put(`/users/${user1._id}`)
+      .send(updateUserBody)
+      .set('Accept', 'application/json')
+      .expect(400)
+      .expect((response) => {
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Could not update user');
+        expect(response.body.isJoi).toBe(true);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('should throw error for invalid userId value', async (done) => {
+    const updateUserBody = {};
+    request(app)
+      .put('/users/xyz')
+      .send(updateUserBody)
+      .set('Accept', 'application/json')
+      .expect(400)
+      .expect((response) => {
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('Invalid user id value');
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('should throw error for document not in collection', async (done) => {
+    await addToDatabase.createUsers();
+    const updateUserBody = {
+      gender: 'Male',
+      DOB: '2019-08-19T17:38:35.000Z',
+      email: 'sumeet@gmail.com',
+      name: 'sumeet',
+    };
+    request(app)
+      .put('/users/5d5adea00f61796594c32deb')
+      .send(updateUserBody)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(false);
+        expect(response.body.message).toBe('User could not be updated');
       })
       .end((error) => {
         if (error) {
