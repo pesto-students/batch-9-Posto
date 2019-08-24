@@ -415,6 +415,63 @@ describe('Get Posts', () => {
         return done();
       });
   });
+
+  test('Should get the posts by userId and type published', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .get('/posts?type=user-published&userId=5d5ba0b0d14453a47b1a379a')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Posts fetched');
+        expect(response.body.posts.length).toEqual(1);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should get the posts by userId and type draft', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .get('/posts?type=user-draft&userId=5d5ba0b0d14453a47b1a379a')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Posts fetched');
+        expect(response.body.posts.length).toEqual(1);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
+
+  test('Should get the posts by userId and type private', async (done) => {
+    await addToDatabase.createPosts();
+    request(app)
+      .get('/posts?type=user-private&userId=5d5ba0b0d14453a47b1a379a')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.success).toBe(true);
+        expect(response.body.message).toBe('Posts fetched');
+        expect(response.body.posts.length).toEqual(1);
+      })
+      .end((error) => {
+        if (error) {
+          return done(error);
+        }
+        return done();
+      });
+  });
 });
 
 describe('Delete post', () => {
@@ -514,7 +571,7 @@ describe('Search Posts', () => {
       .send({
         term: 'javascript',
         category: 'all',
-        skip: 3,
+        skip: 1,
         limit: 10,
       })
       .expect(200)
