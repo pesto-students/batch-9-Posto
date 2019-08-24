@@ -135,7 +135,7 @@ describe('Edit Post', () => {
       .expect(400)
       .expect((response) => {
         expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Invalid post id value');
+        expect(response.body.message).toBe('postId should be a valid object id');
       })
       .end((error) => {
         if (error) {
@@ -250,7 +250,7 @@ describe('Get Post', () => {
       .expect(400)
       .expect(async (response) => {
         expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Invalid post id value');
+        expect(response.body.message).toBe('postId should be a valid object id');
       })
       .end((error) => {
         if (error) {
@@ -445,7 +445,7 @@ describe('Delete post', () => {
       .expect(400)
       .expect(async (response) => {
         expect(response.body.success).toBe(false);
-        expect(response.body.message).toBe('Invalid post id value');
+        expect(response.body.message).toBe('postId should be a valid object id');
       })
       .end((error) => {
         if (error) {
