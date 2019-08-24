@@ -1,31 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import MenuDropDown from '../../elements/MenuDropDown';
+import PostContext from '../../Context/PostContext';
+import {
+  activeTab,
+} from '../../Context/constants';
 
-const PostMenu = ({
-  activeTab, handleWriteClick, handlePreviewClick, handleHelpClick, ...props
-}) => (
-  <Menu attached="top">
-    <Menu.Item name="Write" active={activeTab === 'write'} onClick={handleWriteClick} />
-    <Menu.Item name="Preview" active={activeTab === 'preview'} onClick={handlePreviewClick} />
-    <Menu.Menu position="right">
-      <MenuDropDown
-        {...props}
-      />
-      <Menu.Item active={activeTab === 'help'} onClick={handleHelpClick} position="right">
-        <Icon circular inverted color="teal" name="help" />
-      </Menu.Item>
-    </Menu.Menu>
-  </Menu>
-);
+const PostMenu = () => {
+  const { state, dispatch } = useContext(PostContext);
 
-PostMenu.propTypes = {
-  activeTab: PropTypes.string.isRequired,
-  handleWriteClick: PropTypes.func.isRequired,
-  handlePreviewClick: PropTypes.func.isRequired,
-  handleHelpClick: PropTypes.func.isRequired,
+  const handleWriteClick = () => dispatch({ type: activeTab, payload: 'write' });
+  const handlePreviewClick = () => dispatch({ type: activeTab, payload: 'preview' });
+  const handleHelpClick = () => dispatch({ type: activeTab, payload: 'help' });
+
+  return (
+    <Menu attached="top">
+      <Menu.Item name="Write" active={state.activeTab === 'write'} onClick={handleWriteClick} />
+      <Menu.Item name="Preview" active={state.activeTab === 'preview'} onClick={handlePreviewClick} />
+      <Menu.Menu position="right">
+        <MenuDropDown />
+        <Menu.Item active={state.activeTab === 'help'} onClick={handleHelpClick} position="right">
+          <Icon circular inverted color="teal" name="help" />
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  );
 };
 
 export default PostMenu;

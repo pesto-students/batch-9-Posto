@@ -6,7 +6,7 @@ import styles from './CategoryScrollBar.module.css';
 import axiosConfig from '../../config/axiosConfig';
 import LoaderCentered from '../../elements/LoaderCentered/LoaderCenter';
 
-const CategoryScrollBar = () => {
+const CategoryScrollBar = (props) => {
   const [categories, setCategories] = useState([]);
 
   // eslint-disable-next-line consistent-return
@@ -14,11 +14,11 @@ const CategoryScrollBar = () => {
     try {
       const response = await axios.get('categories', axiosConfig);
       if (!response.data.success) {
-        return console.error('fetching data failed');
+        return alert('fetching data failed');
       }
       setCategories(response.data.categories);
     } catch (err) {
-      console.error(err.message);
+      alert(err.message);
     }
   }
 

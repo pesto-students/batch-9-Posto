@@ -1,32 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Menu, Dropdown } from 'semantic-ui-react';
+import {
+  category,
+} from '../../Context/constants';
+import PostContext from '../../Context/PostContext';
 
-const MenuDropDown = ({
-  value, handleDropDown, options, placeholder,
-}) => (
-  <Menu>
-    <Dropdown
-      item
-      selection
-      onChange={handleDropDown}
-      placeholder={placeholder}
-      options={options}
-      value={value}
-      scrolling
-    />
-  </Menu>
-);
+const MenuDropDown = () => {
+  const { state, dispatch } = useContext(PostContext);
 
-MenuDropDown.propTypes = {
-  value: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
-  handleDropDown: PropTypes.func.isRequired,
+  const handleDropDown = (e, { value }) => dispatch({ type: category, payload: value });
+
+  return (
+    <Menu>
+      <Dropdown
+        item
+        selection
+        onChange={handleDropDown}
+        placeholder="Select post category"
+        options={state.categoryOptions}
+        value={state.category}
+        scrolling
+      />
+    </Menu>
+  );
 };
 
 export default MenuDropDown;
