@@ -16,7 +16,7 @@ const ReplySchema = new Schema({
     required: true,
     default: 'active',
   },
-});
+}, { timestamps: true });
 
 const CommentSchema = new Schema({
   comment: {
