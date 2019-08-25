@@ -40,6 +40,11 @@ const signUp = async (request, response) => {
     const userData = destructorUserData(user);
     const token = getToken(userData);
     if (token) {
+      await sendMail({
+        type: 'welcome',
+        mailOptions: { to: user.email, subject: 'Welcome to Posto!' },
+        variables: { name: user.name },
+      });
       return successfulResponse(response, 201, 'Sign-up successful', userData, token);
     }
     return invalidResponse(response, 500, 'Token could not be created');
@@ -59,9 +64,11 @@ const forgotPassword = async (request, response) => {
     const token = { value: generateToken(), expires: expiryTime };
     const user = await User.findOneAndUpdate({ email: request.body.email }, { token }).select('name');
     if (user) {
-      const mailOptions = { to: user.email, subject: 'Forgot Password' };
-      const variables = { name: user.name, resetLink: `${config.BLOG_URL}reset-password?token=${token.value}` };
-      await sendMail('forgot-password', mailOptions, variables);
+      await sendMail({
+        type: 'forgot-password',
+        mailOptions: { to: user.email, subject: 'Forgot Password' },
+        variables: { name: user.name, resetLink: `${config.BLOG_URL}reset-password?token=${token.value}` },
+      });
     }
     return response.status(200).json({ success: true, message: 'Please check your email for the reset password instructions' });
   } catch (error) {
