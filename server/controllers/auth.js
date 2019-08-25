@@ -1,4 +1,9 @@
+import Joi from '@hapi/joi';
+import joiOptions from '../validations/joiOptions';
 import User from '../models/User';
+import { sendMail } from '../helpers/mail';
+import { ForgotPasswordSchema } from '../validations/auth';
+import config from '../config';
 import {
   invalidResponse,
   destructorUserData,
@@ -6,6 +11,7 @@ import {
   getToken,
   passwordPatternCheck,
 } from '../utils';
+import generateToken from '../helpers/tokenGenerator';
 
 const signIn = async (request, response) => {
   try {
@@ -45,7 +51,26 @@ const signUp = async (request, response) => {
   }
 };
 
+const forgotPassword = async (request, response) => {
+  try {
+    await Joi.validate(request.body, ForgotPasswordSchema, joiOptions);
+    const currentTime = new Date();
+    const expiryTime = (new Date(currentTime.getTime() + 1000 * 600)).valueOf();
+    const token = { value: generateToken(), expires: expiryTime };
+    const user = await User.findOneAndUpdate({ email: request.body.email }, { token }).select('name');
+    if (user) {
+      const mailOptions = { to: user.email, subject: 'Forgot Password' };
+      const variables = { name: user.name, resetLink: `${config.BLOG_URL}reset-password?token=${token.value}` };
+      await sendMail('forgot-password', mailOptions, variables);
+    }
+    return response.status(200).json({ success: true, message: 'Please check your email for the reset password instructions' });
+  } catch (error) {
+    return response.status(400).json({ success: false, message: 'Some internal error occurred', error });
+  }
+};
+
 export {
   signIn,
   signUp,
+  forgotPassword,
 };

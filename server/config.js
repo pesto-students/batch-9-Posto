@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const environment = (process.env.ENVIRONMENT || 'dev').toUpperCase();
 const envVariables = {
+  BLOG_URL: process.env[`${environment}_BLOG_URL`],
   DB_USERNAME: process.env[`${environment}_DB_USERNAME`],
   DB_PASSWORD: process.env[`${environment}_DB_PASSWORD`],
   DB_URI: process.env[`${environment}_DB_URI`],

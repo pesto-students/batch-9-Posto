@@ -33,6 +33,14 @@ const UserSchema = new Schema({
     type: Date,
     default: Date(),
   },
+  token: {
+    value: {
+      type: String,
+    },
+    expires: {
+      type: String,
+    },
+  },
 }, { timestamps: true });
 
 UserSchema.pre('save', async function savePassword(next) {
