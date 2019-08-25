@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import Joi from '@hapi/joi';
 import pug from 'pug';
 import path from 'path';
-import MailSchema from '../validations/mail';
+import { MailSchema } from '../validations/mail';
 import joiOptions from '../validations/joiOptions';
 import config from '../config';
 
@@ -26,6 +26,6 @@ const sendMail = async function sendMail(type, mailOptions, variables) {
   await transporter.sendMail(inputs);
 };
 
-export default {
+export {
   sendMail,
 };

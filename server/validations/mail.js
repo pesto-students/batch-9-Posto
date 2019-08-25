@@ -6,6 +6,6 @@ const MailSchema = Joi.object().keys({
   type: Joi.string().required().allow(['welcome', 'forgot-password']).label('Type'),
 });
 
-export default {
+export {
   MailSchema,
 };
