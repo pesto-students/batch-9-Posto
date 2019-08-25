@@ -14,10 +14,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendMail = async function sendMail(type, mailOptions, variables) {
+const sendMail = async function sendMail(data) {
   if (config.ENVIRONMENT === 'dev') {
     return;
   }
+  const { type, mailOptions, variables } = data;
   const inputs = { ...mailOptions, type };
   await Joi.validate(inputs, MailSchema, joiOptions);
   const filePath = path.resolve(__dirname, `../mailTemplates/${type}.pug`);
