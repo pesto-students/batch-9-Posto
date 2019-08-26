@@ -46,7 +46,7 @@ const addPost = async function addPost(req, res) {
     const post = await newPost.save();
     return res.status(201).json({ success: true, message: 'Post added successfully', post });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not add post', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not add post', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }
@@ -64,7 +64,7 @@ const editPost = async function editPost(req, res) {
     }
     return res.status(200).json({ success: true, message: 'Post updated successfully' });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not update post', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not update post', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }
@@ -88,7 +88,7 @@ const updateUpvote = async function updateUpvote(req, res) {
     }
     return res.status(200).json({ success: true, message: `${type} successful` });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not update post', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not update post', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }
@@ -171,7 +171,7 @@ const searchPosts = async function searchPosts(req, res) {
     }
     return res.status(200).json({ success: true, message: 'Results found', results });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not fetch search results', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not fetch search results', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }

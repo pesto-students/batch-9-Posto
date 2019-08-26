@@ -29,7 +29,7 @@ const updateUser = async function updateUser(req, res) {
     }
     return res.status(200).json({ success: false, message: 'User could not be updated' });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not update user', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not update user', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }

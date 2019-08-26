@@ -1,30 +1,15 @@
 import express from 'express';
 import replies from './replies';
+import verifyValidObjectId from '../middleware/validObjectId';
 
-const router = express.Router();
+import comments from '../controllers/comments';
 
-router.get('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+const router = express.Router({ mergeParams: true });
 
-router.get('/:commentId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.get('/', comments.getComments);
 
-router.post('/', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.post('/', comments.addComment);
 
-router.put('/:commentId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
+router.use('/:commentId/replies', verifyValidObjectId, replies);
 
-router.delete('/:commentId', (req, res) => {
-  res.status(200).json({ success: true, message: '' });
-});
-
-
-router.use('/:commentId/replies', replies);
-
-
-module.exports = router;
+export default router;

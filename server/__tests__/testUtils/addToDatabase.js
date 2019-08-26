@@ -1,6 +1,7 @@
 import postModel from '../../models/Post';
 import userModel from '../../models/User';
 import categoryModel from '../../models/Category';
+import commentModel from '../../models/Comment';
 
 async function createPosts() {
   await postModel.syncIndexes();
@@ -131,8 +132,43 @@ async function createCategories() {
   ];
 }
 
+async function createComments(postId) {
+  const comment1 = await commentModel.create({
+    comment: 'Great post!',
+    author: '5d5adea00f61796594c32dec',
+    post: postId,
+    status: 'active',
+  });
+
+  const comment2 = await commentModel.create({
+    comment: 'Thanks for sharing your views',
+    author: '5d5ba0b0d14453a47b1a379a',
+    post: postId,
+    status: 'active',
+  });
+
+  const comment3 = await commentModel.create({
+    comment: 'Thanks, it saved me a hell lot of time',
+    author: '5d5ba0b0d14453a47b1a379b',
+    post: postId,
+    status: 'active',
+  });
+
+  const comment4 = await commentModel.create({
+    comment: 'Good',
+    author: '5d5ba0b0d14453a47b1a379c',
+    post: '5d5ba0b0d14453a47b1a591c',
+    status: 'active',
+  });
+
+  return {
+    comment1, comment2, comment3, comment4,
+  };
+}
+
 export default {
   createUsers,
   createPosts,
   createCategories,
+  createComments,
 };
