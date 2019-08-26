@@ -32,10 +32,10 @@ const PostSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  view: {
+  views: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
-  },
+  }],
 }, { timestamps: true });
 
 PostSchema.index({
