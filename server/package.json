@@ -6,7 +6,8 @@
   "scripts": {
     "start": "babel-node ./bin/www",
     "test": "jest --coverage .test.js",
-    "lint": "eslint --ext .js . --fix"
+    "lint": "eslint --ext .js . --fix",
+    "db:seed": "babel-node seedGenerator/ && babel-node seedGenerator/populate"
   },
   "author": "Navneet Sahota",
   "jest": {
@@ -44,6 +45,7 @@
     "cloudinary": "1.14.0"
   },
   "devDependencies": {
+    "faker": "^4.1.0",
     "jest": "24.8.0",
     "mongodb-memory-server": "^5.2.0",
     "nodemon": "^1.19.1",
