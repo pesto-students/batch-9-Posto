@@ -38,7 +38,7 @@ const UserSchema = new Schema({
       type: String,
     },
     expires: {
-      type: String,
+      type: Number,
     },
   },
 }, { timestamps: true });
@@ -47,6 +47,19 @@ UserSchema.pre('save', async function savePassword(next) {
   try {
     const hashedPassword = await bcrypt.hash(this.password, 10);
     this.password = hashedPassword;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
+UserSchema.pre('updateOne', async function updateOneUser (next) {
+  try {
+    const { password } = this.getUpdate();
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      this._update.password = hashedPassword;
+    }
     return next();
   } catch (error) {
     return next(error);

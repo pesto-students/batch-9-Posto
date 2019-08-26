@@ -2,7 +2,7 @@ import Joi from '@hapi/joi';
 import joiOptions from '../validations/joiOptions';
 import User from '../models/User';
 import { sendMail } from '../helpers/mail';
-import { ForgotPasswordSchema } from '../validations/auth';
+import { ForgotPasswordSchema, ResetPasswordSchema } from '../validations/auth';
 import config from '../config';
 import {
   invalidResponse,
@@ -62,7 +62,7 @@ const forgotPassword = async (request, response) => {
     const currentTime = new Date();
     const expiryTime = (new Date(currentTime.getTime() + 1000 * 600)).valueOf();
     const token = { value: generateToken(), expires: expiryTime };
-    const user = await User.findOneAndUpdate({ email: request.body.email }, { token }).select('name');
+    const user = await User.findOneAndUpdate({ email: request.body.email }, { token }).select('name email');
     if (user) {
       await sendMail({
         type: 'forgot-password',
@@ -76,8 +76,36 @@ const forgotPassword = async (request, response) => {
   }
 };
 
+const resetPassword = async (request, response) => {
+  try {
+    await Joi.validate(request.body, ResetPasswordSchema, joiOptions);
+    const { token, newPassword } = request.body;
+    const currentTime = (new Date()).valueOf();
+    const user = await User.findOne(
+      {
+        $and: [
+          { 'token.value': token },
+          { 'token.expires': { $gte: currentTime } },
+        ],
+      },
+    ).lean();
+    if (!user) {
+      return response.status(400).json({ success: false, message: 'Token has expired' });
+    }
+    await User.updateOne({ 'token.value': token }, { password: newPassword, $unset: { token: '' } }).lean();
+    return response.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    const errorResponse = { success: false, message: 'Could not reset password', isJoi: Boolean(error.isJoi) };
+    if (error.isJoi) {
+      errorResponse.error = error.details;
+    }
+    return response.status(400).json(errorResponse);
+  }
+};
+
 export {
   signIn,
   signUp,
   forgotPassword,
+  resetPassword,
 };
