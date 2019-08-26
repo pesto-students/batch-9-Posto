@@ -30,6 +30,12 @@ const filterPostsQuery = (type, userId) => {
     };
   }
 
+  if (!type && userId) {
+    query = {
+      author: userId,
+    };
+  }
+
   return query;
 };
 
