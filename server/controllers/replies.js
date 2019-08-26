@@ -13,7 +13,7 @@ const addReply = async (req, res) => {
     const savedComment = await comment.save();
     return res.status(201).json({ success: true, message: 'Reply added successfully', savedComment });
   } catch (error) {
-    const errorResponse = { success: false, message: 'Could not add reply', isJoi: !!error.isJoi };
+    const errorResponse = { success: false, message: 'Could not add reply', isJoi: Boolean(error.isJoi) };
     if (error.isJoi) {
       errorResponse.error = error.details;
     }
