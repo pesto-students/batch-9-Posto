@@ -1,4 +1,4 @@
-div.scrollmenu {
+.scrollmenu {
   background-color: #333;
   overflow: auto;
   white-space: nowrap;
@@ -6,7 +6,7 @@ div.scrollmenu {
   text-align: center
 }
 
-div.scrollmenu a {
+.linkStyle {
   display: inline-block;
   color: white;
   text-align: center;
@@ -14,8 +14,9 @@ div.scrollmenu a {
   text-decoration: none;
 }
 
-div.scrollmenu a:hover {
+.linkStyle:hover {
   background-color: teal;
+  color: white;
 }
 
 .loader {

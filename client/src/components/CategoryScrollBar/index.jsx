@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import './index.css';
+import styles from './CategoryScrollBar.module.css';
 import axiosConfig from '../../config/axiosConfig';
 import LoaderCentered from '../../elements/LoaderCentered/LoaderCenter';
 
@@ -29,15 +29,16 @@ const CategoryScrollBar = () => {
   const renderCategories = () => {
     if (categories.length === 0) {
       return (
-        <div className="loader">
+        <div className={styles.loader}>
           <LoaderCentered />
         </div>
       );
     }
     return (
-      <div className="scrollmenu">
+      <div className={styles.scrollmenu}>
         {categories.map((category) => (
           <Link
+            className={styles.linkStyle}
             to={{
               pathname: `/category/${category.name}`,
               state: {
