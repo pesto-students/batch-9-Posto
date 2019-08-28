@@ -36,6 +36,10 @@ const filterPostsQuery = (type, userId) => {
     };
   }
 
+  if (!userId) {
+    delete query.author;
+  }
+
   return query;
 };
 
