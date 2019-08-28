@@ -19,13 +19,13 @@ const createPosts = (totalPosts) => {
       title: faker.lorem.sentence(),
       author: ObjectId(users[faker.random.number({ min: 0, max: users.length - 1 })]._id),
       content: faker.lorem.paragraphs(),
-      upvotes: getUserObjectIds(30),
+      upvotes: getUserObjectIds(faker.random.number({ min: 0, max: 20 })),
       category: ObjectId(categories[faker.random.number(
         { min: 0, max: categories.length - 1 },
       )]._id),
       public: faker.random.arrayElement([true, false, true, true, true]),
       published: faker.random.arrayElement([true, false, true, true, true]),
-      views: getUserObjectIds(30),
+      views: getUserObjectIds(faker.random.number({ min: 0, max: 20 })),
     });
   }
   return posts;

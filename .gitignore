@@ -39,3 +39,6 @@ jspm_packages
 
 # Env files
 *.env
+
+# seed generator files
+/server/seedGenerator/seeds/*
