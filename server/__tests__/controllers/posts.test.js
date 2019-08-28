@@ -345,7 +345,7 @@ describe('Get Posts', () => {
         expect(response.body.success).toBe(true);
         expect(response.body.message).toBe('Posts fetched');
         const post3 = JSON.parse(JSON.stringify(posts.post3));
-        expect(response.body.posts[0]).toMatchObject(post3);
+        expect(response.body.posts[0]).toMatchObject({ ...post3, author: null, category: null });
       })
       .end((error) => {
         if (error) {
@@ -366,8 +366,8 @@ describe('Get Posts', () => {
         expect(response.body.message).toBe('Posts fetched');
         const post1 = JSON.parse(JSON.stringify(posts.post1));
         const post2 = JSON.parse(JSON.stringify(posts.post2));
-        expect(response.body.posts[0]).toMatchObject(post1);
-        expect(response.body.posts[1]).toMatchObject(post2);
+        expect(response.body.posts[0]).toMatchObject({ ...post1, author: null, category: null });
+        expect(response.body.posts[1]).toMatchObject({ ...post2, author: null, category: null });
       })
       .end((error) => {
         if (error) {
@@ -388,8 +388,8 @@ describe('Get Posts', () => {
         expect(response.body.message).toBe('Posts fetched');
         const post4 = JSON.parse(JSON.stringify(posts.post4));
         const post3 = JSON.parse(JSON.stringify(posts.post3));
-        expect(response.body.posts[0]).toMatchObject(post4);
-        expect(response.body.posts[1]).toMatchObject(post3);
+        expect(response.body.posts[0]).toMatchObject({ ...post4, author: null, category: null });
+        expect(response.body.posts[1]).toMatchObject({ ...post3, author: null, category: null });
       })
       .end((error) => {
         if (error) {
