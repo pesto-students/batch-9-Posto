@@ -28,10 +28,16 @@ export default function BlogCard({ data }) {
 
 BlogCard.propTypes = {
   data: PropTypes.shape({
-    category: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
 };

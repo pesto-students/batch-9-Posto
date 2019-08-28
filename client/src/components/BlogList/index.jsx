@@ -34,15 +34,20 @@ BlogList.defaultProps = {
 BlogList.propTypes = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
-      author: PropTypes.string,
-      category: PropTypes.string,
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      category: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
       content: PropTypes.string,
       public: PropTypes.bool,
       published: PropTypes.bool,
       title: PropTypes.string,
       upvotes: PropTypes.array,
       views: PropTypes.array,
-      _id: PropTypes.string,
     }),
   ),
 };
