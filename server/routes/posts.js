@@ -9,6 +9,8 @@ router.get('/', posts.getPosts);
 
 router.get('/:postId', verifyValidObjectId, posts.getPost);
 
+router.get('/top/:limit', posts.topPosts);
+
 router.post('/', posts.addPost);
 
 router.post('/search', posts.searchPosts);
