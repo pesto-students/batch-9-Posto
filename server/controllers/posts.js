@@ -124,7 +124,13 @@ const getPosts = async function getPosts(req, res) {
     order[`${orderBy}`] = orderType;
     const projections = req.query.keys || '';
     const select = projections.split(',').join(' ');
-    const posts = await Post.find(filterCondition).select(select).sort(order).skip(skip)
+    const posts = await Post
+      .find(filterCondition)
+      .select(select)
+      .populate('author', '_id name')
+      .populate('category', '_id name')
+      .sort(order)
+      .skip(skip)
       .limit(limit);
 
     if (Array.isArray(posts) && !posts.length) {
