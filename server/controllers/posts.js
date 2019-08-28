@@ -5,7 +5,7 @@ import {
 } from '../validations/posts';
 import joiOptions from '../validations/joiOptions';
 
-const filterPostsQuery = (type, userId) => {
+const filterPostsQuery = (type, userId, categoryId) => {
   let query = {};
   if (type === 'user-published') {
     query = {
@@ -30,6 +30,14 @@ const filterPostsQuery = (type, userId) => {
     };
   }
 
+  if (type === 'categories' && categoryId) {
+    query = {
+      category: categoryId,
+      public: true,
+      published: true,
+    };
+  }
+
   if (!type && userId) {
     query = {
       author: userId,
@@ -38,6 +46,10 @@ const filterPostsQuery = (type, userId) => {
 
   if (!userId) {
     delete query.author;
+  }
+
+  if (!categoryId) {
+    delete query.category;
   }
 
   return query;
@@ -115,7 +127,11 @@ const getPost = async function getPost(req, res) {
 
 const getPosts = async function getPosts(req, res) {
   try {
-    const filterCondition = filterPostsQuery(req.query.type, req.query.userId);
+    const filterCondition = filterPostsQuery(
+      req.query.type,
+      req.query.userId,
+      req.query.categoryId,
+    );
     const limit = parseInt(req.query.limit, 10) || 10;
     const skip = parseInt(req.query.skip, 10) || 0;
     const orderBy = req.query.orderBy || 'createdAt';
