@@ -48,4 +48,26 @@ const getCategories = async () => {
   return result;
 };
 
-export { createPost, updatePost, getCategories };
+const signup = async (body) => {
+  let response;
+  try {
+    response = await axios.post('auth/signup', body, axiosConfig);
+  } catch (err) {
+    return alert(err.response.data.message);
+  }
+  return response.data.user;
+};
+
+const signin = async (body) => {
+  let response;
+  try {
+    response = await axios.post('auth/signin', body, axiosConfig);
+  } catch (err) {
+    return alert(err.response.data.message);
+  }
+  return response.data.user;
+};
+
+export {
+  createPost, updatePost, getCategories, signup, signin,
+};

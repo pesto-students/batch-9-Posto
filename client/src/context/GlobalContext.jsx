@@ -1,6 +1,7 @@
 import React from 'react';
 
 const initialState = {
+  user: {},
   title: '',
   content: '',
   category: '',
@@ -9,6 +10,6 @@ const initialState = {
   isPublic: true,
 };
 
-const PostContext = React.createContext(initialState);
+const GlobalContext = React.createContext(initialState);
 
-export default PostContext;
+export default GlobalContext;

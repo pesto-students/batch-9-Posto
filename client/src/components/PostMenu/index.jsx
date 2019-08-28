@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import MenuDropDown from '../../elements/MenuDropDown';
-import PostContext from '../../Context/PostContext';
+import GlobalContext from '../../context/GlobalContext';
 import {
-  activeTab,
-} from '../../Context/constants';
+  ACTIVE_TAB,
+} from '../../context/constants';
 
 const PostMenu = () => {
-  const { state, dispatch } = useContext(PostContext);
+  const { state, dispatch } = useContext(GlobalContext);
 
-  const handleWriteClick = () => dispatch({ type: activeTab, payload: 'write' });
-  const handlePreviewClick = () => dispatch({ type: activeTab, payload: 'preview' });
-  const handleHelpClick = () => dispatch({ type: activeTab, payload: 'help' });
+  const handleWriteClick = () => dispatch({ type: ACTIVE_TAB, payload: 'write' });
+  const handlePreviewClick = () => dispatch({ type: ACTIVE_TAB, payload: 'preview' });
+  const handleHelpClick = () => dispatch({ type: ACTIVE_TAB, payload: 'help' });
 
   return (
     <Menu attached="top">

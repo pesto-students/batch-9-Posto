@@ -1,34 +1,38 @@
 import {
-  title, content, category, activeTab, categoryOptions, isPublic,
+  USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC,
 } from './constants';
 
 export default function reducer(state, action) {
   switch (action.type) {
-    case title: return {
+    case USER: return {
+      ...state,
+      user: action.payload,
+    };
+    case TITLE: return {
       ...state,
       title: action.payload,
     };
-    case content:
+    case CONTENT:
       return {
         ...state,
         content: action.payload,
       };
-    case category:
+    case CATEGORY:
       return {
         ...state,
         category: action.payload,
       };
-    case activeTab:
+    case ACTIVE_TAB:
       return {
         ...state,
         activeTab: action.payload,
       };
-    case categoryOptions:
+    case CATEGORY_OPTIONS:
       return {
         ...state,
         categoryOptions: action.payload,
       };
-    case isPublic:
+    case IS_PUBLIC:
       return {
         ...state,
         isPublic: action.payload,

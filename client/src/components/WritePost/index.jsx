@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { createPost } from '../../API';
 import Post from '../Post';
-import PostContext from '../../Context/PostContext';
+import GlobalContext from '../../context/GlobalContext';
 
 const WritePost = () => {
-  const { state } = useContext(PostContext);
+  const { state } = useContext(GlobalContext);
   const [postId, setPostId] = useState('');
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
@@ -13,7 +13,7 @@ const WritePost = () => {
   const handlePublish = async () => {
     setIsPublishedLoading(true);
     const body = {
-      author: '5d5d60a51930b06b21e65765',
+      author: state.user.id,
       title: state.title,
       content: state.content,
       category: state.category,
@@ -27,7 +27,7 @@ const WritePost = () => {
   const handleSave = async () => {
     setIsSaveLoading(true);
     const body = {
-      author: '5d5d60a51930b06b21e65765',
+      author: state.user.id,
       title: state.title,
       content: state.content,
       category: state.category,

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { Menu, Dropdown } from 'semantic-ui-react';
 import {
-  category,
-} from '../../Context/constants';
-import PostContext from '../../Context/PostContext';
+  CATEGORY,
+} from '../../context/constants';
+import GlobalContext from '../../context/GlobalContext';
 
 const MenuDropDown = () => {
-  const { state, dispatch } = useContext(PostContext);
+  const { state, dispatch } = useContext(GlobalContext);
 
-  const handleDropDown = (e, { value }) => dispatch({ type: category, payload: value });
+  const handleDropDown = (e, { value }) => dispatch({ type: CATEGORY, payload: value });
 
   return (
     <Menu>
