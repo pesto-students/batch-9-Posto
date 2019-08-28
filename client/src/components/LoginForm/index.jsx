@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button, Form, Message, Segment,
 } from 'semantic-ui-react';
 
+import GlobalContext from '../../context/GlobalContext';
+import { signin } from '../../API';
 import EmailInput from '../EmailInput';
 import PasswordInput from '../PasswordInput';
 import { useInput } from '../../hooks';
 
 const LoginForm = () => {
+  const { dispatch } = useContext(GlobalContext);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
 
-  const onLogin = () => {
-    console.log(email, password);
+  const handleLogin = async () => {
+    const data = { email, password };
+    const user = await signin(data);
+    localStorage.setItem('user', JSON.stringify(user));
+    dispatch({ type: 'user', payload: user });
   };
 
   return (
     <>
-      <Form size="large" onSubmit={onLogin}>
+      <Form size="large" onSubmit={handleLogin}>
         <Segment>
           <EmailInput focus value={email} onChange={setEmail} />
           <PasswordInput value={password} onChange={setPassword} />

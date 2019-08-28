@@ -1,13 +1,12 @@
-import React, { useEffect, useReducer, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Segment } from 'semantic-ui-react';
-import PostContext from '../../Context/PostContext';
 import {
-  title, content, category, categoryOptions, isPublic,
-} from '../../Context/constants';
+  TITLE, CONTENT, CATEGORY, CATEGORY_OPTIONS, IS_PUBLIC,
+} from '../../context/constants';
+import GlobalContext from '../../context/GlobalContext';
 
-import reducer from '../../Context/PostReducer';
 import { getCategories } from '../../API';
 import WritePost from '../../components/WritePost';
 import EditPost from '../../components/EditPost';
@@ -17,13 +16,11 @@ import PostMenu from '../../components/PostMenu';
 import axiosConfig from '../../config/axiosConfig';
 
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
-  const initialState = useContext(PostContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+  const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
     const fetchData = async () => {
       const options = await getCategories();
-      dispatch({ type: categoryOptions, payload: options });
+      dispatch({ type: CATEGORY_OPTIONS, payload: options });
     };
     fetchData();
   }, []);
@@ -35,12 +32,12 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
           const response = await axios.get(`posts/${postId}`, axiosConfig);
           if (response.data.success) {
             const { post } = response.data;
-            dispatch({ type: title, payload: post.title });
-            dispatch({ type: content, payload: post.content });
+            dispatch({ type: TITLE, payload: post.title });
+            dispatch({ type: CONTENT, payload: post.content });
             if (post.category) {
-              dispatch({ type: category, payload: post.category });
+              dispatch({ type: CATEGORY, payload: post.category });
             }
-            dispatch({ type: isPublic, payload: post.public });
+            dispatch({ type: IS_PUBLIC, payload: post.public });
           } else {
             alert(response.data);
           }
@@ -56,18 +53,16 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
     ? <PreviewPost title={state.title} content={state.content} /> : <h1>Help</h1>);
   return (
     <CenterPost>
-      <PostContext.Provider value={{ state, dispatch }}>
-        <PostMenu />
-        <Segment attached="bottom">
-          {
-            state.activeTab === 'write'
-              ? postId
-                ? <EditPost postId={postId} />
-                : <WritePost />
-              : <DisplayContent />
-          }
-        </Segment>
-      </PostContext.Provider>
+      <PostMenu />
+      <Segment attached="bottom">
+        {
+          state.activeTab === 'write'
+            ? postId
+              ? <EditPost postId={postId} />
+              : <WritePost />
+            : <DisplayContent />
+        }
+      </Segment>
     </CenterPost>
   );
 };

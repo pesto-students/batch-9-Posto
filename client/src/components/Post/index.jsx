@@ -4,20 +4,20 @@ import TextareaAutosize from 'react-autosize-textarea';
 import {
   Button, Radio, Divider, Message,
 } from 'semantic-ui-react';
-import PostContext from '../../Context/PostContext';
+import GlobalContext from '../../context/GlobalContext';
 import {
-  title, content, isPublic,
-} from '../../Context/constants';
+  TITLE, CONTENT, IS_PUBLIC,
+} from '../../context/constants';
 import styles from './Post.module.css';
 
 const Post = ({
   handlePublish, handleSave, saveDisabled, publishDisabled, isSaveLoading, isPublishedLoading,
 }) => {
-  const { state, dispatch } = useContext(PostContext);
+  const { state, dispatch } = useContext(GlobalContext);
 
-  const onTitleChange = (event) => dispatch({ type: title, payload: event.target.value });
-  const onContentChange = (event) => dispatch({ type: content, payload: event.target.value });
-  const onPublicChange = () => dispatch({ type: isPublic, payload: !state.isPublic });
+  const onTitleChange = (event) => dispatch({ type: TITLE, payload: event.target.value });
+  const onContentChange = (event) => dispatch({ type: CONTENT, payload: event.target.value });
+  const onPublicChange = () => dispatch({ type: IS_PUBLIC, payload: !state.isPublic });
 
   return (
     <>
