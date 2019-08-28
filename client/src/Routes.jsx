@@ -33,10 +33,8 @@ const routes = [
 
 function Routes() {
   const { state } = useContext(GlobalContext);
-  const user = state.user || JSON.parse(localStorage.getItem('user'));
-  console.log(user);
   return (
-    !user || !user.token
+    !state.user || !state.user.token
       ? (
         <>
           <Switch>
