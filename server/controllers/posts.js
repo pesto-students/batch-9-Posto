@@ -205,6 +205,48 @@ const searchPosts = async function searchPosts(req, res) {
   }
 };
 
+const topPosts = async (req, res) => {
+  try {
+    const limit = req.body.limit || 10;
+    const posts = await Post.aggregate([
+      { $match: { public: true, published: true } },
+      { $addFields: { upvotesCount: { $size: { $ifNull: ['$upvotes', []] } } } },
+      {
+        $lookup: {
+          from: 'users', localField: 'author', foreignField: '_id', as: 'author',
+        },
+      },
+      { $unwind: '$author' },
+      {
+        $lookup: {
+          from: 'categories', localField: 'category', foreignField: '_id', as: 'category',
+        },
+      },
+      { $unwind: '$category' },
+      { $sort: { upVotesCount: -1 } },
+      { $limit: limit },
+      {
+        $project: {
+          content: 1,
+          title: 1,
+          'author._id': 1,
+          'author.profilePic': 1,
+          'author.name': 1,
+          'author.email': 1,
+          'category._id': 1,
+          'category.name': 1,
+          createdAt: 1,
+          updatedAt: 1,
+          upvotesCount: 1,
+        },
+      },
+    ]);
+    return res.status(200).json({ success: true, message: 'Posts fetched', posts });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: 'Could not fetch posts' });
+  }
+};
+
 const controllerMethods = {
   addPost,
   editPost,
@@ -213,6 +255,7 @@ const controllerMethods = {
   getPosts,
   deletePost,
   searchPosts,
+  topPosts,
 };
 
 export default controllerMethods;
