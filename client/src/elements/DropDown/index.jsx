@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown, Image } from 'semantic-ui-react';
 
+import GlobalContext from '../../context/GlobalContext';
+import { LOGOUT } from '../../context/constants';
+
 const DropDown = ({ triggerImage, options }) => {
+  const [dropdownValue, setDropdownValue] = useState(null);
+  const { dispatch } = useContext(GlobalContext);
+
   const trigger = (
     <span>
       <Image src={triggerImage} style={{ height: '35px', width: '35px' }} />
     </span>
   );
+  const handleChange = (e, { value }) => {
+    if (value === 4) {
+      localStorage.clear();
+      dispatch({ type: LOGOUT });
+    }
+    setDropdownValue(value);
+  };
 
   return (
-    <Dropdown trigger={trigger} options={options} pointing="top right" icon={null} />
+    <Dropdown onChange={handleChange} value={dropdownValue} trigger={trigger} options={options} pointing="top right" icon={null} />
   );
 };
 

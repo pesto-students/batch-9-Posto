@@ -1,14 +1,5 @@
 import React from 'react';
-
-const initialState = {
-  user: {},
-  title: '',
-  content: '',
-  category: '',
-  activeTab: 'write',
-  categoryOptions: [],
-  isPublic: true,
-};
+import initialState from './initialState';
 
 const GlobalContext = React.createContext(initialState);
 

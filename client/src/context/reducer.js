@@ -1,6 +1,7 @@
 import {
-  USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC,
+  LOGOUT, USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC,
 } from './constants';
+import initialState from './initialState';
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -37,6 +38,7 @@ export default function reducer(state, action) {
         ...state,
         isPublic: action.payload,
       };
+    case LOGOUT: return initialState;
     default:
       return state;
   }
