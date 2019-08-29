@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDebouncedCallback } from 'use-debounce';
 
 import GlobalContext from '../../context/GlobalContext';
 import { updatePost } from '../../API';
@@ -11,34 +12,38 @@ const EditPost = ({ postId }) => {
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
 
   const handlePublish = async () => {
-    setIsPublishedLoading(true);
-    const body = {
-      author: state.user.id,
-      title: state.title,
-      content: state.content,
-      category: state.category,
-      public: state.isPublic,
-      published: true,
-    };
-    await updatePost(body, postId);
-    setIsPublishedLoading(false);
+    if (state.title && state.content) {
+      setIsPublishedLoading(true);
+      const body = {
+        author: state.user.id,
+        title: state.title,
+        content: state.content,
+        category: state.category,
+        public: state.isPublic,
+        published: true,
+      };
+      await updatePost(body, postId);
+      setIsPublishedLoading(false);
+    }
   };
 
   const handleSave = async () => {
-    setIsSaveLoading(true);
-    const body = {
-      author: state.user.id,
-      title: state.title,
-      content: state.content,
-      category: state.category,
-      public: state.isPublic,
-      published: false,
-    };
-    if (!body.category) {
-      delete body.category;
+    if (state.title && state.content) {
+      setIsSaveLoading(true);
+      const body = {
+        author: state.user.id,
+        title: state.title,
+        content: state.content,
+        category: state.category,
+        public: state.isPublic,
+        published: false,
+      };
+      if (!body.category) {
+        delete body.category;
+      }
+      await updatePost(body, postId);
+      setIsSaveLoading(false);
     }
-    await updatePost(body, postId);
-    setIsSaveLoading(false);
   };
 
   let saveDisabled = true;
@@ -49,6 +54,19 @@ const EditPost = ({ postId }) => {
   if (state.category && state.title && state.content) {
     publishDisabled = false;
   }
+
+  const [debouncedCallback] = useDebouncedCallback(
+    async (body) => {
+      await handleSave(body);
+    }, 2500,
+  );
+
+  useEffect(() => {
+    if (state.title && state.content) {
+      debouncedCallback();
+    }
+  }, [state.title, state.content, state.category, state.isPublic]);
+
   return (
     <Post
       handlePublish={handlePublish}
