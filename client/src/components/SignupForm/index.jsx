@@ -10,6 +10,7 @@ import EmailInput from '../EmailInput';
 import PasswordInput from '../PasswordInput';
 import TextInput from '../TextInput';
 import { useInput } from '../../hooks';
+import { USER } from '../../context/constants';
 
 const SignupForm = () => {
   const { dispatch } = useContext(GlobalContext);
@@ -22,7 +23,8 @@ const SignupForm = () => {
     try {
       const data = { name, email, password };
       const user = await signup(data);
-      dispatch({ type: user, payload: user });
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch({ type: USER, payload: user });
     } catch (err) {
       alert(err);
     }
