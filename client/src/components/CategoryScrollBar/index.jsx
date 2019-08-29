@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { getCategories } from '../../API';
 import styles from './CategoryScrollBar.module.css';
-import axiosConfig from '../../config/axiosConfig';
 import LoaderCentered from '../../elements/LoaderCentered/LoaderCenter';
 
-const CategoryScrollBar = (props) => {
+const CategoryScrollBar = () => {
   const [categories, setCategories] = useState([]);
 
   // eslint-disable-next-line consistent-return
   async function fetchData() {
     try {
-      const response = await axios.get('categories', axiosConfig);
-      if (!response.data.success) {
+      const response = await getCategories();
+      if (!response) {
         return alert('fetching data failed');
       }
-      setCategories(response.data.categories);
+      setCategories(response);
     } catch (err) {
       alert(err.message);
     }
@@ -40,14 +39,14 @@ const CategoryScrollBar = (props) => {
           <Link
             className={styles.linkStyle}
             to={{
-              pathname: `/category/${category.name}`,
+              pathname: `/category/${category.text}`,
               state: {
-                categoryId: category._id,
+                categoryId: category.key,
               },
             }}
-            key={category._id}
+            key={category.key}
           >
-            {category.name}
+            {category.text}
           </Link>
         ))}
       </div>

@@ -9,6 +9,7 @@ import { signin } from '../../API';
 import EmailInput from '../EmailInput';
 import PasswordInput from '../PasswordInput';
 import { useInput } from '../../hooks';
+import { USER } from '../../context/constants';
 
 const LoginForm = () => {
   const { dispatch } = useContext(GlobalContext);
@@ -17,9 +18,13 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     const data = { email, password };
-    const user = await signin(data);
-    localStorage.setItem('user', JSON.stringify(user));
-    dispatch({ type: 'user', payload: user });
+    try {
+      const user = await signin(data);
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch({ type: USER, payload: user });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (

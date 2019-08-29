@@ -19,9 +19,13 @@ const SignupForm = () => {
   const [verifyPassword, setVerifyPassword] = useInput('');
 
   const onSignup = async () => {
-    const data = { name, email, password };
-    const user = await signup(data);
-    dispatch({ type: user, payload: user });
+    try {
+      const data = { name, email, password };
+      const user = await signup(data);
+      dispatch({ type: user, payload: user });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
@@ -38,7 +42,7 @@ const SignupForm = () => {
             verify
           />
           <Button type="submit" color="teal" fluid size="large">
-          Sign up
+            Sign up
           </Button>
         </Segment>
       </Form>
