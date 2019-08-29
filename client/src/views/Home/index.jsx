@@ -9,21 +9,32 @@ import BlogList from '../../components/BlogList';
 
 const HomePage = () => {
   const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchBlogs = async () => {
-    const params = {
-      limit: 10,
-      skip: 0,
-      orderBy: 'createdAt',
-      orderType: -1,
-    };
-    const response = await axios.get(`posts?limit=${params.limit}&skip=${params.skip}&orderby=${params.orderBy}&orderType=${params.orderType}`, axiosConfig);
-    setBlogs(response.data.posts);
+    try {
+      const response = await axios.get('posts/top/10', axiosConfig);
+      if (!response.data.posts) {
+        setError('No blogs found on the topic');
+      } else {
+        setError(null);
+        setBlogs(response.data.posts);
+      }
+    } catch (err) {
+      setError('Network Error');
+    }
   };
 
   useEffect(() => {
     fetchBlogs();
   }, []);
+
+  const conditionallyRenderBlogs = () => {
+    if (error) {
+      return <h4>{error}</h4>;
+    }
+    return <BlogList blogs={blogs} />;
+  };
 
   return (
     <>
@@ -34,7 +45,7 @@ const HomePage = () => {
           style={{ paddingBottom: '20px' }}
         >Top 10 Blogs.
         </h1>
-        <BlogList blogs={blogs} />
+        {conditionallyRenderBlogs()}
       </CenteredContainer>
     </>
   );

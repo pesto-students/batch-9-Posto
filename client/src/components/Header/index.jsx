@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import CenterContainer from '../../elements/CenterContainer';
 import HeaderMenu from '../../elements/HeaderMenu';
@@ -14,7 +13,7 @@ import postoSm from '../../assets/postoSm.svg';
 import posto from '../../assets/posto.svg';
 import avatar from '../../assets/avatar.png';
 
-const Header = ({ history }) => {
+const Header = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const imageUrl = windowWidth >= 650 ? posto : postoSm;
 
@@ -48,7 +47,8 @@ const Header = ({ history }) => {
               width: window.innerWidth >= 650 ? '80px' : '15px',
               cursor: 'pointer',
             }}
-            onClick={() => history.push('/home')}
+            as={Link}
+            to="/"
           />
         </MenuItem>
         <HeaderMenuRight>
@@ -64,10 +64,4 @@ const Header = ({ history }) => {
   );
 };
 
-Header.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-export default withRouter(Header);
+export default Header;
