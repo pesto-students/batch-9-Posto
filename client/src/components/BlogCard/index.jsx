@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
 import BlogDetails from '../BlogDetails';
@@ -10,7 +11,7 @@ export default function BlogCard({ data }) {
 
   return (
     <div className={styles.container}>
-      <a className={styles.cardLink} href="#here">
+      <a className={styles.cardLink} href="">
         <article className={styles.blogCard}>
           <img className={styles.postImage} src={image} alt="Article" />
           <BlogDetails data={{
