@@ -115,7 +115,9 @@ const updateUpvote = async function updateUpvote(req, res) {
 const getPost = async function getPost(req, res) {
   try {
     const { postId } = req.params;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId)
+      .populate('author', '_id name email')
+      .populate('category', '_id name');
     if (!post) {
       return res.status(200).json({ success: false, message: 'Post not found' });
     }
