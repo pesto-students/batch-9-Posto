@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
-import axiosConfig from '../../config/axiosConfig';
+import { fetchCategoryBlogs } from '../../API';
 import BlogList from '../../components/BlogList';
 import CenterContainer from '../../elements/CenterContainer';
 import Header from '../../components/Header';
@@ -22,7 +21,7 @@ const CategoryPage = ({ match, location }) => {
       categoryId: location.state.categoryId,
     };
     try {
-      const response = await axios.get(`posts?limit=${params.limit}&skip=${params.skip}&orderby=${params.orderBy}&orderType=${params.orderType}&type=${params.type}&categoryId=${params.categoryId}`, axiosConfig);
+      const response = await fetchCategoryBlogs(params);
       if (!response.data.posts) {
         setError('No blogs found on the topic');
       } else {

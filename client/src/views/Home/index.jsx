@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
-import axiosConfig from '../../config/axiosConfig';
+import { getTop10Posts } from '../../API';
 import CenteredContainer from '../../elements/CenterContainer';
 import Header from '../../components/Header';
 import CategoryScrollBar from '../../components/CategoryScrollBar';
@@ -13,7 +12,7 @@ const HomePage = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('posts/top/10', axiosConfig);
+      const response = await getTop10Posts();
       if (!response.data.posts) {
         setError('No blogs found on the topic');
       } else {
