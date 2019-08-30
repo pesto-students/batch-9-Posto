@@ -192,6 +192,7 @@ const searchPosts = async function searchPosts(req, res) {
       .skip(parseInt(skip, 10))
       .limit(parseInt(limit, 10))
       .populate('author', 'profilePic email name')
+      .populate('category', 'name')
       .lean();
 
     if (Array.isArray(results) && results.length === 0) {
