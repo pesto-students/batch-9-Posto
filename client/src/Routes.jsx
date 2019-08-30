@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, lazy, Suspense } from 'react';
 import {
   Switch, Route, Redirect,
 } from 'react-router-dom';
@@ -6,29 +6,43 @@ import {
 import GlobalContext from './context/GlobalContext';
 import Login from './views/Login';
 import Signup from './views/Signup';
-import CreateAndEditPost from './views/CreateAndEditPost';
 import NoMatch from './views/NoMatch';
-import Home from './views/Home';
-import CategoryPage from './views/Category';
-import Search from './views/Search';
+import Loader from './components/Loader';
+
+const CreateAndEditPost = lazy(() => import('./views/CreateAndEditPost'));
+const Home = lazy(() => import('./views/Home'));
+const CategoryPage = lazy(() => import('./views/Category'));
+const Search = lazy(() => import('./views/Search'));
+
+function LazyRoute(Component) {
+  return props => (
+    <Suspense fallback={<Loader />}>
+      <Component {...props} />
+    </Suspense>
+  );
+};
 
 const routes = [
   {
     path: '/',
-    component: Home,
+    component: LazyRoute(Home),
   },
   {
     path: '/new',
-    component: CreateAndEditPost,
+    component: LazyRoute(CreateAndEditPost),
   },
   {
     path: '/edit/:postId',
-    component: CreateAndEditPost,
+    component: LazyRoute(CreateAndEditPost),
+  },
+  {
+    path: '/search',
+    component: LazyRoute(Search),
   },
   {
     path: '/category/:name',
     name: 'CategoryPage',
-    component: CategoryPage,
+    component: LazyRoute(CategoryPage),
   },
 ];
 
@@ -51,11 +65,9 @@ function Routes() {
         <Switch>
           <Route path="/login" render={() => <Redirect to="/" />} />
           <Route path="/signup" render={() => <Redirect to="/" />} />
-          <Route exact path="/" component={Home} />
-          <Route path="/new" component={CreateAndEditPost} />
-          <Route path="/category/:name" component={CategoryPage} />
-          <Route path="/edit/:postId" component={CreateAndEditPost} />
-          <Route path="/search" component={Search} />
+          {
+            routes.map((route) => <Route exact path={route.path} component={route.component} key={route.path} />)
+          }
           <Route component={NoMatch} />
         </Switch>
       )

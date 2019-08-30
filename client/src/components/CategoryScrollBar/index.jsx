@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import { getCategories } from '../../API';
 import styles from './CategoryScrollBar.module.css';
-import LoaderCentered from '../../elements/LoaderCentered/LoaderCenter';
 
 const CategoryScrollBar = () => {
   const [categories, setCategories] = useState([]);
@@ -25,15 +24,7 @@ const CategoryScrollBar = () => {
     fetchData();
   }, []);
 
-  const renderCategories = () => {
-    if (categories.length === 0) {
-      return (
-        <div className={styles.loader}>
-          <LoaderCentered />
-        </div>
-      );
-    }
-    return (
+  const renderCategories = () => (
       <div className={styles.scrollmenu}>
         {categories.map((category) => (
           <Link
@@ -51,7 +42,6 @@ const CategoryScrollBar = () => {
         ))}
       </div>
     );
-  };
 
   return (
     <>
