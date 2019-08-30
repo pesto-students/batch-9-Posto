@@ -10,6 +10,7 @@ import CreateAndEditPost from './views/CreateAndEditPost';
 import NoMatch from './views/NoMatch';
 import Home from './views/Home';
 import CategoryPage from './views/Category';
+import Search from './views/Search';
 
 const routes = [
   {
@@ -54,6 +55,7 @@ function Routes() {
           <Route path="/new" component={CreateAndEditPost} />
           <Route path="/category/:name" component={CategoryPage} />
           <Route path="/edit/:postId" component={CreateAndEditPost} />
+          <Route path="/search" component={Search} />
           <Route component={NoMatch} />
         </Switch>
       )

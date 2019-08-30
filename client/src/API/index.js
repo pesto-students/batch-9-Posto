@@ -102,6 +102,31 @@ const fetchCategoryBlogs = async (params) => {
   }
 };
 
+const fetchSearchResults = async ({
+ searchText, category, skip, limit 
+}) => {
+  try {
+    const body = {
+      term: searchText,
+      category,
+      skip,
+      limit,
+    };
+    getToken();
+    const response = await axios.post('/posts/search', body, axiosConfig);
+    return response;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export {
-  createPost, updatePost, getCategories, signup, signin, getTop10Posts, fetchCategoryBlogs,
+  createPost,
+  updatePost,
+  getCategories,
+  signup,
+  signin,
+  getTop10Posts,
+  fetchCategoryBlogs,
+  fetchSearchResults,
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import CenterContainer from '../../elements/CenterContainer';
 import HeaderMenu from '../../elements/HeaderMenu';
@@ -13,7 +14,7 @@ import postoSm from '../../assets/postoSm.svg';
 import posto from '../../assets/posto.svg';
 import avatar from '../../assets/avatar.png';
 
-const Header = () => {
+const Header = ({ disabledSearchBox }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const imageUrl = windowWidth >= 650 ? posto : postoSm;
 
@@ -53,7 +54,7 @@ const Header = () => {
         </MenuItem>
         <HeaderMenuRight>
           <MenuItem>
-            <SearchBox />
+            <SearchBox disabledSearchBox={disabledSearchBox} />
           </MenuItem>
           <MenuItem>
             <DropDown triggerImage={avatar} options={dropDownOptions} />
@@ -62,6 +63,14 @@ const Header = () => {
       </CenterContainer>
     </HeaderMenu>
   );
+};
+
+Header.defaultProps = {
+  disabledSearchBox: false,
+};
+
+Header.propTypes = {
+  disabledSearchBox: PropTypes.bool,
 };
 
 export default Header;
