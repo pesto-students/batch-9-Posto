@@ -24,7 +24,7 @@ const SignupForm = () => {
       const user = await signup(data);
       dispatch({ type: user, payload: user });
     } catch (err) {
-      alert(err);
+      alert(err.message);
     }
   };
 

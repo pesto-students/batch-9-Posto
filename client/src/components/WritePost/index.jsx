@@ -23,9 +23,13 @@ const WritePost = () => {
         public: state.isPublic,
         published: true,
       };
-      const id = await createPost(body);
-      setIsSaveLoading(false);
-      setPostId(id);
+      try {
+        const id = await createPost(body);
+        setIsSaveLoading(false);
+        setPostId(id);
+      } catch (err) {
+        alert(err.message);
+      }
     }
   };
 
@@ -43,9 +47,13 @@ const WritePost = () => {
       if (!body.category) {
         delete body.category;
       }
-      const id = await createPost(body);
-      setIsSaveLoading(false);
-      setPostId(id);
+      try {
+        const id = await createPost(body);
+        setIsSaveLoading(false);
+        setPostId(id);
+      } catch (err) {
+        alert(err.message);
+      }
     }
   };
 

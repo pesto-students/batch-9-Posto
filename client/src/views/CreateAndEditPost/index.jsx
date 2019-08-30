@@ -18,11 +18,15 @@ import axiosConfig from '../../config/axiosConfig';
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
   const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
-    const fetchData = async () => {
-      const options = await getCategories();
-      dispatch({ type: CATEGORY_OPTIONS, payload: options });
-    };
-    fetchData();
+    try {
+      const fetchData = async () => {
+        const options = await getCategories();
+        dispatch({ type: CATEGORY_OPTIONS, payload: options });
+      };
+      fetchData();
+    } catch (err) {
+      alert(err.message);
+    }
   }, []);
 
   useEffect(() => {

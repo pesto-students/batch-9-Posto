@@ -22,8 +22,12 @@ const EditPost = ({ postId }) => {
         public: state.isPublic,
         published: true,
       };
-      await updatePost(body, postId);
-      setIsPublishedLoading(false);
+      try {
+        await updatePost(body, postId);
+        setIsPublishedLoading(false);
+      } catch (err) {
+        alert(err.message);
+      }
     }
   };
 
@@ -41,8 +45,12 @@ const EditPost = ({ postId }) => {
       if (!body.category) {
         delete body.category;
       }
-      await updatePost(body, postId);
-      setIsSaveLoading(false);
+      try {
+        await updatePost(body, postId);
+        setIsSaveLoading(false);
+      } catch (err) {
+        alert(err.message);
+      }
     }
   };
 
