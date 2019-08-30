@@ -24,11 +24,11 @@ const EditPost = ({ postId }) => {
       };
       try {
         await updatePost(body, postId);
-        setIsPublishedLoading(false);
       } catch (err) {
         alert(err.message);
       }
     }
+    setIsPublishedLoading(false);
   };
 
   const handleSave = async () => {
@@ -47,10 +47,10 @@ const EditPost = ({ postId }) => {
       }
       try {
         await updatePost(body, postId);
-        setIsSaveLoading(false);
       } catch (err) {
         alert(err.message);
       }
+      setIsSaveLoading(false);
     }
   };
 

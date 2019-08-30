@@ -11,7 +11,7 @@ const DropDown = ({ triggerImage, options }) => {
 
   const trigger = (
     <span>
-      <Image src={triggerImage} style={{ height: '35px', width: '35px' }} />
+      <Image circular src={triggerImage} style={{ height: '35px', width: '35px' }} />
     </span>
   );
   const handleChange = (e, { value }) => {
