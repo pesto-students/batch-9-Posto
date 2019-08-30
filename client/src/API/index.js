@@ -38,9 +38,10 @@ const updatePost = async (body, postId) => {
 const getCategories = async () => {
   try {
     getToken();
+    let result;
     const response = await axios.get('categories', axiosConfig);
     if (response && response.data && response.data.success) {
-      return response.data.categories.map((categoryData) => (
+      result = response.data.categories.map((categoryData) => (
         {
           key: categoryData._id,
           value: categoryData._id,
@@ -48,6 +49,7 @@ const getCategories = async () => {
         }
       ));
     }
+    return result;
   } catch (err) {
     if (err.response) {
       throw new Error(err.response.data);
@@ -63,7 +65,7 @@ const signup = async (body) => {
     return response.data.user;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data);
+      throw new Error(err.response.data.message);
     }
     throw new Error(err);
   }
@@ -76,7 +78,7 @@ const signin = async (body) => {
     return response.data.user;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data);
+      throw new Error(err.response.data.message);
     }
     throw new Error(err);
   }
