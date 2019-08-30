@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Segment } from 'semantic-ui-react';
@@ -7,6 +7,7 @@ import {
 } from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
 
+import Loader from '../../components/Loader';
 import { getCategories } from '../../API';
 import WritePost from '../../components/WritePost';
 import EditPost from '../../components/EditPost';
@@ -16,6 +17,7 @@ import PostMenu from '../../components/PostMenu';
 import axiosConfig from '../../config/axiosConfig';
 
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
     try {
@@ -24,6 +26,7 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
         dispatch({ type: CATEGORY_OPTIONS, payload: options });
       };
       fetchData();
+      setIsLoading(false);
     } catch (err) {
       alert(err.message);
     }
@@ -45,6 +48,7 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
           } else {
             alert(response.data);
           }
+          setIsLoading(false);
         } catch (err) {
           alert(err);
         }
@@ -56,18 +60,22 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
   const DisplayContent = () => (state.activeTab === 'preview'
     ? <PreviewPost title={state.title} content={state.content} /> : <h1>Help</h1>);
   return (
-    <CenterPost>
-      <PostMenu />
-      <Segment attached="bottom">
-        {
+    isLoading
+      ? <Loader />
+      : (
+        <CenterPost>
+          <PostMenu />
+          <Segment attached="bottom">
+            {
           state.activeTab === 'write'
             ? postId
               ? <EditPost postId={postId} />
               : <WritePost />
             : <DisplayContent />
         }
-      </Segment>
-    </CenterPost>
+          </Segment>
+        </CenterPost>
+      )
   );
 };
 

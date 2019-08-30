@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import Loader from '../../components/Loader';
 import { fetchCategoryBlogs } from '../../API';
 import BlogList from '../../components/BlogList';
 import CenterContainer from '../../elements/CenterContainer';
@@ -8,6 +9,7 @@ import Header from '../../components/Header';
 import CategoryScrollBar from '../../components/CategoryScrollBar';
 
 const CategoryPage = ({ match, location }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
 
@@ -28,6 +30,7 @@ const CategoryPage = ({ match, location }) => {
         setError(null);
         setBlogs(response.data.posts);
       }
+      setIsLoading(false);
     } catch (err) {
       setError('Network Error');
     }
@@ -45,14 +48,18 @@ const CategoryPage = ({ match, location }) => {
   };
 
   return (
-    <>
-      <Header />
-      <CategoryScrollBar />
-      <CenterContainer style={{ paddingTop: '80px' }}>
-        <h2>Category: {match.params.name}</h2>
-        {conditionallyRenderBlogs()}
-      </CenterContainer>
-    </>
+    isLoading
+      ? <Loader />
+      : (
+        <>
+          <Header />
+          <CategoryScrollBar />
+          <CenterContainer style={{ paddingTop: '80px' }}>
+            <h2>Category: {match.params.name}</h2>
+            {conditionallyRenderBlogs()}
+          </CenterContainer>
+        </>
+      )
   );
 };
 
