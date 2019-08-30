@@ -16,7 +16,7 @@ const createPost = async (body) => {
     return response.data.post._id;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data);
+      throw new Error(err.response.data.message);
     }
     throw new Error(err);
   }
@@ -29,7 +29,7 @@ const updatePost = async (body, postId) => {
     return response.data.post;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data);
+      throw new Error(err.response.data.message);
     }
     throw new Error(err);
   }
@@ -52,7 +52,7 @@ const getCategories = async () => {
     return result;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data);
+      throw new Error(err.response.data.message);
     }
     throw new Error(err);
   }
@@ -105,7 +105,7 @@ const fetchCategoryBlogs = async (params) => {
 };
 
 const fetchSearchResults = async ({
- searchText, category, skip, limit 
+  searchText, category, skip, limit,
 }) => {
   try {
     const body = {

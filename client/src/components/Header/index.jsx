@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -13,9 +13,11 @@ import ImageElement from '../../elements/ImageElement';
 import postoSm from '../../assets/postoSm.svg';
 import posto from '../../assets/posto.svg';
 import avatar from '../../assets/avatar.png';
+import GlobalContext from '../../context/GlobalContext';
 
 const Header = ({ disabledSearchBox }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { state } = useContext(GlobalContext);
   const imageUrl = windowWidth >= 650 ? posto : postoSm;
 
   const handleWindowResize = () => {
@@ -57,7 +59,7 @@ const Header = ({ disabledSearchBox }) => {
             <SearchBox disabledSearchBox={disabledSearchBox} />
           </MenuItem>
           <MenuItem>
-            <DropDown triggerImage={avatar} options={dropDownOptions} />
+            <DropDown triggerImage={state.user.profilePic || avatar} options={dropDownOptions} />
           </MenuItem>
         </HeaderMenuRight>
       </CenterContainer>

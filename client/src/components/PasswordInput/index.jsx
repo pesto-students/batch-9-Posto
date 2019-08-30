@@ -19,7 +19,7 @@ const PasswordInput = ({ verify, userPassword, ...props }) => {
     <FormInput
       id={id}
       icon="lock"
-      placeholder="Password"
+      placeholder={label}
       type="password"
       pattern={pattern}
       title={title}

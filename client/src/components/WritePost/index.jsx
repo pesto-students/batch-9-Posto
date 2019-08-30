@@ -25,11 +25,11 @@ const WritePost = () => {
       };
       try {
         const id = await createPost(body);
-        setIsSaveLoading(false);
         setPostId(id);
       } catch (err) {
         alert(err.message);
       }
+      setIsSaveLoading(false);
     }
   };
 
@@ -49,11 +49,11 @@ const WritePost = () => {
       }
       try {
         const id = await createPost(body);
-        setIsSaveLoading(false);
         setPostId(id);
       } catch (err) {
         alert(err.message);
       }
+      setIsSaveLoading(false);
     }
   };
 

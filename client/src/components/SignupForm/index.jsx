@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button, Form, Message, Segment,
@@ -18,9 +18,11 @@ const SignupForm = () => {
   const [name, setName] = useInput('');
   const [password, setPassword] = useInput('');
   const [verifyPassword, setVerifyPassword] = useInput('');
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const onSignup = async () => {
     try {
+      setSubmitLoading(true);
       const data = { name, email, password };
       const user = await signup(data);
       localStorage.setItem('user', JSON.stringify(user));
@@ -28,6 +30,7 @@ const SignupForm = () => {
     } catch (err) {
       alert(err.message);
     }
+    setSubmitLoading(false);
   };
 
   return (
@@ -43,7 +46,14 @@ const SignupForm = () => {
             userPassword={password}
             verify
           />
-          <Button type="submit" color="teal" fluid size="large">
+          <Button
+            fluid
+            type="submit"
+            color="teal"
+            size="large"
+            loading={submitLoading}
+            disabled={submitLoading}
+          >
             Sign up
           </Button>
         </Segment>
