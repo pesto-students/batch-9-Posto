@@ -20,7 +20,7 @@ function successfulResponse(response, status, message, userData, token) {
 function destructorUserData({
   id,
   email,
-  profileImageUrl,
+  profilePic,
   gender,
   DOB,
   name,
@@ -28,7 +28,7 @@ function destructorUserData({
   return {
     id,
     email,
-    profileImageUrl,
+    profilePic,
     gender,
     DOB,
     name,
