@@ -23,7 +23,7 @@ const LoginForm = () => {
       localStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: USER, payload: user });
     } catch (err) {
-      alert(err);
+      alert(err.message);
     }
   };
 

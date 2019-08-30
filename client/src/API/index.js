@@ -10,81 +10,76 @@ function getToken() {
 }
 
 const createPost = async (body) => {
-  let response;
   try {
     getToken();
-    response = await axios.post('posts', body, axiosConfig);
-    if (!response.data.success) {
-      alert(response.data.message);
-    }
+    const response = await axios.post('posts', body, axiosConfig);
+    return response.data.post._id;
   } catch (err) {
-    return alert(err.message);
+    if (err.response) {
+      throw new Error(err.response.data);
+    }
+    throw new Error(err);
   }
-  return response.data.post._id;
 };
 
 const updatePost = async (body, postId) => {
-  let response;
   try {
     getToken();
-    response = await axios.put(`posts/${postId}`, body, axiosConfig);
-    if (!response.data.success) {
-      alert(response.data.message);
-    }
+    const response = await axios.put(`posts/${postId}`, body, axiosConfig);
+    return response.data.post;
   } catch (err) {
-    return alert(err.message);
+    if (err.response) {
+      throw new Error(err.response.data);
+    }
+    throw new Error(err);
   }
-  return response.data.post;
 };
 
 const getCategories = async () => {
-  let result;
   try {
     getToken();
     const response = await axios.get('categories', axiosConfig);
     if (response && response.data && response.data.success) {
-      result = response.data.categories.map((categoryData) => (
+      return response.data.categories.map((categoryData) => (
         {
           key: categoryData._id,
           value: categoryData._id,
           text: categoryData.name,
         }
       ));
-    } else {
-      return alert(response.data.message);
     }
   } catch (err) {
-    return alert(err.message);
+    if (err.response) {
+      throw new Error(err.response.data);
+    }
+    throw new Error(err);
   }
-  return result;
 };
 
 const signup = async (body) => {
-  let response;
   try {
     delete axiosConfig.headers.authorization;
-    response = await axios.post('auth/signup', body, axiosConfig);
+    const response = await axios.post('auth/signup', body, axiosConfig);
+    return response.data.user;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data.message);
+      throw new Error(err.response.data);
     }
     throw new Error(err);
   }
-  return response.data.user;
 };
 
 const signin = async (body) => {
-  let response;
   try {
     delete axiosConfig.headers.authorization;
-    response = await axios.post('auth/signin', body, axiosConfig);
+    const response = await axios.post('auth/signin', body, axiosConfig);
+    return response.data.user;
   } catch (err) {
     if (err.response) {
-      throw new Error(err.response.data.message);
+      throw new Error(err.response.data);
     }
     throw new Error(err);
   }
-  return response.data.user;
 };
 
 const getTop10Posts = async () => {
