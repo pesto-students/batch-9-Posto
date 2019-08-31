@@ -14,6 +14,7 @@ import EditPost from '../../components/EditPost';
 import PreviewPost from '../../components/PreviewPost';
 import CenterPost from '../../elements/CenterPost';
 import PostMenu from '../../components/PostMenu';
+import Header from '../../components/Header';
 import axiosConfig from '../../config/axiosConfig';
 
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
@@ -63,18 +64,21 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
     isLoading
       ? <Loader />
       : (
-        <CenterPost>
-          <PostMenu />
-          <Segment attached="bottom">
-            {
+        <>
+          <Header />
+          <CenterPost>
+            <PostMenu />
+            <Segment attached="bottom">
+              {
           state.activeTab === 'write'
             ? postId
               ? <EditPost postId={postId} />
               : <WritePost />
             : <DisplayContent />
         }
-          </Segment>
-        </CenterPost>
+            </Segment>
+          </CenterPost>
+        </>
       )
   );
 };

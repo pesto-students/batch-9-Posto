@@ -47,7 +47,7 @@ const Header = ({ disabledSearchBox }) => {
             alt="Posto Logo"
             style={{
               height: '30px',
-              width: window.innerWidth >= 650 ? '80px' : '15px',
+              width: window.innerWidth >= 650 ? '80px' : '26px',
               cursor: 'pointer',
             }}
             as={Link}

@@ -15,7 +15,12 @@ const PostMenu = () => {
   const handleHelpClick = () => dispatch({ type: ACTIVE_TAB, payload: 'help' });
 
   return (
-    <Menu attached="top">
+    <Menu
+      attached="top"
+      style={{
+        position: 'sticky', marginTop: '60px', zIndex: 4, top: '60px',
+      }}
+    >
       <Menu.Item name="Write" active={state.activeTab === 'write'} onClick={handleWriteClick} />
       <Menu.Item name="Preview" active={state.activeTab === 'preview'} onClick={handlePreviewClick} />
       <Menu.Menu position="right">
