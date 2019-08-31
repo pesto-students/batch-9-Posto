@@ -1,16 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import getImage from 'get-md-image';
 
 import BlogCard from '../BlogCard';
 import { defaultContent, defaultImage } from '../../config/constants';
 
+const removeMd = require('remove-markdown');
+
 export default function BlogList({ blogs }) {
   const conditionallyRenderBlogs = () => blogs.map((blog) => {
-    const refactoredData = {
-      ...blog,
-      content: blog.content || defaultContent,
-      image: blog.image || defaultImage,
-    };
+    const plainContent = removeMd(blog.content);
+    let refactoredData = {};
+    const getImageFromMarkdown = getImage(blog.content);
+    if (getImage(blog.content)) {
+      refactoredData = {
+        ...blog,
+        content: plainContent || defaultContent,
+        image: getImageFromMarkdown.src,
+        alt: getImageFromMarkdown.alt || 'Default Image',
+      };
+    } else {
+      refactoredData = {
+        ...blog,
+        content: plainContent || defaultContent,
+        image: defaultImage,
+        alt: 'Default Image',
+      };
+    }
     return <BlogCard key={refactoredData._id} data={refactoredData} />;
   });
 
