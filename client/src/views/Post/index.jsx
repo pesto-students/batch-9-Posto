@@ -6,11 +6,11 @@ import { POST, COMMENTS } from '../../context/constants';
 import axiosConfig from '../../config/axiosConfig';
 import GlobalContext from '../../context/GlobalContext';
 import Loader from '../../components/Loader';
+import Markdown from '../../components/Markdown';
 
 
 const Title = lazy(() => import('../../components/Title'));
 const PostAuthorDetails = lazy(() => import('../../components/PostAuthorDetails'));
-const PostContent = lazy(() => import('../../components/PostContent'));
 const CommentBox = lazy(() => import('../../components/CommentBox'));
 const CommentsList = lazy(() => import('../../components/CommentsList'));
 const Upvote = lazy(() => import('../../components/Upvotes'));
@@ -44,7 +44,7 @@ const Post = ({ match: { params: { postId } } }) => {
                         <Segment>
                             <Title as="h1">{state.post.title}</Title>
                             <PostAuthorDetails post={state.post} />
-                            <PostContent>{state.post.content}</PostContent>
+                            <Markdown source={state.post.content} />
                             <Upvote upvotes={state.post.upvotes} postId={state.post._id} />
                         </Segment>
                         <Segment>
