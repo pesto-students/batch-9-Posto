@@ -1,6 +1,6 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import app from '../app';
+import app from '../src/app';
 import testDbHelper from './testUtils/testDbHelper';
 
 describe('auth middleware', () => {
