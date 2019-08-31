@@ -14,7 +14,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
     "react-test-renderer": "^16.9.0",
-    "remark-iframes": "^4.0.0",
+    "remark-iframes-extended": "^0.0.6",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "use-debounce": "^3.0.0"

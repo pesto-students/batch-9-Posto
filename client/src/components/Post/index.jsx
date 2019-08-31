@@ -29,6 +29,7 @@ const Post = ({
       />
       <Divider />
       <TextareaAutosize
+        focus={Boolean(state.content)}
         placeholder="Share your thoughts..."
         className={styles.content}
         value={state.content}

@@ -6,15 +6,27 @@ import plugins from '../plugin';
 import renderers from '../renderer';
 import './Markdown.css';
 
-const Markdown = ({ source }) => (
-  <div id="markdown">
-    <ReactMarkdown
-      source={source}
-      renderers={renderers}
-      plugins={plugins}
-    />
-  </div>
-);
+const Markdown = ({ source }) => {
+  const err = ['!(http)', '!(https)', '!(http:)', '!(https:)', '!(http:/)', '!(https:/)'];
+  const data = source.split(' ').map((word) => {
+    if (err.includes(word)) {
+      const correctWord = '!(https://)';
+      return correctWord;
+    }
+    return word;
+  }).join(' ');
+
+  return (
+    <div id="markdown">
+      <ReactMarkdown
+        escapeHtml={false}
+        source={data}
+        renderers={renderers}
+        plugins={plugins}
+      />
+    </div>
+  );
+};
 
 Markdown.propTypes = {
   source: PropTypes.string.isRequired,
