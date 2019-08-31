@@ -1,0 +1,162 @@
+.md{
+  color: black;
+  font-size: 22px;
+  line-height: 32px;
+}
+
+.md h1{
+  font-size: 40px;
+}
+.md h2{
+  font-size: 36px;
+}
+.md h3{
+  font-size: 32px;
+}
+.md h4{
+  font-size: 30px;
+}
+.md h5{
+  font-size: 28px;
+}
+
+.md p{
+  font-size: 22px;
+}
+
+.md li{
+  line-height: 24px;
+}
+
+.md a{
+  color: blue;
+}
+
+.md pre {
+  font-family: "Times New Roman", Times, serif;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-left: 3px solid #33bcb5;
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+}
+
+.md blockquote {
+  background: #f9f9f9;
+  border-left: 5px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+.md blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.md blockquote p {
+  display: inline;
+}
+
+.md table {
+  border: 1px solid black;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.md table td, table th {
+  border: 1px solid black;
+  padding: 5px 4px;
+  height: 40px;
+}
+
+.md table tbody td {
+  font-size: 20px;
+}
+
+.md table tbody tr:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+.md table tbody tr:nth-child(even) {
+  background-color: gainsboro;
+}
+
+.md table thead {
+  background: #33bcb5;
+  border-bottom: 3px solid black;
+}
+.md table thead th {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+}
+.md table tfoot {
+  font-weight: bold;
+  color: #33bcb5;
+  border-top: 2px solid black;
+}
+.md table tfoot td {
+  font-size: 20px;
+}
+
+.md video,
+.md img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  border: 1px solid black;
+}
+
+.md iframe{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  border: 1px solid black;
+  height: 425px;
+}
+
+@media(max-width: 700px){
+  .md{
+    font-size: 20px;
+  }
+  
+  .md h1{
+    font-size: 30px;
+  }
+  .md h2{
+    font-size: 28px;
+  }
+  .md h3{
+    font-size: 26px;
+  }
+  .md h4{
+    font-size: 24px;
+  }
+  .md h5{
+    font-size: 22px;
+  }
+
+  .md p{
+    font-size: 20px;
+  }
+  
+  .md iframe{
+    height: 250px;
+  }
+}
