@@ -15,6 +15,7 @@ const CategoryPage = lazy(() => import('./views/Category'));
 const Search = lazy(() => import('./views/Search'));
 const MyPosts = lazy(() => import('./views/MyPosts'));
 const Post = lazy(() => import('./views/Post'));
+const Profile = lazy(() => import('./views/Profile'));
 
 function LazyRoute(Component) {
   return props => (
@@ -55,6 +56,11 @@ const routes = [
     path: '/post/:postId',
     name: 'Post',
     component: LazyRoute(Post),
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: LazyRoute(Profile),
   }
 ];
 
