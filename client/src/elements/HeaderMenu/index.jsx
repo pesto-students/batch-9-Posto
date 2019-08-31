@@ -13,7 +13,7 @@ const HeaderMenu = ({ children }) => (
       border: 'none',
       borderBottom: '1px solid black',
       borderRadius: 0,
-      zIndex: '1000',
+      zIndex: '5',
     }}
   >
     {children}
