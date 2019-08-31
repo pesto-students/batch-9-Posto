@@ -2,14 +2,21 @@ import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDebouncedCallback } from 'use-debounce';
 
+import {
+  TITLE, CONTENT, IS_PUBLIC,
+} from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
 import { updatePost } from '../../API';
 import Post from '../Post';
 
 const EditPost = ({ postId }) => {
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
+
+  const onTitleChange = (event) => dispatch({ type: TITLE, payload: event.target.value });
+  const onContentChange = (event) => dispatch({ type: CONTENT, payload: event.target.value });
+  const onPublicChange = () => dispatch({ type: IS_PUBLIC, payload: !state.isPublic });
 
   const handlePublish = async () => {
     if (state.title && state.content) {
@@ -83,6 +90,12 @@ const EditPost = ({ postId }) => {
       publishDisabled={publishDisabled}
       isSaveLoading={isSaveLoading}
       isPublishedLoading={isPublishedLoading}
+      title={state.title}
+      content={state.content}
+      isPublic={state.isPublic}
+      handleTitleChange={onTitleChange}
+      handleContentChange={onContentChange}
+      handleIsPublicChange={onPublicChange}
     />
   );
 };

@@ -17,7 +17,7 @@ const Upvote = ({ upvotes, postId }) => {
       setUpvote(hasVoted ? 'upvote' : 'downvote');
     };
     hasUserUpvoted();
-  }, [localUpvote]);
+  }, [localUpvote, state.user.id]);
 
   const handleUpvoteChange = async () => {
     try {

@@ -27,7 +27,6 @@ const LoginForm = () => {
     } catch (err) {
       alert(err.message);
     }
-    setSubmitLoading(false);
   };
 
   return (

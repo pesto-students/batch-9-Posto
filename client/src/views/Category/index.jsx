@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy } from 'react';
 import PropTypes from 'prop-types';
 
 import Loader from '../../components/Loader';
 import { fetchCategoryBlogs } from '../../API';
-import BlogList from '../../components/BlogList';
-import CenterContainer from '../../elements/CenterContainer';
-import Header from '../../components/Header';
-import CategoryScrollBar from '../../components/CategoryScrollBar';
+
+const CenterContainer = lazy(() => import('../../elements/CenterContainer'));
+const Header = lazy(() => import('../../components/Header'));
+const CategoryScrollBar = lazy(() => import('../../components/CategoryScrollBar'));
+const BlogList = lazy(() => import('../../components/BlogList'));
 
 const CategoryPage = ({ match, location }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +15,8 @@ const CategoryPage = ({ match, location }) => {
   const [error, setError] = useState(null);
 
   const fetchBlogs = async () => {
+    try {
+    setIsLoading(true);
     const params = {
       limit: 10,
       skip: 0,
@@ -22,7 +25,6 @@ const CategoryPage = ({ match, location }) => {
       type: 'categories',
       categoryId: location.state.categoryId,
     };
-    try {
       const response = await fetchCategoryBlogs(params);
       if (!response.data.posts) {
         setError('No blogs found on the topic');
@@ -30,10 +32,10 @@ const CategoryPage = ({ match, location }) => {
         setError(null);
         setBlogs(response.data.posts);
       }
-      setIsLoading(false);
     } catch (err) {
       setError('Network Error');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {

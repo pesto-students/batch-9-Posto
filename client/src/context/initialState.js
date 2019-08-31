@@ -3,11 +3,12 @@ const initialState = {
   title: '',
   content: '',
   category: '',
+  newPostCategory: '',
   activeTab: 'write',
   categoryOptions: [],
   isPublic: true,
   post: {},
-  comments: []
+  comments: [],
 };
 
 export default initialState;

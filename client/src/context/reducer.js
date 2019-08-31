@@ -1,5 +1,6 @@
 import {
-  LOGOUT, USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB, CATEGORY_OPTIONS, IS_PUBLIC, POST, COMMENTS,
+  LOGOUT, USER, TITLE, CONTENT, CATEGORY, ACTIVE_TAB,
+  CATEGORY_OPTIONS, IS_PUBLIC, POST, COMMENTS, NEW_POST_CATEGORY,
 } from './constants';
 import initialState from './initialState';
 
@@ -22,6 +23,11 @@ export default function reducer(state, action) {
       return {
         ...state,
         category: action.payload,
+      };
+    case NEW_POST_CATEGORY:
+      return {
+        ...state,
+        newPostCategory: action.payload,
       };
     case ACTIVE_TAB:
       return {

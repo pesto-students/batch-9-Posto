@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, lazy } from 'react';
 
-import Header from '../../components/Header';
-import MyPostsMenu from '../../components/MyPostsMenu';
-import BlogList from '../../components/BlogList';
 import Loader from '../../components/Loader';
 import GlobalContext from '../../context/GlobalContext';
-import CenterContainer from '../../elements/CenterContainer';
 import { fetchUserPosts } from '../../API';
+
+const CenterContainer = lazy(() => import('../../elements/CenterContainer'));
+const BlogList = lazy(() => import('../../components/BlogList'));
+const MyPostsMenu = lazy(() => import('../../components/MyPostsMenu'));
+const Header = lazy(() => import('../../components/Header'));
 
 const MyPosts = () => {
   const { state } = useContext(GlobalContext);
-
   const [activeMenuItem, setActiveMenuItem] = useState('drafts');
   const [isLoading, setIsLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
@@ -56,11 +56,10 @@ const MyPosts = () => {
         setError(null);
         setBlogs(response.data.posts);
       }
-      setIsLoading(false);
     } catch (err) {
-      setIsLoading(false);
       setError('Network Error');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
