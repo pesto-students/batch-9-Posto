@@ -122,7 +122,20 @@ const fetchSearchResults = async ({
   }
 };
 
+const fetchUserPosts = async ({
+  limit, skip, orderBy, orderType, type, userId,
+}) => {
+  try {
+    getToken();
+    const response = await axios.get(`posts?limit=${limit}&skip=${skip}&orderby=${orderBy}&orderType=${orderType}&type=${type}&userId=${userId}`, axiosConfig);
+    return response;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export {
+  fetchUserPosts,
   createPost,
   updatePost,
   getCategories,
