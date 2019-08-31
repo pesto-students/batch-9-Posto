@@ -1,7 +1,7 @@
-import postModel from '../../models/Post';
-import userModel from '../../models/User';
-import categoryModel from '../../models/Category';
-import commentModel from '../../models/Comment';
+import postModel from '../../src/models/Post';
+import userModel from '../../src/models/User';
+import categoryModel from '../../src/models/Category';
+import commentModel from '../../src/models/Comment';
 
 async function createPosts() {
   await postModel.syncIndexes();

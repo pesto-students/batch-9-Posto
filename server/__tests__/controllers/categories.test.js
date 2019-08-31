@@ -1,7 +1,7 @@
 import request from 'supertest';
 import addToDatabase from '../testUtils/addToDatabase';
 import testDbHelper from '../testUtils/testDbHelper';
-import app from '../../app';
+import app from '../../src/app';
 
 beforeAll(async () => {
   await testDbHelper.createConnection();
