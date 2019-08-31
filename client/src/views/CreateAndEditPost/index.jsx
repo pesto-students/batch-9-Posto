@@ -89,7 +89,6 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
                 </>
               )
             }
-            
           </CenterPost>
         </>
       )

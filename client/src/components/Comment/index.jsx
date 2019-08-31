@@ -15,7 +15,7 @@ const Comment = ({
   const [showReplies, setShowReplies] = useState(false);
   return (
     <>
-      <Segment textAlign="left" stacked className="comment-segment" onClick={() => setShowReplies(!showReplies)}>
+      <Segment raised textAlign="left" className="comment-segment" onClick={() => setShowReplies(!showReplies)}>
         <span>
           <Link to="#/">
             {user.profilePic

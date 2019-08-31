@@ -8,6 +8,8 @@ import axiosConfig from '../../config/axiosConfig';
 import GlobalContext from '../../context/GlobalContext';
 import Loader from '../../components/Loader';
 
+const Header = lazy(() => import('../../components/Header'));
+const CenterPost = lazy(() => import('../../elements/CenterPost'));
 const Markdown = lazy(() => import('../../components/Markdown'));
 const Title = lazy(() => import('../../components/Title'));
 const PostAuthorDetails = lazy(() => import('../../components/PostAuthorDetails'));
@@ -39,28 +41,30 @@ const Post = ({ match: { params: { postId } } }) => {
     }, [postId]);
 
     return (
-        isLoading ? <Loader /> :
-            <Grid textAlign="center">
-                <Grid.Column textAlign="center" mobile={16} tablet={16} computer={8}>
-                    <Grid.Row>
-                        <Segment>
-                            <Title as="h1">{state.post.title}</Title>
-                            <PostAuthorDetails post={state.post} />
-                            <Markdown source={state.post.content} />
-                            <Upvote upvotes={state.post.upvotes} postId={state.post._id} />
-                        </Segment>
-                        <Segment>
-                            <CommentBox buttonText='Submit' placeholder='Add to the discussion' />
-                        </Segment>
-                    </Grid.Row>
-                    {state.post && state.post.title && state.comments && state.comments.length ?
-                        <Grid.Row>
-                            <Segment>
-                                <CommentsList comments={state.comments} />
-                            </Segment>
-                        </Grid.Row> : null}
-                </Grid.Column>
-            </Grid>
+        isLoading
+        ? <Loader />
+        : <>
+          <Header />
+          <CenterPost>
+            <Grid.Row>
+              <Segment style={{marginTop: '60px'}}>
+                <Title as="h1">{state.post.title}</Title>
+                <PostAuthorDetails post={state.post} />
+                <Markdown source={state.post.content} />
+                <Upvote upvotes={state.post.upvotes} postId={state.post._id} />
+              </Segment>
+              <Segment>
+                <CommentBox buttonText='Submit' placeholder='Add to the discussion' />
+              </Segment>
+            </Grid.Row>
+            {state.post && state.post.title && state.comments && state.comments.length ?
+              <Grid.Row>
+                <Segment>
+                  <CommentsList comments={state.comments} />
+                </Segment>
+              </Grid.Row> : null}
+          </CenterPost>
+        </>
     );
 }
 

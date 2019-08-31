@@ -44,7 +44,7 @@ const CommentBox = ({ buttonText, placeholder }) => {
         onChange={(e) => handleTextChange(e)}
         style={{ backgroundColor: 'snow' }}
       />
-      <Button content={buttonText} primary />
+      <Button style={{ marginTop: '16px' }} content={buttonText} primary />
     </Form>
   );
 };
