@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Reply = ({ data }) => {
   const { user } = data;
   return (
-    <Segment style={{ width: '90%' }} textAlign="left" raised>
+    <Segment style={{ marginLeft: '15%', width: '85%' }} textAlign="left">
       <span>
         <Link to="#/">
           {user.profilePic
