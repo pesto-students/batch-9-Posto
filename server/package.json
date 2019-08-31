@@ -2,6 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Server",
+  "engines": {
+    "node": "10.16.0",
+    "yarn": "1.17.3"
+  },
   "main": "app.js",
   "scripts": {
     "build": "babel ./src --out-dir dist",

@@ -6,6 +6,10 @@
     "server",
     "client"
   ],
+  "engines": {
+    "node": "10.16.0",
+    "yarn": "1.17.3"
+  },
   "description": "Mono-repo for Posto project",
   "main": "index.js",
   "scripts": {
