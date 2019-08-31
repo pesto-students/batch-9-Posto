@@ -46,10 +46,14 @@ const updateProfilePic = async function updateProfilePic(req, res) {
     const uniqueFilename = new Date().toISOString();
     const image = await imageHelper.uploadImageToCloudinary(path, uniqueFilename);
     await imageHelper.removeImage(path);
-    const imagePath = `${image.public_id}.${image.format}`;
-    const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: imagePath }).lean();
+    const updatedUser = await User
+      .findByIdAndUpdate(userId, { profilePic: image.secure_url }).lean();
     if (updatedUser) {
-      return res.status(200).json({ success: true, profilePicUrl: imagePath, message: 'Profile pic uploaded successfully' });
+      return res.status(200).json({
+        success: true,
+        profilePicUrl: image.secure_url,
+        message: 'Profile pic uploaded successfully',
+      });
     }
     return res.status(400).json({ success: false, message: 'Could not update profile pic' });
   } catch (error) {
