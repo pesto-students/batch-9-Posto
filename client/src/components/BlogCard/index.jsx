@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import BlogDetails from '../BlogDetails';
 import styles from './BlogCard.module.css';
 
 export default function BlogCard({ data }) {
   const {
-    category, title, content, author, image,
+    category, title, content, author, image, _id,
   } = data;
-
   return (
     <div className={styles.container}>
-      <a className={styles.cardLink} href="">
+      <Link className={styles.cardLink} to={`/post/${_id}`}>
         <article className={styles.blogCard}>
           <img className={styles.postImage} src={image} alt="Article" />
           <BlogDetails data={{
@@ -22,7 +22,7 @@ export default function BlogCard({ data }) {
           }}
           />
         </article>
-      </a>
+      </Link>
     </div>
   );
 }
