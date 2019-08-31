@@ -53,7 +53,7 @@ const CategoryPage = ({ match, location }) => {
       : (
         <>
           <Header />
-          <CategoryScrollBar />
+          <CategoryScrollBar selectedCategory={location.state.categoryId} />
           <CenterContainer style={{ paddingTop: '80px' }}>
             <h2>Category: {match.params.name}</h2>
             {conditionallyRenderBlogs()}
