@@ -1,6 +1,5 @@
 import Joi from '@hapi/joi';
 import User from '../models/User';
-import imageHelper from '../helpers/images';
 
 import UserSchema from '../validations/users';
 import joiOptions from '../validations/joiOptions';
@@ -37,32 +36,7 @@ const updateUser = async function updateUser(req, res) {
   }
 };
 
-const updateProfilePic = async function updateProfilePic(req, res) {
-  try {
-    const { userId } = req.params;
-    const upload = await imageHelper.uploadImage('profile');
-    await upload(req, res);
-    const { path } = req.file;
-    const uniqueFilename = new Date().toISOString();
-    const image = await imageHelper.uploadImageToCloudinary(path, uniqueFilename);
-    await imageHelper.removeImage(path);
-    const updatedUser = await User
-      .findByIdAndUpdate(userId, { profilePic: image.secure_url }).lean();
-    if (updatedUser) {
-      return res.status(200).json({
-        success: true,
-        profilePicUrl: image.secure_url,
-        message: 'Profile pic uploaded successfully',
-      });
-    }
-    return res.status(400).json({ success: false, message: 'Could not update profile pic' });
-  } catch (error) {
-    return res.status(400).json({ success: false, message: 'Could not update profile pic', error: error.message });
-  }
-};
-
 module.exports = {
   getUser,
   updateUser,
-  updateProfilePic,
 };

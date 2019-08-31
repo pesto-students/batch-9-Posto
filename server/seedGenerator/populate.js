@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
-import User from '../models/User';
-import Category from '../models/Category';
-import Post from '../models/Post';
-import Comment from '../models/Comment';
+import User from '../src/models/User';
+import Category from '../src/models/Category';
+import Post from '../src/models/Post';
+import Comment from '../src/models/Comment';
 
-const createConnection = require('../database/connection');
+const createConnection = require('../src/database/connection');
 
 const userDocuments = fs.readFileSync(path.resolve(`${__dirname}/seeds/users.json`), 'utf-8');
 const categoriesDocuments = fs.readFileSync(path.resolve(`${__dirname}/seeds/categories.json`), 'utf-8');

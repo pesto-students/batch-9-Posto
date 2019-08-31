@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { ObjectId } from 'mongodb';
 
-const createComments = () => {
+const createComments = (maxComments, maxReplies) => {
   const users = require('./seeds/users.json');
   const posts = require('./seeds/posts.json');
 
@@ -22,14 +22,14 @@ const createComments = () => {
 
   const comments = [];
   for (let i = 0; i < posts.length; i += 1) {
-    const totalComments = faker.random.number({ min: 10, max: 20 });
+    const totalComments = faker.random.number({ min: 1, max: maxComments });
     for (let j = 0; j < totalComments; j += 1) {
       comments.push({
         _id: ObjectId(),
         comment: faker.lorem.sentences(),
         post: ObjectId(posts[i]._id),
         user: ObjectId(users[faker.random.number({ min: 0, max: users.length - 1 })]._id),
-        replies: createReplies(faker.random.number({ min: 10, max: 20 })),
+        replies: createReplies(faker.random.number({ min: 1, max: maxReplies })),
         status: 'active',
       });
     }
