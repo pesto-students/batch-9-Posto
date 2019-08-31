@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import plugins from '../plugin';
 import renderers from '../renderer';
 import './Markdown.css';
+import styles from './Markdown.module.css';
 
 const Markdown = ({ source }) => {
   const err = ['!(http)', '!(https)', '!(http:)', '!(https:)', '!(http:/)', '!(https:/)'];
@@ -23,6 +24,7 @@ const Markdown = ({ source }) => {
         source={data}
         renderers={renderers}
         plugins={plugins}
+        className={styles.md}
       />
     </div>
   );
