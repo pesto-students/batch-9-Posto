@@ -226,7 +226,7 @@ const topPosts = async (req, res) => {
         },
       },
       { $unwind: '$category' },
-      { $sort: { upVotesCount: -1 } },
+      { $sort: { upvotesCount: -1 } },
       { $limit: limit },
       {
         $project: {
