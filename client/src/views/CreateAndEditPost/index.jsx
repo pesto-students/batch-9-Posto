@@ -8,8 +8,10 @@ import {
 } from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
 import Loader from '../../components/Loader';
+import { useInput } from '../../hooks/index';
 import axiosConfig from '../../config/axiosConfig';
 
+const Help = lazy(() => import('../../components/Help'));
 const WritePost = lazy(() => import('../../components/WritePost'));
 const EditPost = lazy(() => import('../../components/EditPost'));
 const PreviewPost = lazy(() => import('../../components/PreviewPost'));
@@ -19,6 +21,8 @@ const Header = lazy(() => import('../../components/Header'));
 
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [title, setTitle] = useInput('');
+  const [content, setContent] = useInput('');
   const { state, dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -47,8 +51,6 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
     }
   }, [postId]);
 
-  const DisplayContent = () => (state.activeTab === 'preview'
-    ? <PreviewPost title={state.title} content={state.content} /> : <h1>Help</h1>);
   return (
     isLoading
       ? <Loader />
@@ -65,7 +67,9 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
                       {
                         state.activeTab === 'write'
                           ? <EditPost postId={postId} />
-                          : <DisplayContent />
+                          : state.activeTab === 'preview'
+                            ? <PreviewPost title={state.title} content={state.content} />
+                            : <Help />
                       }
                     </Segment>
                 </>
@@ -76,8 +80,10 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
                   <Segment attached="bottom">
                     {
                       state.activeTab === 'write'
-                        ? <WritePost />
-                        : <DisplayContent />
+                        ? <WritePost title={title} content={content} setTitle={setTitle} setContent={setContent}/>
+                        : state.activeTab === 'preview'
+                          ? <PreviewPost title={title} content={content} />
+                          : <Help />
                     }
                   </Segment>
                 </>

@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { NEW_POST_CATEGORY } from '../../context/constants';
 import { createPost } from '../../API';
-import { useInput } from '../../hooks/index';
 import Post from '../Post';
 import GlobalContext from '../../context/GlobalContext';
 
-const WritePost = () => {
+const WritePost = ({
+  title, content, setTitle, setContent,
+}) => {
   const { state, dispatch } = useContext(GlobalContext);
   const [postId, setPostId] = useState('');
-  const [title, setTitle] = useInput('');
-  const [content, setContent] = useInput('');
   const [isPublic, setIsPublic] = useState(true);
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
@@ -108,6 +108,13 @@ const WritePost = () => {
         />
       )
   );
+};
+
+WritePost.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setContent: PropTypes.func.isRequired,
 };
 
 export default WritePost;
