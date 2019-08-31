@@ -13,6 +13,7 @@ const CreateAndEditPost = lazy(() => import('./views/CreateAndEditPost'));
 const Home = lazy(() => import('./views/Home'));
 const CategoryPage = lazy(() => import('./views/Category'));
 const Search = lazy(() => import('./views/Search'));
+const MyPosts = lazy(() => import('./views/MyPosts'));
 
 function LazyRoute(Component) {
   return props => (
@@ -43,6 +44,11 @@ const routes = [
     path: '/category/:name',
     name: 'CategoryPage',
     component: LazyRoute(CategoryPage),
+  },
+  {
+    path: '/my-posts',
+    name: 'MyPosts',
+    component: LazyRoute(MyPosts),
   },
 ];
 
