@@ -31,12 +31,6 @@ const Header = ({ disabledSearchBox }) => {
       window.removeEventListener('resize', handleWindowResize);
     };
   });
-  const dropDownOptions = [
-    { key: 1, text: 'Profile', value: 1 },
-    { key: 2, text: 'Add Post', value: 2 },
-    { key: 3, text: 'My Posts', value: 3 },
-    { key: 4, text: 'Logout', value: 4 },
-  ];
 
   return (
     <HeaderMenu>
@@ -59,7 +53,7 @@ const Header = ({ disabledSearchBox }) => {
             <SearchBox disabledSearchBox={disabledSearchBox} />
           </MenuItem>
           <MenuItem>
-            <DropDown triggerImage={state.user.profilePic || avatar} options={dropDownOptions} />
+            <DropDown triggerImage={state.user.profilePic || avatar} />
           </MenuItem>
         </HeaderMenuRight>
       </CenterContainer>

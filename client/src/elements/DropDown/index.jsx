@@ -1,39 +1,40 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Dropdown, Image } from 'semantic-ui-react';
 
 import GlobalContext from '../../context/GlobalContext';
 import { LOGOUT } from '../../context/constants';
 
-const DropDown = ({ triggerImage, options }) => {
-  const [dropdownValue, setDropdownValue] = useState(null);
+const DropDown = ({ triggerImage }) => {
   const { dispatch } = useContext(GlobalContext);
 
   const trigger = (
     <span>
-      <Image circular src={triggerImage} style={{ height: '35px', width: '35px' }} />
+      <Image circular src={triggerImage} style={{ height: '35px', width: '35px' }} alt="user avatar" />
     </span>
   );
-  const handleChange = (e, { value }) => {
-    if (value === 4) {
-      localStorage.clear();
-      dispatch({ type: LOGOUT });
-    }
-    setDropdownValue(value);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch({ type: LOGOUT });
   };
 
   return (
-    <Dropdown onChange={handleChange} value={dropdownValue} trigger={trigger} options={options} pointing="top right" icon={null} />
+    <Dropdown trigger={trigger} pointing="top right" icon={null}>
+      <Dropdown.Menu>
+        <Dropdown.Item text="Profile" as={Link} to="/profile" />
+        <Dropdown.Item text="Add Post" as={Link} to="/new" />
+        <Dropdown.Item text="My Posts" as={Link} to="/my-posts" />
+        <Dropdown.Divider />
+        <Dropdown.Item text="Logout" onClick={handleLogout} />
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 
 DropDown.propTypes = {
   triggerImage: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-  })).isRequired,
 };
 
 export default DropDown;
