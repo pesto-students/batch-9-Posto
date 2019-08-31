@@ -7,13 +7,13 @@ import styles from './BlogCard.module.css';
 
 export default function BlogCard({ data }) {
   const {
-    category, title, content, author, image, _id,
+    category, title, content, author, image, alt, _id,
   } = data;
   return (
     <div className={styles.container}>
       <Link className={styles.cardLink} to={`/post/${_id}`}>
         <article className={styles.blogCard}>
-          <img className={styles.postImage} src={image} alt="Article" />
+          <img className={styles.postImage} src={image} alt={alt} />
           <BlogDetails data={{
             category,
             title,
@@ -40,5 +40,7 @@ BlogCard.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired,
     image: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
