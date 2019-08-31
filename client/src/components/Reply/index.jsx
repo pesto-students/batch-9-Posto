@@ -3,13 +3,14 @@ import {
   Segment, Container, Image, Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Reply = ({ data }) => {
   const { user } = data;
   return (
-    <Segment style={{ width: '90%' }} floated="right" textAlign="left" raised>
+    <Segment style={{ width: '90%' }} textAlign="left" raised>
       <span>
-        <a href="#/">
+        <Link to="#/">
           {user.profilePic
             ? (
               <Image
@@ -22,7 +23,7 @@ const Reply = ({ data }) => {
             )
             : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
           <span>{user.name}</span>
-        </a>
+        </Link>
       </span>
       <Container text textAlign="left">
         {data.reply}

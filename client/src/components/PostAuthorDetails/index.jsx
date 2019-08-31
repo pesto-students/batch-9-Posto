@@ -4,6 +4,8 @@ import {
   Image, Icon, Segment,
 } from 'semantic-ui-react';
 
+import { Link } from 'react-router-dom';
+
 const PostAuthorDetails = ({ post }) => {
   const date = new Date(post.createdAt);
   const { author } = post;
@@ -36,7 +38,7 @@ const PostAuthorDetails = ({ post }) => {
   return (
     <Segment>
       <span>
-        <a href="#/">
+        <Link to="#/">
           {author.profilePic
             ? (
               <Image
@@ -49,7 +51,7 @@ const PostAuthorDetails = ({ post }) => {
             )
             : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
           <span>{author.name}</span>
-        </a>
+        </Link>
       </span>
       <span>
         <time dateTime={post.createdAt}>{divider + formattedDate}</time>

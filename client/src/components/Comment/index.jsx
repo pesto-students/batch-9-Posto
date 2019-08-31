@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 import {
@@ -16,7 +17,7 @@ const Comment = ({
     <>
       <Segment textAlign="left" stacked className="comment-segment" onClick={() => setShowReplies(!showReplies)}>
         <span>
-          <a href="#/">
+          <Link to="#/">
             {user.profilePic
               ? (
                 <Image
@@ -29,7 +30,7 @@ const Comment = ({
               )
               : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
             <span>{user.name}</span>
-          </a>
+          </Link>
         </span>
         <Container text>
           {text}
