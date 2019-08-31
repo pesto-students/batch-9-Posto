@@ -164,7 +164,27 @@ const addReply = async (reply, commentId, postId) => {
   return response;
 };
 
+const updateUser = async (userId, {
+  name, gender, email, DOB,
+}) => {
+  let response;
+  try {
+    const body = {
+      name,
+      gender,
+      email,
+      DOB,
+    };
+    getToken();
+    response = await axios.put(`/users/${userId}`, body, axiosConfig);
+  } catch (err) {
+    throw new Error(err);
+  }
+  return { response, token: user.token };
+};
+
 export {
+  updateUser,
   fetchUserPosts,
   createPost,
   updatePost,
