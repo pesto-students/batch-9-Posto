@@ -4,6 +4,7 @@ import {
   CATEGORY,
 } from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
+import styles from './MenuDropDown.module.css';
 
 const MenuDropDown = () => {
   const { state, dispatch } = useContext(GlobalContext);
@@ -11,17 +12,16 @@ const MenuDropDown = () => {
   const handleDropDown = (e, { value }) => dispatch({ type: CATEGORY, payload: value });
 
   return (
-    <Menu>
+    <Menu.Item className={styles.item}>
       <Dropdown
-        item
         selection
+        scrolling
         onChange={handleDropDown}
-        placeholder="Select post category"
+        placeholder="Select category"
         options={state.categoryOptions}
         value={state.category}
-        scrolling
       />
-    </Menu>
+    </Menu.Item>
   );
 };
 
