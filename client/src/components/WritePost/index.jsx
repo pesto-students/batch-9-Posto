@@ -2,46 +2,54 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { NEW_POST_CATEGORY } from '../../context/constants';
 import { createPost } from '../../API';
+import { useInput } from '../../hooks/index';
 import Post from '../Post';
 import GlobalContext from '../../context/GlobalContext';
 
 const WritePost = () => {
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
   const [postId, setPostId] = useState('');
+  const [title, setTitle] = useInput('');
+  const [content, setContent] = useInput('');
+  const [isPublic, setIsPublic] = useState(true);
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [isPublishedLoading, setIsPublishedLoading] = useState(false);
 
+  const handleIsPublicChange = () => setIsPublic(!isPublic);
+
   const handlePublish = async () => {
-    if (state.title && state.content) {
+    if (title && content) {
       setIsPublishedLoading(true);
       const body = {
+        title,
+        content,
+        category: state.newPostCategory,
         author: state.user.id,
-        title: state.title,
-        content: state.content,
-        category: state.category,
-        public: state.isPublic,
+        public: isPublic,
         published: true,
       };
       try {
         const id = await createPost(body);
+        dispatch({ type: NEW_POST_CATEGORY, payload: '' });
         setPostId(id);
       } catch (err) {
+        setIsSaveLoading(false);
         alert(err.message);
       }
-      setIsSaveLoading(false);
     }
   };
 
   const handleSave = async () => {
-    if (state.title && state.content) {
+    if (title && content) {
       setIsSaveLoading(true);
       const body = {
+        title,
+        content,
         author: state.user.id,
-        title: state.title,
-        content: state.content,
-        category: state.category,
-        public: state.isPublic,
+        category: state.newPostCategory,
+        public: isPublic,
         published: false,
       };
       if (!body.category) {
@@ -49,20 +57,21 @@ const WritePost = () => {
       }
       try {
         const id = await createPost(body);
+        dispatch({ type: NEW_POST_CATEGORY, payload: '' });
         setPostId(id);
       } catch (err) {
+        setIsSaveLoading(false);
         alert(err.message);
       }
-      setIsSaveLoading(false);
     }
   };
 
   let saveDisabled = true;
   let publishDisabled = true;
-  if (state.title && state.content) {
+  if (title && content) {
     saveDisabled = false;
   }
-  if (state.category && state.title && state.content) {
+  if (state.newPostCategory && title && content) {
     publishDisabled = false;
   }
 
@@ -73,10 +82,10 @@ const WritePost = () => {
   );
 
   useEffect(() => {
-    if (state.title && state.content) {
+    if (title && content) {
       debouncedCallback();
     }
-  }, [state.title, state.content, state.category, state.isPublic]);
+  }, [title, content, state.newPostCategory, isPublic]);
 
 
   return (
@@ -90,6 +99,12 @@ const WritePost = () => {
           publishDisabled={publishDisabled}
           isSaveLoading={isSaveLoading}
           isPublishedLoading={isPublishedLoading}
+          title={title}
+          content={content}
+          isPublic={isPublic}
+          handleTitleChange={setTitle}
+          handleContentChange={setContent}
+          handleIsPublicChange={handleIsPublicChange}
         />
       )
   );

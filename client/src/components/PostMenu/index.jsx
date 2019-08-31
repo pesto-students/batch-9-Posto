@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Menu, Icon } from 'semantic-ui-react';
 
 import MenuDropDown from '../../elements/MenuDropDown';
@@ -8,7 +9,7 @@ import {
 } from '../../context/constants';
 import styles from './PostMenu.module.css';
 
-const PostMenu = () => {
+const PostMenu = ({ newPost }) => {
   const { state, dispatch } = useContext(GlobalContext);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -50,13 +51,21 @@ const PostMenu = () => {
         }
       </Menu.Item>
       <Menu.Menu position="right">
-        <MenuDropDown />
+        <MenuDropDown newPost={newPost} />
         <Menu.Item className={styles.item} active={state.activeTab === 'help'} onClick={handleHelpClick} position="right">
           <Icon circular inverted color="teal" name="help" />
         </Menu.Item>
       </Menu.Menu>
     </Menu>
   );
+};
+
+PostMenu.propTypes = {
+  newPost: PropTypes.bool,
+};
+
+PostMenu.defaultProps = {
+  newPost: false,
 };
 
 export default PostMenu;

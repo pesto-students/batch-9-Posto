@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import { getCategories } from '../../API';
+import GlobalContext from '../../context/GlobalContext';
 import styles from './CategoryScrollBar.module.css';
 
 const CategoryScrollBar = ({ selectedCategory }) => {
-  const [categories, setCategories] = useState([]);
-
-  // eslint-disable-next-line consistent-return
-  async function fetchData() {
-    try {
-      const response = await getCategories();
-      if (!response) {
-        return alert('fetching data failed');
-      }
-      setCategories(response);
-    } catch (err) {
-      alert(err.message);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { state } = useContext(GlobalContext);
 
   const renderCategories = () => (
     <div className={styles.scrollmenu}>
-      {categories.map((category) => (
+      {state.categoryOptions.map((category) => (
         <NavLink
           className={styles.linkStyle}
           activeClassName={styles.active}

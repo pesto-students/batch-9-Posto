@@ -1,8 +1,12 @@
-import React, { useContext, lazy, Suspense } from 'react';
+import React, { useContext, useEffect, lazy, Suspense } from 'react';
 import {
   Switch, Route, Redirect,
 } from 'react-router-dom';
 
+import {
+  CATEGORY_OPTIONS,
+} from './context/constants';
+import { getCategories } from './API';
 import GlobalContext from './context/GlobalContext';
 import Login from './views/Login';
 import Signup from './views/Signup';
@@ -65,7 +69,20 @@ const routes = [
 ];
 
 function Routes() {
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const options = await getCategories();
+        dispatch({ type: CATEGORY_OPTIONS, payload: options });
+      };
+      fetchData();
+    } catch (err) {
+      alert(err.message);
+    }
+  }, []);
+
   return (
     !state.user || !state.user.token
       ? (

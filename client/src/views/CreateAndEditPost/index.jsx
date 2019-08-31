@@ -1,58 +1,47 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, lazy } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Segment } from 'semantic-ui-react';
+
 import {
-  TITLE, CONTENT, CATEGORY, CATEGORY_OPTIONS, IS_PUBLIC,
+  TITLE, CONTENT, CATEGORY, IS_PUBLIC,
 } from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
-
 import Loader from '../../components/Loader';
-import { getCategories } from '../../API';
-import WritePost from '../../components/WritePost';
-import EditPost from '../../components/EditPost';
-import PreviewPost from '../../components/PreviewPost';
-import CenterPost from '../../elements/CenterPost';
-import PostMenu from '../../components/PostMenu';
-import Header from '../../components/Header';
 import axiosConfig from '../../config/axiosConfig';
 
+const WritePost = lazy(() => import('../../components/WritePost'));
+const EditPost = lazy(() => import('../../components/EditPost'));
+const PreviewPost = lazy(() => import('../../components/PreviewPost'));
+const CenterPost = lazy(() => import('../../elements/CenterPost'));
+const PostMenu = lazy(() => import('../../components/PostMenu'));
+const Header = lazy(() => import('../../components/Header'));
+
 const CreateAndEditPost = ({ match: { params: { postId } } }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { state, dispatch } = useContext(GlobalContext);
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const options = await getCategories();
-        dispatch({ type: CATEGORY_OPTIONS, payload: options });
-      };
-      fetchData();
-      setIsLoading(false);
-    } catch (err) {
-      alert(err.message);
-    }
-  }, []);
 
   useEffect(() => {
     if (postId) {
       const fetchData = async () => {
         try {
+          setIsLoading(true);
           const response = await axios.get(`posts/${postId}`, axiosConfig);
           if (response.data.success) {
             const { post } = response.data;
             dispatch({ type: TITLE, payload: post.title });
             dispatch({ type: CONTENT, payload: post.content });
             if (post.category) {
-              dispatch({ type: CATEGORY, payload: post.category });
+              dispatch({ type: CATEGORY, payload: post.category._id });
             }
             dispatch({ type: IS_PUBLIC, payload: post.public });
           } else {
             alert(response.data);
           }
-          setIsLoading(false);
         } catch (err) {
           alert(err);
         }
+        setIsLoading(false);
       };
       fetchData();
     }
@@ -67,16 +56,34 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
         <>
           <Header />
           <CenterPost>
-            <PostMenu />
-            <Segment attached="bottom">
-              {
-          state.activeTab === 'write'
-            ? postId
-              ? <EditPost postId={postId} />
-              : <WritePost />
-            : <DisplayContent />
-        }
-            </Segment>
+            {
+              postId
+              ? (
+                <>
+                    <PostMenu />
+                    <Segment attached="bottom">
+                      {
+                        state.activeTab === 'write'
+                          ? <EditPost postId={postId} />
+                          : <DisplayContent />
+                      }
+                    </Segment>
+                </>
+              )
+              : (
+                <>
+                  <PostMenu newPost/>
+                  <Segment attached="bottom">
+                    {
+                      state.activeTab === 'write'
+                        ? <WritePost />
+                        : <DisplayContent />
+                    }
+                  </Segment>
+                </>
+              )
+            }
+            
           </CenterPost>
         </>
       )

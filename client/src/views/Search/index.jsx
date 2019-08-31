@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { fetchSearchResults } from '../../API';
-import Header from '../../components/Header';
-import SearBar from '../../components/SearchBar';
-import CenterContainer from '../../elements/CenterContainer';
-import BlogList from '../../components/BlogList';
+import Loader from '../../components/Loader';
+
+const CenterContainer = lazy(() => import('../../elements/CenterContainer'));
+const Header = lazy(() => import('../../components/Header'));
+const SearBar = lazy(() => import('../../components/SearchBar'));
+const BlogList = lazy(() => import('../../components/BlogList'));
 
 const Search = ({ location }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState(location.state.text);
   const [blogs, setBlogs] = useState([]);
 
   const handleFetch = async () => {
+    setIsLoading(true);
     try {
       const object = {
         searchText, category: 'all', skip: 0, limit: 10,
@@ -26,6 +30,7 @@ const Search = ({ location }) => {
     } catch (err) {
       alert(err);
     }
+    setIsLoading(false);
   };
 
   const [debouncedCallback] = useDebouncedCallback(
@@ -46,7 +51,9 @@ const Search = ({ location }) => {
   }, [searchText]);
 
   return (
-    <>
+    isLoading
+      ? <Loader />
+      : (<>
       <Header disabledSearchBox />
       <CenterContainer>
         <SearBar
@@ -61,7 +68,7 @@ const Search = ({ location }) => {
           {conditionallyRenderBlogs()}
         </div>
       </CenterContainer>
-    </>
+    </>)
   );
 };
 

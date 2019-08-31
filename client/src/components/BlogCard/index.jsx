@@ -29,7 +29,6 @@ export default function BlogCard({ data }) {
 
 BlogCard.propTypes = {
   data: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
     category: PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

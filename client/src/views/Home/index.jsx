@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
 
 import Loader from '../../components/Loader';
 import { getTop10Posts } from '../../API';
-import CenteredContainer from '../../elements/CenterContainer';
-import Header from '../../components/Header';
-import CategoryScrollBar from '../../components/CategoryScrollBar';
-import BlogList from '../../components/BlogList';
+
+const CenteredContainer = lazy(() => import('../../elements/CenterContainer'));
+const Header = lazy(() => import('../../components/Header'));
+const CategoryScrollBar = lazy(() => import('../../components/CategoryScrollBar'));
+const BlogList = lazy(() => import('../../components/BlogList'));
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +15,7 @@ const HomePage = () => {
 
   const fetchBlogs = async () => {
     try {
+      setIsLoading(true);
       const response = await getTop10Posts();
       if (!response.data.posts) {
         setError('No blogs found on the topic');
@@ -21,10 +23,10 @@ const HomePage = () => {
         setError(null);
         setBlogs(response.data.posts);
       }
-      setIsLoading(false);
     } catch (err) {
       setError('Network Error');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {

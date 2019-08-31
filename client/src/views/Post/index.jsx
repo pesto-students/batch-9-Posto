@@ -1,14 +1,14 @@
-import React, { useEffect, Suspense, lazy, useContext, useState } from 'react';
+import React, { useEffect, lazy, useContext, useState } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
 import { POST, COMMENTS } from '../../context/constants';
 import axiosConfig from '../../config/axiosConfig';
 import GlobalContext from '../../context/GlobalContext';
 import Loader from '../../components/Loader';
-import Markdown from '../../components/Markdown';
 
-
+const Markdown = lazy(() => import('../../components/Markdown'));
 const Title = lazy(() => import('../../components/Title'));
 const PostAuthorDetails = lazy(() => import('../../components/PostAuthorDetails'));
 const CommentBox = lazy(() => import('../../components/CommentBox'));
@@ -19,21 +19,23 @@ const Post = ({ match: { params: { postId } } }) => {
     const { state, dispatch } = useContext(GlobalContext);
     const [isLoading, setIsLoading] = useState(true);
 
+    
     useEffect(() => {
-        const fetchPost = async () => {
-            const response = await axios.get(`posts/${postId}`, axiosConfig);
-            dispatch({ type: POST, payload: response.data.post || {} });
-            setIsLoading(false);
-        };
-        fetchPost();
-    }, [postId]);
-
-    useEffect(() => {
-        const fetchComments = async () => {
-            const response = await axios.get(`posts/${postId}/comments`, axiosConfig);
-            dispatch({ type: COMMENTS, payload: response.data.comments || [] });
-        };
-        fetchComments();
+      const fetchPost = async () => {
+        setIsLoading(true);
+        return axios.get(`posts/${postId}`, axiosConfig);
+      };
+  
+      const fetchComments = async () => {
+        setIsLoading(true);
+        return axios.get(`posts/${postId}/comments`, axiosConfig);
+      };
+      axios.all([fetchPost(), fetchComments()])
+        .then(axios.spread(function (postResponse, commentResponse) {
+          dispatch({ type: POST, payload: postResponse.data.post || {} });
+          dispatch({ type: COMMENTS, payload: commentResponse.data.comments || [] });
+          setIsLoading(false);
+        }));
     }, [postId]);
 
     return (

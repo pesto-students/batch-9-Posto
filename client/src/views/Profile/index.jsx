@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, lazy } from 'react';
 import { Grid, Form, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -7,8 +7,9 @@ import { updateUser } from '../../API';
 import { USER } from '../../context/constants';
 import GlobalContext from '../../context/GlobalContext';
 import Loader from '../../components/Loader';
-import CenterDiv from '../../components/CenterDiv';
-import Header from '../../components/Header';
+
+const CenterDiv = lazy(() => import('../../components/CenterDiv'));
+const Header = lazy(() => import('../../components/Header'));
 
 const Profile = () => {
   const { state, dispatch } = useContext(GlobalContext);
