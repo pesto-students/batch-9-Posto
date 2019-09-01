@@ -73,7 +73,7 @@ const MyPosts = () => {
     if (error) {
       return (
         <CenterContainer>
-          <h4>{error}</h4>
+          <h2>{error}</h2>
         </CenterContainer>
       );
     }

@@ -1,11 +1,16 @@
 .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 70rem;
   height: 170px;
   border-radius: 5px;
   margin: auto;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   z-index: -1;
+  margin-top: 30px;
   margin-bottom: 50px;
 }
 
@@ -16,7 +21,8 @@
 .postImage {
   display: block;
   width: 17rem;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   max-height: 185px;
 }
 
@@ -30,9 +36,15 @@
 
 .blogCard {
   width: 100% ;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  box-shadow: 0 0.0125rem 0.8rem black;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-shadow: 0 0.0125rem 0.8rem black;
+          box-shadow: 0 0.0125rem 0.8rem black;
   border-radius: 0.375rem;
   overflow: hidden;
 }
@@ -83,36 +95,50 @@
 
 @media only screen and (max-width: 768px) {
   .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 300px
   }
 
   .blogCard {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin: auto;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
 
   .postImage {
     width: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }
 
 @media only screen and (max-width: 320px) {
   .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 330px
   }
 
   .blogCard {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin: auto;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
 
   .postImage {
     width: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }

@@ -62,7 +62,7 @@ const Profile = () => {
     return (
       <CenterDiv>
         <Grid.Column style={{ paddingTop: '100px', maxWidth: '400px' }}>
-          <p>Profile Data</p>
+          <h1>Profile Data</h1>
           <h3>{error}</h3>
           <Form>
             <Form.Field>

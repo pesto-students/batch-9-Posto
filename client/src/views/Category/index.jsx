@@ -44,7 +44,7 @@ const CategoryPage = ({ match, location }) => {
 
   const conditionallyRenderBlogs = () => {
     if (error) {
-      return <h4>{error}</h4>;
+      return <h2 style={{ paddingTop: '30px'}}>{error}</h2>;
     }
     return <BlogList blogs={blogs} />;
   };
@@ -56,8 +56,7 @@ const CategoryPage = ({ match, location }) => {
         <>
           <Header />
           <CategoryScrollBar selectedCategory={location.state.categoryId} />
-          <CenterContainer style={{ paddingTop: '80px' }}>
-            <h2>Category: {match.params.name}</h2>
+          <CenterContainer>
             {conditionallyRenderBlogs()}
           </CenterContainer>
         </>
