@@ -35,9 +35,12 @@ const updatePost = async (body, postId) => {
   }
 };
 
-const getCategories = async () => {
+const getCategories = async (token = undefined) => {
   try {
     getToken();
+    if (token) {
+      axiosConfig.headers.authorization = `Bearer ${token}`;
+    }
     let result;
     const response = await axios.get('categories', axiosConfig);
     if (response && response.data && response.data.success) {
@@ -84,9 +87,12 @@ const signin = async (body) => {
   }
 };
 
-const getTop10Posts = async () => {
+const getTop10Posts = async (token = undefined) => {
   try {
     getToken();
+    if (token) {
+      axiosConfig.headers.authorization = `Bearer ${token}`;
+    }
     const response = await axios.get('posts/top/10', axiosConfig);
     return response;
   } catch (err) {

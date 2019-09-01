@@ -1,6 +1,7 @@
-import React, { useEffect, useState, lazy } from 'react';
+import React, { useEffect, useState, useContext, lazy } from 'react';
 
 import Loader from '../../components/Loader';
+import GlobalContext from '../../context/GlobalContext';
 import { getTop10Posts } from '../../API';
 
 const CenteredContainer = lazy(() => import('../../elements/CenterContainer'));
@@ -9,6 +10,7 @@ const CategoryScrollBar = lazy(() => import('../../components/CategoryScrollBar'
 const BlogList = lazy(() => import('../../components/BlogList'));
 
 const HomePage = () => {
+  const { state } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ const HomePage = () => {
   const fetchBlogs = async () => {
     try {
       setIsLoading(true);
-      const response = await getTop10Posts();
+      const response = await getTop10Posts(state.user.token);
       if (!response.data.posts) {
         setError('No blogs found on the topic');
       } else {
