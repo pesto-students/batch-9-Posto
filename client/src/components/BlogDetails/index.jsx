@@ -11,7 +11,7 @@ const BlogDetails = ({ data }) => {
     <div className={styles.articleDetails}>
       <h4 className={styles.postCategory}>{category ? category.name : 'Category'}</h4>
       <h3 className={styles.postTitle}>{title}</h3>
-      <p className={styles.postDescription}>{`${content.slice(0, 50)}...`}</p>
+      <p className={styles.postDescription}>{`${content.slice(0, 75)}...`}</p>
       <p className={styles.postAuthor}>By {author.name}</p>
     </div>
   );
