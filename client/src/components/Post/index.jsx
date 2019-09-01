@@ -55,11 +55,11 @@ const Post = ({
         onClick={() => {
           handleSave();
           if (postId) {
-            history.push('/my-posts');
+            history.replace('/my-posts');
           }
         }}
       >
-          Save
+          Save as Draft
       </Button>
       <Button
         positive
@@ -69,7 +69,7 @@ const Post = ({
         onClick={() => {
           handlePublish();
           if (postId) {
-            history.push(`/post/${postId}`);
+            history.replace(`/post/${postId}`);
           }
         }}
       >
@@ -92,7 +92,7 @@ const Post = ({
 
 Post.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
   }).isRequired,
   postId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
