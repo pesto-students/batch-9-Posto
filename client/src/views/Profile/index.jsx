@@ -103,6 +103,7 @@ const Profile = () => {
               <input
                 id="name"
                 value={name}
+                className='capitalize'
                 onChange={(e) => {
                   setError(null);
                   setName(e.target.value);

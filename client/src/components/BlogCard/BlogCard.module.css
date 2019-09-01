@@ -79,6 +79,7 @@
   margin: 1.125rem 0 0 0;
   padding: 1.125rem 0 0 0;
   border-top: 0.0625rem solid black;
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: 1024px) {

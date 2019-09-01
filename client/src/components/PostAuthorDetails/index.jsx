@@ -50,7 +50,7 @@ const PostAuthorDetails = ({ post }) => {
               />
             )
             : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
-          <span>{author.name}</span>
+          <span className="capitalize">{author.name}</span>
         </Link>
       </span>
       <span>
