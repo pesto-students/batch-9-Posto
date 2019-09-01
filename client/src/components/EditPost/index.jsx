@@ -84,6 +84,7 @@ const EditPost = ({ postId }) => {
 
   return (
     <Post
+      postId={postId}
       handlePublish={handlePublish}
       handleSave={handleSave}
       saveDisabled={saveDisabled}

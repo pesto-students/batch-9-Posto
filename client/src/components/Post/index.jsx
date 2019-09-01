@@ -4,12 +4,14 @@ import TextareaAutosize from 'react-autosize-textarea';
 import {
   Button, Radio, Divider, Message,
 } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 import styles from './Post.module.css';
 
 const Post = ({
   handlePublish, handleSave, saveDisabled, publishDisabled,
   isSaveLoading, isPublishedLoading, title, content, isPublic,
   handleTitleChange, handleContentChange, handleIsPublicChange,
+  history, postId,
 }) => (
   <>
     <TextareaAutosize
@@ -50,35 +52,49 @@ const Post = ({
         loading={isSaveLoading}
         disabled={saveDisabled}
         className={styles.flexElement}
-        onClick={handleSave}
+        onClick={() => {
+          handleSave();
+          if (postId) {
+            history.push('/my-posts');
+          }
+        }}
       >
-            Save
+          Save
       </Button>
       <Button
         positive
         loading={isPublishedLoading}
         disabled={publishDisabled}
         className={styles.flexElement}
-        onClick={handlePublish}
+        onClick={() => {
+          handlePublish();
+          if (postId) {
+            history.push(`/post/${postId}`);
+          }
+        }}
       >
-            Publish
+          Publish
       </Button>
     </div>
     {
-      publishDisabled
-        ? (
-          <div className={styles.container}>
-            <Message className={styles.warn} warning>
-              Fill in Title, Content and Category before you can publish.
-            </Message>
-          </div>
-        )
-        : null
-    }
+        publishDisabled
+          ? (
+            <div className={styles.container}>
+              <Message className={styles.warn} warning>
+                Fill in Title, Content and Category before you can publish.
+              </Message>
+            </div>
+          )
+          : null
+      }
   </>
 );
 
 Post.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  postId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
@@ -93,4 +109,4 @@ Post.propTypes = {
   isPublishedLoading: PropTypes.bool.isRequired,
 };
 
-export default Post;
+export default withRouter(Post);
