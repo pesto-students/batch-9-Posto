@@ -5,10 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "babel ./src --out-dir dist",
-    "pm2": "yarn global add pm2",
     "clean": "rimraf dist",
-    "start": "yarn clean && yarn build && yarn pm2 && yarn stop && pm2 start ./dist/bin/www.js -i max",
-    "stop": "pm2 stop all",
+    "start": "babel-node ./src/bin/www",
     "dev": "babel-node ./src/bin/www",
     "test": "jest --coverage .test.js",
     "lint": "eslint --ext .js . --fix",
@@ -48,7 +46,6 @@
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
     "nodemailer": "^6.3.0",
-    "pm2": "^3.5.1",
     "pug": "^2.0.4",
     "rimraf": "^3.0.0"
   },
