@@ -4,7 +4,7 @@ import {
   Grid, Form, Button, Image,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/storage';
 
 import { updateUser } from '../../API';
@@ -65,7 +65,7 @@ const Profile = () => {
     setLoading(true);
     let response;
     try {
-      response = await firebase.storage().ref(`/images/${state.user.id}`).put(file);
+      response = await firebase.storage().ref(`/images/${state.user.id}${new Date().getTime()}`).put(file);
       const url = await response.ref.getDownloadURL();
       setLoading(false);
       setBtnDisable(false);

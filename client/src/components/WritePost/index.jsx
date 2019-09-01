@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { NEW_POST_CATEGORY } from '../../context/constants';
@@ -9,7 +9,7 @@ import Post from '../Post';
 import GlobalContext from '../../context/GlobalContext';
 
 const WritePost = ({
-  title, content, setTitle, setContent,
+  title, content, setTitle, setContent, history,
 }) => {
   const { state, dispatch } = useContext(GlobalContext);
   const [postId, setPostId] = useState('');
@@ -34,6 +34,7 @@ const WritePost = ({
         const id = await createPost(body);
         dispatch({ type: NEW_POST_CATEGORY, payload: '' });
         setPostId(id);
+        history.push('/my-posts');
       } catch (err) {
         setIsSaveLoading(false);
         alert(err.message);
@@ -59,6 +60,7 @@ const WritePost = ({
         const id = await createPost(body);
         dispatch({ type: NEW_POST_CATEGORY, payload: '' });
         setPostId(id);
+        history.push('/my-posts');
       } catch (err) {
         setIsSaveLoading(false);
         alert(err.message);
@@ -111,10 +113,13 @@ const WritePost = ({
 };
 
 WritePost.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   setTitle: PropTypes.func.isRequired,
   setContent: PropTypes.func.isRequired,
 };
 
-export default WritePost;
+export default withRouter(WritePost);
