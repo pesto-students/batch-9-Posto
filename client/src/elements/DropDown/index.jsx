@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Dropdown, Image } from 'semantic-ui-react';
 
 import GlobalContext from '../../context/GlobalContext';
 import { LOGOUT } from '../../context/constants';
 
-const DropDown = ({ triggerImage }) => {
+const DropDown = ({ triggerImage, history }) => {
   const { dispatch } = useContext(GlobalContext);
 
   const trigger = (
@@ -20,12 +20,36 @@ const DropDown = ({ triggerImage }) => {
     dispatch({ type: LOGOUT });
   };
 
+  const handleProfile = () => {
+    if (history.location.pathname === '/profile') {
+      history.replace('/profile');
+    } else {
+      history.push('/profile');
+    }
+  };
+
+  const handleNew = () => {
+    if (history.location.pathname === '/new') {
+      history.replace('/new');
+    } else {
+      history.push('/new');
+    }
+  };
+
+  const handleMyPosts = () => {
+    if (history.location.pathname === '/my-posts') {
+      history.replace('/my-posts');
+    } else {
+      history.push('/my-posts');
+    }
+  };
+
   return (
     <Dropdown trigger={trigger} pointing="top right" icon={null}>
       <Dropdown.Menu>
-        <Dropdown.Item text="Profile" as={Link} to="/profile" />
-        <Dropdown.Item text="Add Post" as={Link} to="/new" />
-        <Dropdown.Item text="My Posts" as={Link} to="/my-posts" />
+        <Dropdown.Item text="Profile" onClick={handleProfile} />
+        <Dropdown.Item text="Add Post" onClick={handleNew} />
+        <Dropdown.Item text="My Posts" onClick={handleMyPosts} />
         <Dropdown.Divider />
         <Dropdown.Item text="Logout" onClick={handleLogout} />
       </Dropdown.Menu>
@@ -35,6 +59,13 @@ const DropDown = ({ triggerImage }) => {
 
 DropDown.propTypes = {
   triggerImage: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
-export default DropDown;
+export default withRouter(DropDown);

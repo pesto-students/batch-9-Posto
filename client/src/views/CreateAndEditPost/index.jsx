@@ -40,7 +40,7 @@ const CreateAndEditPost = ({ match: { params: { postId } } }) => {
             }
             dispatch({ type: IS_PUBLIC, payload: post.public });
           } else {
-            alert(response.data);
+            alert(response.data.message);
           }
         } catch (err) {
           alert(err);
