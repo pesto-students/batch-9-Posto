@@ -8,7 +8,7 @@ import './Markdown.css';
 import styles from './Markdown.module.css';
 
 const Markdown = ({ source }) => {
-  const err = ['!(http)', '!(https)', '!(http:)', '!(https:)', '!(http:/)', '!(https:/)'];
+  const err = ['!(http:/', '!(https:/', '!(http:', '!(https:', '!(http', '!(https', '!(http)', '!(https)', '!(http:)', '!(https:)', '!(http:/)', '!(https:/)'];
   const data = source.split(' ').map((word) => {
     if (err.includes(word)) {
       const correctWord = '!(https://)';
