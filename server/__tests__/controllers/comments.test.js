@@ -2,6 +2,7 @@ import request from 'supertest';
 import addToDatabase from '../testUtils/addToDatabase';
 import testDbHelper from '../testUtils/testDbHelper';
 import app from '../../src/app';
+import config from '../../src/config';
 
 beforeAll(async () => {
   await testDbHelper.createConnection();
@@ -25,6 +26,7 @@ describe('Add Comment', () => {
     };
     request(app)
       .post(`/posts/${post1._id}/comments`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(comment)
       .set('Accept', 'application/json')
       .expect(201)
@@ -46,6 +48,7 @@ describe('Add Comment', () => {
     const comment = {};
     request(app)
       .post(`/posts/${post1._id}/comments`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(comment)
       .set('Accept', 'application/json')
       .expect(400)
@@ -69,6 +72,7 @@ describe('Get Comments', () => {
     const comments = await addToDatabase.createComments(post1._id);
     request(app)
       .get(`/posts/${post1._id}/comments`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -89,6 +93,7 @@ describe('Get Comments', () => {
     await addToDatabase.createComments(post1._id);
     request(app)
       .get(`/posts/${post1._id}/comments?limit=1`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -109,6 +114,7 @@ describe('Get Comments', () => {
     const comments = await addToDatabase.createComments(post1._id);
     request(app)
       .get(`/posts/${post1._id}/comments?skip=1`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -129,6 +135,7 @@ describe('Get Comments', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .get(`/posts/${post1._id}/comments`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {

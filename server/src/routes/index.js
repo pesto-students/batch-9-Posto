@@ -11,8 +11,8 @@ router.get('/', loginRequired, (req, res) => {
 });
 
 router.use('/auth', authRoutes);
-router.use('/users', usersRoutes);
-router.use('/posts', postsRoutes);
-router.use('/categories', categoriesRoutes);
+router.use('/users', loginRequired, usersRoutes);
+router.use('/posts', loginRequired, postsRoutes);
+router.use('/categories', loginRequired, categoriesRoutes);
 
 export default router;

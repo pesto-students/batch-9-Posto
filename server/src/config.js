@@ -15,6 +15,7 @@ const envVariables = {
   CLOUDINARY_CLOUD_NAME: process.env[`${environment}_CLOUDINARY_CLOUD_NAME`],
   CLOUDINARY_API_KEY: process.env[`${environment}_CLOUDINARY_API_KEY`],
   CLOUDINARY_API_SECRET: process.env[`${environment}_CLOUDINARY_API_SECRET`],
+  BYPASS_TOKEN: process.env[`${environment}_BYPASS_TOKEN`],
 };
 
 export default envVariables;
