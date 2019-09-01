@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, lazy } from 'react';
 
 import Loader from '../../components/Loader';
 import GlobalContext from '../../context/GlobalContext';
-import { fetchUserPosts } from '../../API';
+import { fetchUserPosts, deletePost } from '../../API';
 
 const CenterContainer = lazy(() => import('../../elements/CenterContainer'));
 const BlogList = lazy(() => import('../../components/BlogList'));
@@ -33,6 +33,16 @@ const MyPosts = () => {
 
       default:
         return 'user-draft';
+    }
+  };
+
+  const handleDelete = async (blogId) => {
+    let response;
+    try {
+      response = await deletePost(blogId);
+      setBlogs(blogs.filter((blog) => blog._id !== response.data.post._id));
+    } catch (err) {
+      alert(err);
     }
   };
 
@@ -77,7 +87,7 @@ const MyPosts = () => {
         </CenterContainer>
       );
     }
-    return <BlogList blogs={blogs} />;
+    return <BlogList blogs={blogs} edit handleDelete={handleDelete} />;
   };
 
   return (

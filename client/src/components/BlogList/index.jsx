@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import getImage from 'get-md-image';
 
 import BlogCard from '../BlogCard';
 import { defaultContent, defaultImage } from '../../config/constants';
+import { deletePost } from '../../API';
 
 const removeMd = require('remove-markdown');
 
-export default function BlogList({ blogs }) {
+export default function BlogList({ blogs, edit, handleDelete }) {
   const conditionallyRenderBlogs = () => blogs.map((blog) => {
     const plainContent = removeMd(blog.content);
     let refactoredData = {};
@@ -27,7 +28,7 @@ export default function BlogList({ blogs }) {
         alt: 'Default Image',
       };
     }
-    return <BlogCard key={refactoredData._id} data={refactoredData} />;
+    return <BlogCard key={refactoredData._id} data={refactoredData} edit={edit} handleDelete={handleDelete} />;
   });
 
   return (
@@ -39,9 +40,13 @@ export default function BlogList({ blogs }) {
 
 BlogList.defaultProps = {
   blogs: [],
+  edit: false,
+  handleDelete: null,
 };
 
 BlogList.propTypes = {
+  handleDelete: PropTypes.func,
+  edit: PropTypes.bool,
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
       author: PropTypes.shape({
