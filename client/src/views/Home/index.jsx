@@ -49,8 +49,8 @@ const HomePage = () => {
           <CategoryScrollBar />
           <CenteredContainer style={{ paddingTop: '30px', paddingBottom: '50px' }}>
             <h1
-              style={{ paddingBottom: '20px' }}
-            >Top 10 Blogs.
+              style={{ padding: '20px' }}
+            >Trending Blogs
             </h1>
             {conditionallyRenderBlogs()}
           </CenteredContainer>

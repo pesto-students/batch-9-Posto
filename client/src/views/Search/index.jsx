@@ -41,7 +41,7 @@ const Search = ({ location }) => {
 
   const conditionallyRenderBlogs = () => {
     if (blogs.length === 0) {
-      return <h4>No posts found...</h4>;
+      return <h2>No posts found...</h2>;
     }
     return <BlogList blogs={blogs} />;
   };

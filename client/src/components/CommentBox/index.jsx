@@ -42,7 +42,7 @@ const CommentBox = ({ buttonText, placeholder }) => {
         value={text}
         placeholder={placeholder}
         onChange={(e) => handleTextChange(e)}
-        style={{ backgroundColor: 'snow' }}
+        style={{ backgroundColor: 'gainsboro' }}
       />
       <Button style={{ marginTop: '16px' }} content={buttonText} primary />
     </Form>
