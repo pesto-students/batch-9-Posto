@@ -72,13 +72,14 @@ function Routes() {
   const { state, dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
-    if (state.user && Object.keys(state.user).length)
     try {
-      const fetchData = async () => {
-        const options = await getCategories();
-        dispatch({ type: CATEGORY_OPTIONS, payload: options });
-      };
-      fetchData();
+      if (state.user && Object.keys(state.user).length) {
+        const fetchData = async () => {
+          const options = await getCategories();
+          dispatch({ type: CATEGORY_OPTIONS, payload: options });
+        };
+        fetchData();
+      }
     } catch (err) {
       alert(err.message);
     }

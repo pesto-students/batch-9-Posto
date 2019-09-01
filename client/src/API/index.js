@@ -137,6 +137,7 @@ const fetchUserPosts = async ({
 const upvoteAPost = async (postId, userId, type) => {
   let response;
   try {
+    getToken();
     response = await axios.patch(`${axiosConfig.baseURL}/posts/${postId}/${type}`, { userId }, axiosConfig);
   } catch (err) {
     throw new Error(err);
@@ -147,6 +148,7 @@ const upvoteAPost = async (postId, userId, type) => {
 const addComment = async (comment) => {
   let response;
   try {
+    getToken();
     response = await axios.post(`${axiosConfig.baseURL}/posts/${comment.post}/comments`, comment, axiosConfig);
   } catch (err) {
     throw new Error(err);
@@ -157,6 +159,7 @@ const addComment = async (comment) => {
 const addReply = async (reply, commentId, postId) => {
   let response;
   try {
+    getToken();
     response = await axios.post(`${axiosConfig.baseURL}/posts/${postId}/comments/${commentId}/replies`, reply, axiosConfig);
   } catch (err) {
     throw new Error(err);
