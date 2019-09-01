@@ -86,7 +86,17 @@ const Profile = () => {
         <Grid.Column style={{ paddingTop: '100px', maxWidth: '400px' }}>
           <h1>Profile Data</h1>
           <h3>{error}</h3>
-          <Image src={profilePic} size="medium" circular />
+          <Image
+            src={profilePic}
+            size="medium"
+            style={{
+              display: 'block',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              width: '50%',
+            }}
+            circular
+          />
           <Form>
             <Form.Field>
               <label htmlFor="profilepic">Choose Profile Pic</label>
