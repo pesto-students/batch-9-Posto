@@ -21,7 +21,7 @@ const sendMail = async function sendMail(data) {
   const { type, mailOptions, variables } = data;
   const inputs = { ...mailOptions, type };
   await Joi.validate(inputs, MailSchema, joiOptions);
-  const filePath = path.resolve(__dirname, `../mailTemplates/${type}.pug`);
+  const filePath = path.resolve(__dirname, `../../mailTemplates/${type}.pug`);
   const pugToHtml = pug.renderFile(filePath, variables);
   inputs.html = pugToHtml;
   await transporter.sendMail(inputs);
