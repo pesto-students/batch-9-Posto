@@ -28,6 +28,7 @@ const SignupForm = () => {
       localStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: USER, payload: user });
     } catch (err) {
+      setSubmitLoading(false);
       alert(err.message);
     }
   };
