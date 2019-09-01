@@ -47,8 +47,8 @@ const Post = ({ match: { params: { postId } } }) => {
           <Header />
           <CenterPost>
             <Grid.Row>
-              <Segment style={{marginTop: '60px'}}>
-                <Title as="h1">{state.post.title}</Title>
+              <Segment style={{marginTop: '60px', backgroundColor: '#fbfbfb'}}>
+                <Title style={{ fontSize: '44px' }} as="h1">{state.post.title}</Title>
                 <PostAuthorDetails post={state.post} />
                 <Markdown source={state.post.content} />
                 <Upvote upvotes={state.post.upvotes} postId={state.post._id} />
@@ -59,7 +59,7 @@ const Post = ({ match: { params: { postId } } }) => {
             </Grid.Row>
             {state.post && state.post.title && state.comments && state.comments.length ?
               <Grid.Row>
-                <Segment>
+                <Segment style={{ marginTop: '16px', backgroundColor: '#fbfbfb' }} >
                   <CommentsList comments={state.comments} />
                 </Segment>
               </Grid.Row> : null}

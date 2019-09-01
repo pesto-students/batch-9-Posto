@@ -21,6 +21,7 @@ const SearchBox = ({ history, disabledSearchBox }) => {
           display: disableSearch,
         }}
         transparent
+        aria-label="search box"
         icon={{ name: 'search', link: true }}
         placeholder="Search Blogs..."
         value={text}

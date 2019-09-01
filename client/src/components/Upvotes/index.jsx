@@ -34,7 +34,7 @@ const Upvote = ({ upvotes, postId }) => {
   };
   return (
     <>
-      <Icon name="like" color={color} size="big" onClick={() => handleUpvoteChange()} />
+      <Icon style={{ marginBottom: '10px', cursor: 'pointer' }} name="like" color={color} size="big" onClick={() => handleUpvoteChange()} />
       {localUpvote.length}
     </>
   );

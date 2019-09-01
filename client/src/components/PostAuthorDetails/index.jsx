@@ -36,7 +36,7 @@ const PostAuthorDetails = ({ post }) => {
   }, [post]);
 
   return (
-    <Segment>
+    <Segment style={{ marginBottom: '40px' }}>
       <span>
         <Link to="#/">
           {author.profilePic
@@ -50,7 +50,7 @@ const PostAuthorDetails = ({ post }) => {
               />
             )
             : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
-          <span className="capitalize">{author.name}</span>
+          <span style={{ fontWeight: 'bolder' }} className="capitalize">{author.name}</span>
         </Link>
       </span>
       <span>
