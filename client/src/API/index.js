@@ -184,7 +184,19 @@ const updateUser = async (userId, {
   return { response, token: user.token };
 };
 
+const deletePost = async (blogId) => {
+  let response;
+  try {
+    getToken();
+    response = await axios.delete(`/posts/${blogId}`, axiosConfig);
+    return response;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export {
+  deletePost,
   updateUser,
   fetchUserPosts,
   createPost,
