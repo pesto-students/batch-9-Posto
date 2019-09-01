@@ -22,7 +22,7 @@ const Reply = ({ data }) => {
               />
             )
             : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
-          <span>{user.name}</span>
+          <span className="capitalize">{user.name}</span>
         </Link>
       </span>
       <Container text textAlign="left">
