@@ -40,14 +40,14 @@ const ReplyBox = ({ buttonText, placeholder, commentId }) => {
   return (
     <Form onSubmit={(e) => handleSubmit(e)}>
       <TextArea
-        style={{ marginLeft: '15%', width: '85%', backgroundColor: 'gainsboro' }}
+        style={{ marginLeft: '15%', width: '85%', backgroundColor: '#eaeaea', fontSize: '18px' }}
         textAlign="left"
         rows={3}
         value={text}
         placeholder={placeholder}
         onChange={(e) => handleTextChange(e)}
       />
-      <Button style={{ marginTop: '16px', marginLeft: '15%' }} content={buttonText} primary />
+      <Button style={{ marginTop: '16px', marginLeft: '15%', marginBottom: '24px' }} size="large" content={buttonText} primary />
     </Form>
   );
 };

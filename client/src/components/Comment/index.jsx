@@ -29,10 +29,10 @@ const Comment = ({
                 />
               )
               : <Icon name="user" style={{ display: 'inline', marginRight: '10px' }} />}
-            <span className="capitalize">{user.name}</span>
+            <span style={{ fontWeight: 'bolder', fontSize: '18px' }} className="capitalize">{user.name}</span>
           </Link>
         </span>
-        <Container text>
+        <Container style={{ padding: '15px 35px 0px 40px', fontSize: '20px', lineHeight: '26px' }}>
           {text}
         </Container>
       </Segment>

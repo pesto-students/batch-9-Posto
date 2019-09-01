@@ -1,7 +1,7 @@
 .md{
   color: black;
   font-size: 22px;
-  line-height: 32px;
+  line-height: 35px;
 }
 
 .md h1{
@@ -22,6 +22,7 @@
 
 .md p{
   font-size: 22px;
+  line-height: 35px;
 }
 
 .md li{
@@ -51,15 +52,15 @@
 }
 
 .md blockquote {
-  background: #f9f9f9;
-  border-left: 5px solid #ccc;
+  background: #eaeaea;
+  border-left: 5px solid #bbb;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 
 .md blockquote:before {
-  color: #ccc;
+  color: #bbb;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
