@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext, lazy } from 'react';
-import { Grid, Form, Button } from 'semantic-ui-react';
+import {
+  Grid, Form, Button, Image,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase';
+import 'firebase/storage';
 
 import { updateUser } from '../../API';
 import { USER } from '../../context/constants';
@@ -11,12 +15,14 @@ import Loader from '../../components/Loader';
 const CenterDiv = lazy(() => import('../../components/CenterDiv'));
 const Header = lazy(() => import('../../components/Header'));
 
+
 const Profile = () => {
   const { state, dispatch } = useContext(GlobalContext);
 
   const [name, setName] = useState(state.user.name);
   const [gender, setGender] = useState(state.user.gender);
   const [dob, setDob] = useState(state.user.DOB.slice(0, 10));
+  const [profilePic, setProfilePic] = useState(state.user.profilePic);
   const [btnDisable, setBtnDisable] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -39,7 +45,7 @@ const Profile = () => {
     let response;
     try {
       response = await updateUser(state.user.id, {
-        name, gender, email: state.user.email, DOB: dob,
+        name, gender, email: state.user.email, DOB: dob, profilePic,
       });
       const user = {
         ...response.response.data.updatedUser,
@@ -55,16 +61,43 @@ const Profile = () => {
     }
   };
 
+  const handleProfilePic = async (file) => {
+    setLoading(true);
+    let response;
+    try {
+      response = await firebase.storage().ref(`/images/${state.user.id}`).put(file);
+      const url = await response.ref.getDownloadURL();
+      setLoading(false);
+      setBtnDisable(false);
+      setProfilePic(url);
+    } catch (err) {
+      setLoading(false);
+      setBtnDisable(true);
+    }
+  };
+
   const conditionallyRenderForm = () => {
     if (loading) {
       return <Loader />;
     }
+
     return (
       <CenterDiv>
         <Grid.Column style={{ paddingTop: '100px', maxWidth: '400px' }}>
           <h1>Profile Data</h1>
           <h3>{error}</h3>
+          <Image src={profilePic} size="medium" circular />
           <Form>
+            <Form.Field>
+              <label htmlFor="profilepic">Choose Profile Pic</label>
+              <input
+                id="profilepic"
+                type="file"
+                onChange={(e) => {
+                  handleProfilePic(e.target.files[0]);
+                }}
+              />
+            </Form.Field>
             <Form.Field>
               <label htmlFor="name">Name:</label>
               <input

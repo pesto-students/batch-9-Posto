@@ -165,7 +165,7 @@ const addReply = async (reply, commentId, postId) => {
 };
 
 const updateUser = async (userId, {
-  name, gender, email, DOB,
+  name, gender, email, DOB, profilePic,
 }) => {
   let response;
   try {
@@ -174,6 +174,7 @@ const updateUser = async (userId, {
       gender,
       email,
       DOB,
+      profilePic,
     };
     getToken();
     response = await axios.put(`/users/${userId}`, body, axiosConfig);

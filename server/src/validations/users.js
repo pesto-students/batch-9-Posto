@@ -8,6 +8,7 @@ const UserSchema = Joi.object().keys({
   email: Joi.string().email({ minDomainSegments: 2 }).required().label('Email'),
   gender: Joi.string().required().valid('Male', 'Female', 'Other').label('Gender'),
   DOB: Joi.date().max(Date.now()).required().label('Date Of Birth'),
+  profilePic: Joi.string().allow('').label('profilePic'),
 });
 
 export default UserSchema;
