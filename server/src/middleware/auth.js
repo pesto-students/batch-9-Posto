@@ -1,3 +1,4 @@
+import config from '../config';
 import {
   invalidResponse,
   decodeToken,
@@ -6,6 +7,10 @@ import {
 
 const loginRequired = async (request, response, next) => {
   try {
+    const { bypasstoken } = request.query;
+    if (bypasstoken && bypasstoken === config.BYPASS_TOKEN) {
+      return next();
+    }
     const decoded = await decodeToken(request.headers.authorization);
     if (decoded) {
       return next();

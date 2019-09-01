@@ -3,6 +3,7 @@ import addToDatabase from '../testUtils/addToDatabase';
 import userModel from '../../src/models/User';
 import testDbHelper from '../testUtils/testDbHelper';
 import app from '../../src/app';
+import config from '../../src/config';
 
 beforeAll(async () => {
   await testDbHelper.createConnection();
@@ -21,6 +22,7 @@ describe('Get a User', () => {
   test('should throw error for invalid userId value', async (done) => {
     request(app)
       .get('/users/xyz')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(400)
       .expect(async (response) => {
@@ -39,6 +41,7 @@ describe('Get a User', () => {
     const { user1 } = await addToDatabase.createUsers();
     request(app)
       .get(`/users/${user1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -56,6 +59,7 @@ describe('Get a User', () => {
   test('should return user not found', async (done) => {
     request(app)
       .get('/users/5d5adea00f61796594c32dec')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -83,6 +87,7 @@ describe('Update a User', () => {
     };
     request(app)
       .put(`/users/${user1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updateUserBody)
       .set('Accept', 'application/json')
       .expect(200)
@@ -107,6 +112,7 @@ describe('Update a User', () => {
     const updateUserBody = {};
     request(app)
       .put(`/users/${user1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updateUserBody)
       .set('Accept', 'application/json')
       .expect(400)
@@ -127,6 +133,7 @@ describe('Update a User', () => {
     const updateUserBody = {};
     request(app)
       .put('/users/xyz')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updateUserBody)
       .set('Accept', 'application/json')
       .expect(400)
@@ -152,6 +159,7 @@ describe('Update a User', () => {
     };
     request(app)
       .put('/users/5d5adea00f61796594c32deb')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updateUserBody)
       .set('Accept', 'application/json')
       .expect(200)

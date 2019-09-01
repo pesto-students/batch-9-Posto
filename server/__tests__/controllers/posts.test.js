@@ -3,6 +3,7 @@ import addToDatabase from '../testUtils/addToDatabase';
 import postsModel from '../../src/models/Post';
 import testDbHelper from '../testUtils/testDbHelper';
 import app from '../../src/app';
+import config from '../../src/config';
 
 beforeAll(async () => {
   await testDbHelper.createConnection();
@@ -28,6 +29,7 @@ describe('Add Post', () => {
     };
     request(app)
       .post('/posts')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(post)
       .set('Accept', 'application/json')
       .expect(201)
@@ -49,6 +51,7 @@ describe('Add Post', () => {
     const post = {};
     request(app)
       .post('/posts')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(post)
       .set('Accept', 'application/json')
       .expect(400)
@@ -79,6 +82,7 @@ describe('Edit Post', () => {
     };
     request(app)
       .put(`/posts/${post1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updatePostBody)
       .set('Accept', 'application/json')
       .expect(200)
@@ -103,6 +107,7 @@ describe('Edit Post', () => {
     const updatePostBody = {};
     request(app)
       .put(`/posts/${post1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updatePostBody)
       .set('Accept', 'application/json')
       .expect(400)
@@ -130,6 +135,7 @@ describe('Edit Post', () => {
     };
     request(app)
       .put('/posts/xyz')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updatePostBody)
       .set('Accept', 'application/json')
       .expect(400)
@@ -156,6 +162,7 @@ describe('Edit Post', () => {
     };
     request(app)
       .put('/posts/5d5adea00f61796594c32dec')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send(updatePostBody)
       .set('Accept', 'application/json')
       .expect(200)
@@ -178,6 +185,7 @@ describe('Upvote', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .patch(`/posts/${post1._id}/upvote`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send({ userId: user1._id })
       .set('Accept', 'application/json')
       .expect(200)
@@ -202,6 +210,7 @@ describe('Downvote', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .patch(`/posts/${post1._id}/downvote`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send({ userId: user1._id })
       .set('Accept', 'application/json')
       .expect(200)
@@ -226,6 +235,7 @@ describe('Upvote / Downvote', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .patch(`/posts/${post1._id}/xyz`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .send({ userId: user1._id })
       .set('Accept', 'application/json')
       .expect(400)
@@ -246,6 +256,7 @@ describe('Get Post', () => {
   test('should throw error for invalid postId value', async (done) => {
     request(app)
       .get('/posts/xyz')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(400)
       .expect(async (response) => {
@@ -264,6 +275,7 @@ describe('Get Post', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .get(`/posts/${post1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -281,6 +293,7 @@ describe('Get Post', () => {
   test('should return post not found', async (done) => {
     request(app)
       .get('/posts/5d5adea00f61796594c32dec')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -301,6 +314,7 @@ describe('Get Posts', () => {
     const posts = await addToDatabase.createPosts();
     request(app)
       .get('/posts')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -320,6 +334,7 @@ describe('Get Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .get('/posts?limit=1')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -339,6 +354,7 @@ describe('Get Posts', () => {
     const posts = await addToDatabase.createPosts();
     request(app)
       .get('/posts?skip=1')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -359,6 +375,7 @@ describe('Get Posts', () => {
     const posts = await addToDatabase.createPosts();
     request(app)
       .get('/posts?orderBy=createdAt&orderType=1')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -381,6 +398,7 @@ describe('Get Posts', () => {
     const posts = await addToDatabase.createPosts();
     request(app)
       .get('/posts?orderBy=createdAt&orderType=-1')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -402,6 +420,7 @@ describe('Get Posts', () => {
   test('Should return no posts if none exists', async (done) => {
     request(app)
       .get('/posts')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -420,6 +439,7 @@ describe('Get Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .get('/posts?type=user-published&userId=5d5ba0b0d14453a47b1a379a')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -439,6 +459,7 @@ describe('Get Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .get('/posts?type=user-draft&userId=5d5ba0b0d14453a47b1a379a')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -458,6 +479,7 @@ describe('Get Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .get('/posts?type=user-private&userId=5d5ba0b0d14453a47b1a379a')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect((response) => {
@@ -479,6 +501,7 @@ describe('Delete post', () => {
     const { post1 } = await addToDatabase.createPosts();
     request(app)
       .delete(`/posts/${post1._id}`)
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(200)
       .expect(async (response) => {
@@ -498,6 +521,7 @@ describe('Delete post', () => {
   test('Should throw error for invalid postId', async (done) => {
     request(app)
       .delete('/posts/xyz')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .expect(400)
       .expect(async (response) => {
@@ -519,6 +543,7 @@ describe('Search Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .post('/posts/search')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .send({
         term: 'written',
@@ -543,6 +568,7 @@ describe('Search Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .post('/posts/search')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .send({
         term: 'written',
@@ -567,6 +593,7 @@ describe('Search Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .post('/posts/search')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .send({
         term: 'javascript',
@@ -591,6 +618,7 @@ describe('Search Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .post('/posts/search')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .send({
         term: 'javascript',
@@ -616,6 +644,7 @@ describe('Search Posts', () => {
     await addToDatabase.createPosts();
     request(app)
       .post('/posts/search')
+      .query({ bypasstoken: config.BYPASS_TOKEN })
       .set('Accept', 'application/json')
       .send({
         term: 'javascript',
