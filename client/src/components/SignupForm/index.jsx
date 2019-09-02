@@ -17,19 +17,21 @@ const SignupForm = () => {
   const [email, setEmail] = useInput('');
   const [name, setName] = useInput('');
   const [password, setPassword] = useInput('');
+  const [error, setError] = useState('');
   const [verifyPassword, setVerifyPassword] = useInput('');
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const onSignup = async () => {
     try {
       setSubmitLoading(true);
+      setError('');
       const data = { name, email, password };
       const user = await signup(data);
       localStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: USER, payload: user });
     } catch (err) {
       setSubmitLoading(false);
-      alert(err.message);
+      setError(err.message);
     }
   };
 
@@ -46,6 +48,15 @@ const SignupForm = () => {
             userPassword={password}
             verify
           />
+          {
+            error
+              ? (
+                <Message negative>
+                  {error}
+                </Message>
+              )
+              : null
+          }
           <Button
             fluid
             type="submit"
