@@ -15,18 +15,20 @@ const LoginForm = () => {
   const { dispatch } = useContext(GlobalContext);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
+  const [error, setError] = useState('');
   const [submitLoading, setSubmitLoading] = useState(false);
 
   const handleLogin = async () => {
-    const data = { email, password };
     try {
       setSubmitLoading(true);
+      setError('');
+      const data = { email, password };
       const user = await signin(data);
       localStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: USER, payload: user });
     } catch (err) {
       setSubmitLoading(false);
-      alert(err.message);
+      setError(err.message);
     }
   };
 
@@ -36,6 +38,15 @@ const LoginForm = () => {
         <Segment>
           <EmailInput focus value={email} onChange={setEmail} />
           <PasswordInput value={password} onChange={setPassword} />
+          {
+            error
+              ? (
+                <Message negative>
+                  {error}
+                </Message>
+              )
+              : null
+          }
           <Button
             fluid
             type="submit"
