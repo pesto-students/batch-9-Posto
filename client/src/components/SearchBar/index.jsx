@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,6 +8,7 @@ const SearchBar = ({ value, onChange }) => (
   <div className={styles.wrap}>
     <div className={styles.search}>
       <input
+        autoFocus
         value={value}
         onChange={onChange}
         type="text"
