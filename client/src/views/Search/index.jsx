@@ -7,12 +7,13 @@ import Loader from '../../components/Loader';
 
 const CenterContainer = lazy(() => import('../../elements/CenterContainer'));
 const Header = lazy(() => import('../../components/Header'));
-const SearBar = lazy(() => import('../../components/SearchBar'));
+const SearchBar = lazy(() => import('../../components/SearchBar'));
 const BlogList = lazy(() => import('../../components/BlogList'));
 
 const Search = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState(location.state.text);
+  const [searchText, setSearchText] = useState(location.state ? location.state.text : '');
+  const [prevSearch, setPrevSearch] = useState('');
   const [blogs, setBlogs] = useState([]);
 
   const handleFetch = async () => {
@@ -30,12 +31,15 @@ const Search = ({ location }) => {
     } catch (err) {
       alert(err);
     }
+    setPrevSearch(searchText);
     setIsLoading(false);
   };
 
   const [debouncedCallback] = useDebouncedCallback(
-    async () => {
-      await handleFetch();
+    async (newSearchText) => {
+      if (searchText === newSearchText) {
+        await handleFetch(newSearchText);
+      }
     }, 800,
   );
 
@@ -47,8 +51,16 @@ const Search = ({ location }) => {
   };
 
   useEffect(() => {
-    debouncedCallback();
+    if (searchText !== prevSearch) {
+      debouncedCallback(searchText);
+    }
   }, [searchText]);
+
+  useEffect(() => {
+    if (searchText === prevSearch) {
+      handleFetch(searchText);
+    }
+  }, []);
 
   return (
     isLoading
@@ -56,7 +68,7 @@ const Search = ({ location }) => {
       : (<>
       <Header disabledSearchBox />
       <CenterContainer>
-        <SearBar
+        <SearchBar
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -76,7 +88,7 @@ Search.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       text: PropTypes.string,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 
