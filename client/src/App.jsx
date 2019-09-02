@@ -1,11 +1,13 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, Suspense, lazy } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 
-import Routes from './Routes';
+import Loader from './components/Loader';
 import reducer from './context/reducer';
 import GlobalContext from './context/GlobalContext';
 import config from './firebaseConfig';
+
+const Routes = lazy(() => import('./Routes'));
 
 const App = () => {
   try {
@@ -17,7 +19,9 @@ const App = () => {
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>
       <BrowserRouter>
-        <Routes />
+        <Suspense fallback={<Loader />}>
+          <Routes />
+        </Suspense>
       </BrowserRouter>
     </GlobalContext.Provider>
   );
