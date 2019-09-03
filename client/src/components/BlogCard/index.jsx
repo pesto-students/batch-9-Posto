@@ -6,7 +6,7 @@ import { Button, Container } from 'semantic-ui-react';
 import BlogDetails from '../BlogDetails';
 import styles from './BlogCard.module.css';
 
-export default function BlogCard({ data, edit, handleDelete }) {
+export default function BlogCard({ data, edit, handleDelete, editRedirection }) {
   const {
     category, title, content, author, image, alt, _id,
   } = data;
@@ -36,7 +36,7 @@ export default function BlogCard({ data, edit, handleDelete }) {
   return (
     <>
       <div className={styles.container}>
-        <Link className={styles.cardLink} to={`/post/${_id}`}>
+        <Link className={styles.cardLink} to={`/${editRedirection ? 'edit' : 'post'}/${_id}`}>
           <article className={styles.blogCard}>
             <img className={styles.postImage} src={image} alt={alt} />
             <BlogDetails data={{

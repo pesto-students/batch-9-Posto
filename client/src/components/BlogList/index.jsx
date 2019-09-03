@@ -7,7 +7,9 @@ import { defaultContent, defaultImage } from '../../config/constants';
 
 const removeMd = require('remove-markdown');
 
-export default function BlogList({ blogs, edit, handleDelete }) {
+export default function BlogList({
+ blogs, edit, handleDelete, editRedirection 
+}) {
   const conditionallyRenderBlogs = () => blogs.map((blog) => {
     const plainContent = removeMd(blog.content);
     let refactoredData = {};
@@ -33,6 +35,7 @@ export default function BlogList({ blogs, edit, handleDelete }) {
         data={refactoredData}
         edit={edit}
         handleDelete={handleDelete}
+        editRedirection={editRedirection}
       />
     );
   });
@@ -48,9 +51,11 @@ BlogList.defaultProps = {
   blogs: [],
   edit: false,
   handleDelete: null,
+  editRedirection: false,
 };
 
 BlogList.propTypes = {
+  editRedirection: PropTypes.bool,
   handleDelete: PropTypes.func,
   edit: PropTypes.bool,
   blogs: PropTypes.arrayOf(

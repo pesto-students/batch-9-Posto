@@ -87,7 +87,7 @@ const MyPosts = () => {
         </CenterContainer>
       );
     }
-    return <BlogList blogs={blogs} edit handleDelete={handleDelete} />;
+    return <BlogList blogs={blogs} edit editRedirection={activeMenuItem === 'drafts'} handleDelete={handleDelete} />;
   };
 
   return (
