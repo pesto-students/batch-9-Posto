@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config';
 
-// const uri = `mongodb+srv://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_URI}/${config.DB_NAME}?retryWrites=true&w=majority`;
-const uri = 'mongodb://localhost/posto';
+const uri = `mongodb+srv://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_URI}/${config.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose.Promise = global.Promise;
 
